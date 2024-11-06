@@ -2,14 +2,21 @@ import express from 'express'
 import initWebRoutes from './routes/web'
 import configviewEngine from './configs/viewEngine'
 require("dotenv").config();
+import bodyParser from 'body-parser'
 
 
-const PORT = process.env.PORT || 8000
-const app = express()
+const app = express();
+const PORT = process.env.PORT || 8000;
 
-configviewEngine(app)
+// Cấu hình body-parser trước khi khởi tạo các route
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-initWebRoutes(app)
+// Thiết lập view engine
+configviewEngine(app);
+
+// Khởi tạo các route
+initWebRoutes(app);
 
 
 app.listen(PORT,()=>{
