@@ -1,6 +1,4 @@
-import mysql from 'mysql2/promise';
-
-// Create the connection to database
+import userServices from '../service/userServices'
 
 
 
@@ -18,26 +16,11 @@ const handleCreateUsers = async(req,res)=>{
     const email = req.body.email
     const password = req.body.password
 
-    const connection = await mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    database: 'jwt',
-    });
+    
+    userServices.createNewUser(username,email,password)
 
-    try {
+    return res.send('Insert database success!!')
 
-
-    const [results, fields] = await connection.query(
-        'INSERT INTO `users` (`username`, `email`, `password`) VALUES (?, ?, ?)',
-        [username, email, password]  // Thay thế các biến này bằng dữ liệu thực tế
-    );
-
-    console.log(results); // results chứa thông tin về kết quả thực thi, chẳng hạn như ID của hàng vừa được thêm vào
-    } catch (err) {
-    console.log(err); // Xử lý lỗi, nếu có
-    }
-        
-    return res.send('insert success database')
     }
 
 module.exports ={
