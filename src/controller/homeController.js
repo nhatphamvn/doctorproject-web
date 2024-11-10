@@ -7,8 +7,13 @@ const handleHelloWorld =(req,res)=>{
     return res.render("home.ejs")
 }
 
-const handleHomePage =(req,res)=>{
-    return res.render("user.ejs")
+const handleHomePage =async(req,res)=>{
+
+
+    const users =await userServices.getListUsers()
+
+
+    return res.render("user.ejs",{users})
 }
 
 const handleCreateUsers = async(req,res)=>{
@@ -19,7 +24,6 @@ const handleCreateUsers = async(req,res)=>{
     
     userServices.createNewUser(username,email,password)
 
-    return res.send('Insert database success!!')
 
     }
 

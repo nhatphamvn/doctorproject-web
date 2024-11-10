@@ -1,24 +1,17 @@
 import bcrypt from 'bcryptjs';
-import mysql from 'mysql2/promise';
+import connection from './db'
 
 const createNewUser =async(username,email,password)=>{
     const salt = bcrypt.genSaltSync(10);
     
     const hashPassword = bcrypt.hashSync(password, salt);
 
-    console.log('hash password',hashPassword);
+    // console.log('hash password',hashPassword);
     
-    const check = bcrypt.compareSync(password, hashPassword);
-    console.log('compared password',check);
+    // const check = bcrypt.compareSync(password, hashPassword);
+    // console.log('compared password',check);
     
     // true
-
-    const connection = await mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    database: 'jwt',
-    });
-
     try {
     const [results, fields] = await connection.query(
         'INSERT INTO `users` (`username`, `email`, `password`) VALUES (?, ?, ?)',
@@ -29,10 +22,25 @@ const createNewUser =async(username,email,password)=>{
     } catch (err) {
     console.log(err); // Xử lý lỗi, nếu có
     }
-        
 
 }
 
+const getListUsers =async() =>{
+    try {
+        // Thực hiện truy vấn SELECT
+        const [results, fields] = await connection.query(
+            'SELECT * FROM `users`',
+        );
+
+        // console.log(results); // Hiển thị kết quả truy vấn
+        return results; // Trả về kết quả nếu cần
+    } catch (err) {
+        console.log(err); // Xử lý lỗi nếu có
+    }
+
+    await connection.end();
+}
+
 module.exports ={
-    createNewUser
+    createNewUser,getListUsers
 }
