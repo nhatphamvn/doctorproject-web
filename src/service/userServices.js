@@ -18,7 +18,7 @@ const createNewUser =async(username,email,password)=>{
         [username, email, hashPassword]  // Thay thế các biến này bằng dữ liệu thực tế
     );
 
-    console.log(results); // results chứa thông tin về kết quả thực thi, chẳng hạn như ID của hàng vừa được thêm vào
+    // console.log(results); // results chứa thông tin về kết quả thực thi, chẳng hạn như ID của hàng vừa được thêm vào
     } catch (err) {
     console.log(err); // Xử lý lỗi, nếu có
     }
@@ -40,7 +40,21 @@ const getListUsers =async() =>{
 
     await connection.end();
 }
+const deleteListUser=async(id)=>{
+    try {
+    // Thực hiện truy vấn DELETE
+    const [results] = await connection.query(
+        'DELETE FROM `users` WHERE `id` = ?',
+        [id] // Thay `id` bằng giá trị cụ thể bạn muốn xóa
+    );
+    return results; // Trả về kết quả nếu cần
+    } catch (err) {
+    console.log(err); // Xử lý lỗi nếu có
+    }
+}
+
+
 
 module.exports ={
-    createNewUser,getListUsers
+    createNewUser,getListUsers,deleteListUser
 }

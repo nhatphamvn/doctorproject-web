@@ -46,7 +46,7 @@
                             <% users.forEach((user, index)=> { %> <!-- Duyệt qua mảng users -->
                                 <tr>
                                     <td>
-                                        <%= index + 1 %>
+                                        <%= user.id %>
                                     </td>
                                     <td>
                                         <%= user.username %>
@@ -55,12 +55,19 @@
                                         <%= user.email %>
                                     </td> <!-- Hiển thị email -->
                                     <td>
-                                        <button class="btn btn-outline-warning">EDIT</button>
-                                        <button class="btn btn-outline-danger">DELETE</button>
-                                    </td>
+                                    <form action="/edit-users" method="POST" style="display: inline;">
 
-                                </tr>
-                                <% }) %>
+                                        <button class="btn btn-outline-warning" type="submit">EDIT</button>
+                                    </form>
+                                    <form action="/delete-user/<%= user.id %>" method="POST" style="display: inline;">
+
+                                        <button class="btn btn-outline-danger" type="submit">DELETE</button>
+                                    </form>
+                                    
+                                    </td>
+                                
+                            </tr>
+                            <% }) %>
                         </tbody>
                     </table>
                 </div>

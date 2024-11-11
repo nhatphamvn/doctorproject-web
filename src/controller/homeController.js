@@ -12,7 +12,6 @@ const handleHomePage =async(req,res)=>{
 
     const users =await userServices.getListUsers()
 
-
     return res.render("user.ejs",{users})
 }
 
@@ -24,9 +23,16 @@ const handleCreateUsers = async(req,res)=>{
     
     userServices.createNewUser(username,email,password)
 
+   return res.redirect("/users")
+}
 
-    }
+const handleDeleteUsers =async(req,res)=>{
+
+    await userServices.deleteListUser(req.params.id)
+
+    return res.redirect("/users")
+}
 
 module.exports ={
-    handleHelloWorld,handleHomePage,handleCreateUsers
+    handleHelloWorld,handleHomePage,handleCreateUsers,handleDeleteUsers
 }
