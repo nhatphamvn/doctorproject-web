@@ -52,9 +52,42 @@ const deleteListUser=async(id)=>{
     console.log(err); // Xử lý lỗi nếu có
     }
 }
+const updateListUser = async (id) => {
+    try {
+        // Thực hiện truy vấn SELECT
+        const [results] = await connection.query(
+            'SELECT id, username, email FROM users WHERE id = ?',
+            [id]
+        );
+        
+        return results; // Trả về kết quả nếu cần
+    } catch (err) {
+        console.log(err); // Xử lý lỗi nếu có
+    }
+};
+const createUpdateUsers =async(id,username,email)=>{
+    try {
+    const [results] = await connection.query(
+        'UPDATE `users` SET `username` = ?, `email` = ? WHERE `id` = ?',
+        [username, email, id] // userId là ID người dùng cần cập nhật
+    );
+
+    // Kiểm tra kết quả
+    if (results.affectedRows > 0) {
+        console.log('Cập nhật thành công');
+    } else {
+        console.log('Không tìm thấy người dùng với ID này');
+    }
+
+} catch (err) {
+    console.log(err); // Xử lý lỗi nếu có
+}
+
+}
+
 
 
 
 module.exports ={
-    createNewUser,getListUsers,deleteListUser
+    createNewUser,getListUsers,deleteListUser,updateListUser,createUpdateUsers
 }

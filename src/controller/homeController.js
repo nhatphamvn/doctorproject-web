@@ -32,7 +32,31 @@ const handleDeleteUsers =async(req,res)=>{
 
     return res.redirect("/users")
 }
+const handleUpdateUsers =async(req,res)=>{
+
+
+    const id = req.params.id
+    const users = await userServices.updateListUser(id)
+    let userData ={}
+    if(users && users.length >0 ){
+        userData = users[0]
+    }
+    console.log("users >>>>",users);
+    
+
+
+     return res.render("updateUser.ejs",{userData})
+}
+const handleCreateUpdateUsers =async(req,res)=>{
+    const id = req.body.id
+    const username =req.body.username
+    const email = req.body.email
+
+    await userServices.createUpdateUsers(id,username,email)
+
+    return res.redirect("/users")
+}
 
 module.exports ={
-    handleHelloWorld,handleHomePage,handleCreateUsers,handleDeleteUsers
+    handleHelloWorld,handleHomePage,handleCreateUsers,handleDeleteUsers,handleUpdateUsers,handleCreateUpdateUsers
 }

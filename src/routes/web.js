@@ -9,6 +9,8 @@ const initWebRoutes = (app) => {
     router.get('/users', homeController.handleHomePage);
     router.post('/users/create-users',homeController.handleCreateUsers)
     router.post('/delete-user/:id',homeController.handleDeleteUsers)
+    router.get('/edit-users/:id',homeController.handleUpdateUsers)
+    router.post('/users/update-users',homeController.handleCreateUpdateUsers)
 
     return app.use("/", router); // định nghĩa đường dẫn đầu tiên
 }
