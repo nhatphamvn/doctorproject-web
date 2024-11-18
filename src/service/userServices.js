@@ -1,5 +1,7 @@
 import bcrypt from 'bcryptjs';
 import connection from './db'
+import db from '../models';
+
 
 const createNewUser =async(username,email,password)=>{
     const salt = bcrypt.genSaltSync(10);
@@ -13,10 +15,11 @@ const createNewUser =async(username,email,password)=>{
     
     // true
     try {
-    const [results, fields] = await connection.query(
-        'INSERT INTO `users` (`username`, `email`, `password`) VALUES (?, ?, ?)',
-        [username, email, hashPassword]  // Thay thế các biến này bằng dữ liệu thực tế
-    );
+        await db.User.create({
+            username:username,
+            email:email,
+            password:hashPassword
+        })
 
     // console.log(results); // results chứa thông tin về kết quả thực thi, chẳng hạn như ID của hàng vừa được thêm vào
     } catch (err) {
