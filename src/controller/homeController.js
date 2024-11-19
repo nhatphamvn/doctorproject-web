@@ -38,14 +38,15 @@ const handleUpdateUsers =async(req,res)=>{
     const id = req.params.id
     const users = await userServices.updateListUser(id)
     let userData ={}
-    if(users && users.length >0 ){
-        userData = users[0]
-    }
-    console.log("users >>>>",users);
+    // if(users && users.length >0 ){
+    //     userData = users[0]
+    // }
+    // console.log("users >>>>",users);
+    userData = users
     
 
 
-     return res.render("updateUser.ejs",{userData})
+    return res.render("updateUser.ejs",{userData})
 }
 const handleCreateUpdateUsers =async(req,res)=>{
     const id = req.body.id
