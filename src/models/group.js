@@ -11,6 +11,7 @@
        */
       static associate(models) {
         Group.hasMany(models.User)
+        Group.belongsToMany(models.Role, { through : "Group_Role"});
       }
     };
     Group.init({
