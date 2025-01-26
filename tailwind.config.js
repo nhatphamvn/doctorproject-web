@@ -12,6 +12,7 @@ module.exports = {
       fontFamily: {
         sans: ['Playfair Display', 'serif'], // Thêm font vào đây
         playwrite: ['Playwrite IN', 'sans-serif'],
+        playfamily:[ 'Playwrite IN', 'serif']
       },
       screens: {
       'xs': '319px'

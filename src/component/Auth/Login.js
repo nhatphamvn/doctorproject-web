@@ -1,46 +1,101 @@
-import React from 'react';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState({});
+
+  const validateForm = () => {
+    const newErrors = {};
+    if (!email.trim()) {
+      newErrors.email = "Email không được để trống.";
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      newErrors.email = "Email không hợp lệ.";
+    }
+    if (!password.trim()) {
+      newErrors.password = "Password không được để trống.";
+    }
+    return newErrors;
+  };
+
+  const handleLogin = (e) => {
+    e.preventDefault(); // Ngăn trình duyệt reload trang khi nhấn nút
+    const validationErrors = validateForm();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+    } else {
+      alert("Login thành công");
+    }
+  };
+
   return (
     <div className="min-h-screen flex justify-center items-center flex-wrap p-5 bg-gray-100">
       {/* Form Title */}
       <div className="max-w-md mr-12 text-left">
-        <h1 className="hidden xs:block text-5xl font-semibold text-red-600 mb-2 font-mono">Sunday4</h1>
+        <h1 className="hidden xs:block text-5xl font-semibold text-red-600 mb-2 font-mono">
+          Sunday4
+        </h1>
         <p className="hidden sm:block text-xl text-pink-500 leading-relaxed font-playwrite">
           Sunday helps you connect and share with the people in your life.
         </p>
       </div>
 
       {/* Form Login */}
-      <div className="max-w-md bg-white p-5 rounded-lg shadow-md">
+      <div className="max-w-md bg-white p-5 rounded-lg shadow-md w-full">
         <form>
-          <input
-            type="text"
-            placeholder="Email or Phone"
-            className="w-full p-3 mb-4 border border-gray-500 rounded-md text-lg"
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            className="w-full p-3 mb-4 border border-gray-500 rounded-md text-lg"
-          />
+          {/* Email Input */}
+          <div className="mb-4">
+            <input
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              type="text"
+              placeholder="Email"
+              className="w-full p-3 border border-gray-500 rounded-md text-lg"
+            />
+            {errors.email && (
+              <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+            )}
+          </div>
+
+          {/* Password Input */}
+          <div className="mb-4">
+            <input
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              type="password"
+              placeholder="Password"
+              className="w-full p-3 border border-gray-500 rounded-md text-lg"
+            />
+            {errors.password && (
+              <p className="text-red-500 text-sm mt-1">{errors.password}</p>
+            )}
+          </div>
+
+          {/* Login Button */}
           <button
-            type="submit"
-            className="w-full bg-steel text-white p-3 text-base font-mono rounded-md transition hover:bg-blue-600"
+            onClick={handleLogin} // Sử dụng sự kiện onClick thay vì onSubmit
+            className="w-full bg-blue-500 text-white p-3 text-base font-mono rounded-md transition hover:bg-blue-600"
           >
             Log In
           </button>
         </form>
+
+        {/* Forgotten Password */}
         <a
           href="#!"
           onClick={(e) => e.preventDefault()}
-          className="block text-center mt-4 text-sm text-steel hover:underline font-mono"
+          className="block text-center mt-4 text-sm text-blue-500 hover:underline font-mono"
         >
           Forgotten password?
         </a>
+
+        {/* Divider */}
         <div className="my-6 border-t border-gray-300"></div>
-        <button className="w-full bg-pinkred text-white p-3 text-base font-mono rounded-md transition hover:bg-green-500">
-          Create New Account
+
+        {/* Create New Account */}
+        <button className="w-full bg-green-500 text-white p-3 text-base font-mono rounded-md transition hover:bg-green-600">
+          <Link to="/register">Create New Account</Link>
         </button>
       </div>
     </div>
