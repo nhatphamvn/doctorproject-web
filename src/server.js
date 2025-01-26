@@ -1,12 +1,20 @@
 import express from 'express'
 import initWebRoutes from './routes/web'
+import initApiRoutes from './routes/api';
 import configviewEngine from './config/viewEngine'
 require("dotenv").config();
 import bodyParser from 'body-parser'
 import connection from './config/ConnectDB';
+import cors from 'cors';
 
 const app = express();
 const PORT = process.env.PORT || 8000;
+
+app.use(cors({
+  origin: process.env.REACT_URL, // Cho phép frontend cụ thể
+  methods: 'GET,POST,PUT,DELETE',  // Các phương thức được phép
+  credentials: true                // Cho phép cookie
+}));
 
 // Cấu hình body-parser trước khi khởi tạo các route
 app.use(bodyParser.json());
@@ -18,6 +26,7 @@ connection()
 
 // Khởi tạo các route
 initWebRoutes(app);
+initApiRoutes(app)
 
 app.listen(PORT,()=>{
     console.log(" JWT backend nodejs "+PORT);

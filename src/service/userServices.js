@@ -1,7 +1,7 @@
 import bcrypt from 'bcryptjs';
 import connection from './db'
 import db from '../models';
-import { where } from 'sequelize/lib/sequelize';
+
 
 
 const createNewUser =async(username,email,password)=>{
