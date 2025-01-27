@@ -28,7 +28,7 @@ const registerNewUser = async (userData) => {
     if (!userData || !userData.email || !userData.phone || !userData.password || !userData.username) {
       return {
         EM: 'Thiếu dữ liệu cần thiết!',
-        EC: '1'
+        EC: 1
       };
     }
 
@@ -37,7 +37,7 @@ const registerNewUser = async (userData) => {
     if (isEmailExist) {
       return {
         EM: 'Email đã tồn tại!',
-        EC: '1'
+        EC: 1
       };
     }
 
@@ -46,7 +46,7 @@ const registerNewUser = async (userData) => {
     if (isPhoneExist) {
       return {
         EM: 'Phone đã tồn tại!',
-        EC: '1'
+        EC: 1
       };
     }
 
@@ -63,13 +63,13 @@ const registerNewUser = async (userData) => {
 
     return {
       EM: 'Bạn đã đăng kí thành công!',
-      EC: '0'
+      EC: 0
     };
   } catch (error) {
     console.error('Error in registerNewUser:', error); // Log lỗi
     return {
       EM: 'Lỗi gì đó ở Máy Chủ!',
-      EC: '-1'
+      EC: -1
     };
   }
 };

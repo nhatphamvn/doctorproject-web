@@ -20,7 +20,7 @@ const apiHandleRegister = async (req, res) => {
     if(!username || !email || !password || !phone){
       return res.status(200).json({
         EM:'Thiếu Thông tin bắt buộc',
-        EC:'1',
+        EC:1,
         DT:''
       })
     }
@@ -32,7 +32,7 @@ const apiHandleRegister = async (req, res) => {
 
     
     if(data){
-      return res.status(201).json({
+      return res.status(200).json({
       EM: data.EM,
       EC: data.EC, // Thành công
       DT: '', // Dữ liệu phản hồi
@@ -41,7 +41,7 @@ const apiHandleRegister = async (req, res) => {
     }else{
       return res.status(400).json({
         EM:data.EM,
-        EC:'1',
+        EC:1,
         DT:''
       })
     }
@@ -52,7 +52,7 @@ const apiHandleRegister = async (req, res) => {
 
       return res.status(500).json({
       EM:'Máy chủ bị lỗi, vui lòng thử lại sau.',
-      EC:'1',
+      EC:1,
       DT:''
       }) 
  }
