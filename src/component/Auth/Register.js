@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-
+import {  useNavigate } from 'react-router-dom';
+import { ApiRegisterNewUser } from '../../service/apiRequest'
 const Register = () => {
   // State lưu giá trị form
   const [username, setUsername] = useState('');
@@ -11,7 +12,7 @@ const Register = () => {
   const [errors, setErrors] = useState({}); // State lưu lỗi
 
 
-  
+  const navigate = useNavigate();
 
   // Hàm validate dữ liệu
   const validateForm = () => {
@@ -41,18 +42,37 @@ const Register = () => {
   };
 
   // Xử lý khi nhấn nút "Next"
-  const handleRegister = () => {
-    const validationErrors = validateForm();
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors); // Nếu có lỗi, lưu vào state
-    } else {
-      setErrors({}); // Xóa lỗi nếu form hợp lệ
-      const userData = { username, email, password,phone };
-      console.log('User data:', userData);
-      alert('Đăng ký thành công!');
-      // Gửi dữ liệu lên backend tại đây (nếu cần)
+const handleRegister = async () => {
+ 
+  const validationErrors = validateForm();
+  if (Object.keys(validationErrors).length > 0) {
+    setErrors(validationErrors); // Nếu có lỗi, lưu vào state
+  } else {
+    setErrors({}); // Xóa lỗi nếu form hợp lệ
+    
+    try {
+      // Gửi dữ liệu lên API
+      const data = await ApiRegisterNewUser(email, password, username, phone);
+      console.log("Đăng ký thành công", data);
+      
+      if(data.EC === 0 ){
+        console.log("có data",data.EM);
+        navigate('/login')
+      }
+      if(data&& data.EC !== 0){
+            console.log(data.EM);
+      }
+      // Bạn có thể chuyển hướng hoặc thông báo cho người dùng nếu cần
+      // Ví dụ: chuyển sang trang đăng nhập
+      // history.push('/login');
+    } catch (error) {
+      console.error("Đăng ký thất bại", error);
+      // Xử lý lỗi từ API (hiển thị thông báo lỗi cho người dùng)
+      setErrors({ server: "Đăng ký không thành công, vui lòng thử lại!" });
     }
-  };
+  }
+};
+
 
   return (
     <>
@@ -125,7 +145,7 @@ const Register = () => {
           {/* Submit Button */}
           <button
             className='w-full px-4 py-2 border bg-black text-white rounded-lg text-xl font-bold hover:bg-pinkred hover:text-white transition duration-300 mt-8'
-            onClick={()=>handleRegister()}
+            onClick={handleRegister}
           >
             Next
           </button>
