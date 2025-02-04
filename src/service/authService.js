@@ -24,11 +24,10 @@ const checkExistence = async (field, value) => {
 // Hàm đăng ký người dùng mới
 const registerNewUser = async (userData) => {
   try {
-    // Kiểm tra dữ liệu đầu vào
     if (!userData || !userData.email || !userData.phone || !userData.password || !userData.username) {
       return {
         EM: 'Thiếu dữ liệu cần thiết!',
-        EC: 1
+        EC: 1001
       };
     }
 
@@ -37,36 +36,48 @@ const registerNewUser = async (userData) => {
     if (isEmailExist) {
       return {
         EM: 'Email đã tồn tại!',
-        EC: 1
+        EC: 1002
       };
     }
 
     // Kiểm tra phone tồn tại
+  
     const isPhoneExist = await checkExistence('phone', userData.phone);
     if (isPhoneExist) {
       return {
-        EM: 'Phone đã tồn tại!',
-        EC: 1
+        EM: 'Số điện thoại đã tồn tại!',
+        EC: 1003
       };
     }
 
-    // Băm mật khẩu
-    const hashedPassword = hashPassword(userData.password);
+    // Băm mật khẩu (nếu là async)
+    const hashedPassword = await hashPassword(userData.password);
 
     // Tạo người dùng mới
-    await db.User.create({
+    const user = await db.User.create({
       username: userData.username,
       email: userData.email,
       phone: userData.phone,
       password: hashedPassword
     });
 
+    if (!user) {
+      return {
+        EM: 'Không thể tạo tài khoản, vui lòng thử lại!',
+        EC: 1004
+      };
+    }
+
+
     return {
       EM: 'Bạn đã đăng kí thành công!',
-      EC: 0
+      EC: 0,
+      DT :{
+        id: user.id
+
+      }
     };
   } catch (error) {
-    console.error('Error in registerNewUser:', error); // Log lỗi
     return {
       EM: 'Lỗi gì đó ở Máy Chủ!',
       EC: -1
@@ -74,6 +85,63 @@ const registerNewUser = async (userData) => {
   }
 };
 
+
+const logInAccounts = async (userData) => {
+  try {
+    if (!userData || !userData.email || !userData.password) {
+      return {
+        EM: 'Thiếu dữ liệu cần thiết!',
+        EC: 1001
+      };
+    }
+
+    let user = await db.User.findOne({
+      where: { email: userData.email },
+      attributes: ['id', 'email', 'username', 'password', 'phone']
+    });
+
+
+    if (!user) {
+    
+      return {
+        EM: 'Email không tồn tại!',
+        EC: 1002
+      };
+    }
+
+   
+    const isPasswordValid = await bcrypt.compare(userData.password, user.password);
+    
+
+    if (!isPasswordValid) {
+
+      return {
+        EM: "Mật khẩu không đúng!",
+        EC: 1003
+      };
+    }
+
+    return {
+      EM: "Đăng nhập thành công!",
+      EC: 0,
+      DT: user ? {
+        id: user.id || null,  
+        email: user.email,
+        username: user.username,
+      } : null
+    };
+
+  } catch (error) {
+    console.error("Error in logInAccounts:", error);
+    return {
+      EM: "Lỗi gì đó ở Máy Chủ!",
+      EC: 1004
+    };
+  }
+};
+
+
+
 module.exports = {
-  registerNewUser
+  registerNewUser,logInAccounts
 };

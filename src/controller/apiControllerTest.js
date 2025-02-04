@@ -14,23 +14,11 @@ const apiTest = (req,res) => {
 
 }
 const apiHandleRegister = async (req, res) => {
-  const { username, email, password,phone } = req.body;
 
  try {
-    if(!username || !email || !password || !phone){
-      return res.status(200).json({
-        EM:'Thiếu Thông tin bắt buộc',
-        EC:1,
-        DT:''
-      })
-    }
-
-
-    //service
-
     const data = await authServices.registerNewUser(req.body)
 
-    
+
     if(data){
       return res.status(200).json({
       EM: data.EM,
@@ -41,7 +29,7 @@ const apiHandleRegister = async (req, res) => {
     }else{
       return res.status(400).json({
         EM:data.EM,
-        EC:1,
+        EC:1004,
         DT:''
       })
     }
@@ -52,7 +40,7 @@ const apiHandleRegister = async (req, res) => {
 
       return res.status(500).json({
       EM:'Máy chủ bị lỗi, vui lòng thử lại sau.',
-      EC:1,
+      EC:1004,
       DT:''
       }) 
  }
@@ -60,6 +48,38 @@ const apiHandleRegister = async (req, res) => {
 
 };
 
+const apiHanleLogin = async (req, res) => {
+  try {
+    const data = await authServices.logInAccounts(req.body);
+
+    if (data && data.EC === 0) {
+      return res.status(200).json({
+        EM: data.EM,
+        EC: data.EC,
+        DT: {
+          id: data?.DT?.id,  // Dùng optional chaining để tránh lỗi
+          email: data?.DT?.email,
+          username: data?.DT?.username
+        },
+      });
+    } else {
+      return res.status(400).json({
+        EM: data.EM,
+        EC: data.EC,
+        DT: null  // Để tránh undefined
+      });
+    }
+
+  } catch (e) {
+    return res.status(500).json({
+      EM: "Máy chủ bị lỗi, vui lòng thử lại sau.",
+      EC: 1004,
+      DT: null
+    });
+  }
+};
+
+
 module.exports ={
-    apiTest,apiHandleRegister
+    apiTest,apiHandleRegister,apiHanleLogin
 }
