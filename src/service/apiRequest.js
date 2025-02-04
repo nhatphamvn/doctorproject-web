@@ -12,6 +12,14 @@ const ApiRegisterNewUser = (email, password, username, phone) => {
   return axios.post('api/v1/register', data);
 };
 
+const ApiLoginUsers = (email, password) => {
+  // Gửi dữ liệu dưới dạng JSON
+  return axios.post('/api/v1/login', {
+    email,
+    password
+  });
+};
+
 export {
-  ApiRegisterNewUser
+  ApiRegisterNewUser,ApiLoginUsers
 };

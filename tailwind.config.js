@@ -7,7 +7,8 @@ module.exports = {
     extend: {
       colors: {
         pinkred: '#F28379',
-        steel:'#F2AFA0'  // Tạo màu mới tên 'steel'
+        steel:'#F2AFA0',
+        redd:'#7d1e20'  // Tạo màu mới tên 'steel'
       },
       fontFamily: {
         sans: ['Playfair Display', 'serif'], // Thêm font vào đây

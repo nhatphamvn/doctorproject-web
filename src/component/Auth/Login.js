@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { ApiLoginUsers } from "../../service/apiRequest";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
 
+  const navigate = useNavigate();
   const validateForm = () => {
     const newErrors = {};
     if (!email.trim()) {
@@ -19,13 +22,27 @@ const Login = () => {
     return newErrors;
   };
 
-  const handleLogin = (e) => {
+  const handleLogin =async (e) => {
     e.preventDefault(); // Ngăn trình duyệt reload trang khi nhấn nút
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
     } else {
-      alert("Login thành công");
+      setErrors({});
+
+      try {
+        const data = await ApiLoginUsers(email, password);
+
+        if (data.EC === 0) {
+          console.log("Đăng Nhập Thành Công", data);
+
+          navigate('/admin');
+        } else if (data && data.EC !== 0) {
+          setErrors({ server: "Đăng nhập không thành công!" });
+        }
+      } catch (error) {
+        setErrors({ server: "Đăng nhập không thành công, Thử lại sau!" });
+      }
     }
   };
 
@@ -44,6 +61,11 @@ const Login = () => {
       {/* Form Login */}
       <div className="max-w-md bg-white p-5 rounded-lg shadow-md w-full">
         <form>
+            {errors.server && (
+              <div className="w-full mb-4 border-2 border-red-500 rounded-md">
+                <p className="text-red-500 text-sm mt-1 py-4 px-8 text-center font-bold">{errors.server}</p>
+              </div>
+            )}
           {/* Email Input */}
           <div className="mb-4">
             <input
