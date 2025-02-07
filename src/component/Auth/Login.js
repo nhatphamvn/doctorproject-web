@@ -2,8 +2,12 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { ApiLoginUsers } from "../../service/apiRequest";
 import { useNavigate } from "react-router-dom";
+import {handleLoginSuccess } from '../../redux/features/authSlide/authSlide'
+import { useDispatch } from "react-redux";
 
 const Login = () => {
+
+  const dispatch = useDispatch()
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
@@ -34,9 +38,8 @@ const Login = () => {
         const data = await ApiLoginUsers(email, password);
 
         if (data.EC === 0) {
-          console.log("Đăng Nhập Thành Công", data);
-
-          navigate('/admin');
+          dispatch(handleLoginSuccess(data))
+          navigate('/');
         } else if (data && data.EC !== 0) {
           setErrors({ server: "Đăng nhập không thành công!" });
         }

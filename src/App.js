@@ -1,14 +1,23 @@
 import React from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
-import Nav from './component/Navigation/Nav';
-import Layout from './component/Router/layout';
+import Header from './component/Navigation/Header';
+import { Outlet } from 'react-router-dom';
 
 const App = () => {
+
   return (
-    <Router>
-      <Nav /> {/* Thanh điều hướng */}
-      <Layout/> {/* Các route */}
-    </Router>
+      <>
+      <div className='app-container'>
+        <div className='app-header'>
+          <Header/>
+        </div>
+        <div className='main-container'>
+            <div className='app-content'>
+              <Outlet/>
+            </div>
+        </div>
+
+      </div>
+      </>
   );
 };
 
