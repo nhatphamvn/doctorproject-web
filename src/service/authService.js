@@ -1,6 +1,6 @@
 import db from "../models/index";
 import bcrypt from 'bcryptjs';
-
+import jwt from 'jsonwebtoken'
 const salt = bcrypt.genSaltSync(10);
 
 // Hàm băm mật khẩu
@@ -89,57 +89,52 @@ const registerNewUser = async (userData) => {
 const logInAccounts = async (userData) => {
   try {
     if (!userData || !userData.email || !userData.password) {
-      return {
-        EM: 'Thiếu dữ liệu cần thiết!',
-        EC: 1001
-      };
+      return { EM: 'Thiếu dữ liệu cần thiết!', EC: 1001 };
     }
 
     let user = await db.User.findOne({
       where: { email: userData.email },
-      attributes: ['id', 'email', 'username', 'password', 'phone']
+      attributes: ['id', 'email', 'username', 'password']
     });
 
-
     if (!user) {
-    
-      return {
-        EM: 'Email không tồn tại!',
-        EC: 1002
-      };
+      return { EM: 'Email không tồn tại!', EC: 1002 };
     }
 
-   
     const isPasswordValid = await bcrypt.compare(userData.password, user.password);
-    
-
     if (!isPasswordValid) {
-
-      return {
-        EM: "Mật khẩu không đúng!",
-        EC: 1003
-      };
+      return { EM: "Mật khẩu không đúng!", EC: 1003 };
     }
+
+    // **Tạo JWT Token**
+    const accessToken = jwt.sign(
+      { id: user.id, email: user.email }, // Payload
+      process.env.JWT_SECRET,  // **Khóa bí mật**, lưu trong `.env`
+      { expiresIn: '1h' }  // **Thời gian hết hạn**
+    );
+
+    const refreshToken = jwt.sign(
+      { id: user.id}, // Payload
+      process.env.JWT_REFRESH_SECRET,  // **Khóa bí mật**, lưu trong `.env`
+      { expiresIn: '7d' }  // **Thời gian hết hạn**
+    );
 
     return {
       EM: "Đăng nhập thành công!",
       EC: 0,
-      DT: user ? {
-        id: user.id || null,  
+      DT: {
+        id: user.id,
         email: user.email,
         username: user.username,
-      } : null
+        access_token: accessToken,
+        refresh_token: refreshToken  // **Gửi token về client**
+      }
     };
 
   } catch (error) {
-    console.error("Error in logInAccounts:", error);
-    return {
-      EM: "Lỗi gì đó ở Máy Chủ!",
-      EC: 1004
-    };
+    return { EM: "Lỗi gì đó ở Máy Chủ!", EC: 1004 };
   }
 };
-
 
 
 module.exports = {

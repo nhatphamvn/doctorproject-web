@@ -57,16 +57,18 @@ const apiHanleLogin = async (req, res) => {
         EM: data.EM,
         EC: data.EC,
         DT: {
-          id: data?.DT?.id,  // Dùng optional chaining để tránh lỗi
+          id: data?.DT?.id,
           email: data?.DT?.email,
-          username: data?.DT?.username
+          username: data?.DT?.username,
+          access_token: data?.DT?.access_token,
+          refresh_token:data?.DT?.refresh_token // **Trả token về client**
         },
       });
     } else {
       return res.status(400).json({
         EM: data.EM,
         EC: data.EC,
-        DT: null  // Để tránh undefined
+        DT: null
       });
     }
 
@@ -78,6 +80,7 @@ const apiHanleLogin = async (req, res) => {
     });
   }
 };
+
 
 
 module.exports ={
