@@ -26,6 +26,12 @@ const Login = () => {
     return newErrors;
   };
 
+  const handleKeyDown =(e)=>{
+    if (e.key === "Enter") {
+      handleLogin(e);
+    }
+  }
+
   const handleLogin =async (e) => {
     e.preventDefault(); // Ngăn trình duyệt reload trang khi nhấn nút
     const validationErrors = validateForm();
@@ -38,6 +44,7 @@ const Login = () => {
         const data = await ApiLoginUsers(email, password);
 
         if (data.EC === 0) {
+          sessionStorage.setItem('access_token',data.DT.access_token)
           dispatch(handleLoginSuccess(data))
           navigate('/');
         } else if (data && data.EC !== 0) {
@@ -91,7 +98,9 @@ const Login = () => {
               type="password"
               placeholder="Password"
               className="w-full p-3 border border-gray-500 rounded-md text-lg"
+              onKeyDown={(e)=>handleKeyDown(e)}
             />
+          
             {errors.password && (
               <p className="text-red-500 text-sm mt-1">{errors.password}</p>
             )}

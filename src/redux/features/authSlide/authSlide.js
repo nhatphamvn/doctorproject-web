@@ -21,6 +21,7 @@ const authSlice = createSlice({
         email: action.payload?.DT?.email,
         refresh_token: action.payload?.DT?.refresh_token,
         username: action.payload?.DT?.username,
+        
       };
       state.isAuthenticated = true;
     }
