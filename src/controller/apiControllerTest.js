@@ -1,18 +1,6 @@
 
 import authServices from '../service/authService'
 
-const apiTest = (req,res) => {
-  return res.status(200).json({
-    message:"Request successful",
-    data:{
-        "id":123,
-        "name":"nhat",
-        "email":"turu7432gmail.com"
-    }
-
-  })
-
-}
 const apiHandleRegister = async (req, res) => {
 
  try {
@@ -84,5 +72,5 @@ const apiHanleLogin = async (req, res) => {
 
 
 module.exports ={
-    apiTest,apiHandleRegister,apiHanleLogin
+  apiHandleRegister,apiHanleLogin
 }
