@@ -1,25 +1,33 @@
-  'use strict';
-  const {
-    Model
-  } = require('sequelize');
-  module.exports = (sequelize, DataTypes) => {
-    class Group extends Model {
-      /**
-       * Helper method for defining associations.
-       * This method is not a part of Sequelize lifecycle.
-       * The `models/index` file will call this method automatically.
-       */
-      static associate(models) {
-        Group.hasMany(models.User)
-        Group.belongsToMany(models.Role, { through : "Group_Role"});
-      }
-    };
-    Group.init({
+'use strict';
+const { Model } = require('sequelize');
+
+module.exports = (sequelize, DataTypes) => {
+  class Group extends Model {
+    static associate(models) {
+      // ✅ Đặt alias để đồng nhất với `User.js`
+      Group.hasMany(models.User, {
+        foreignKey: "groupId",
+        as: "users"
+      });
+
+      Group.belongsToMany(models.Role, { 
+        through: "Group_Role"
+      });
+    }
+  }
+
+  Group.init(
+    {
       name: DataTypes.STRING,
       description: DataTypes.STRING,
-    }, {
+    },
+    {
       sequelize,
-      modelName: 'Group',
-    });
-    return Group;
-  };
+      modelName: "Group",
+      tableName: "group", // ✅ Đúng tên bảng MySQL
+      timestamps: false,   // 🔹 Nếu không cần createdAt, updatedAt
+    }
+  );
+
+  return Group;
+};

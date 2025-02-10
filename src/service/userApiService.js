@@ -53,10 +53,10 @@ const ApiGetAllUsers =async()=>{
     
 }
 //POST
-const ApiCreateUser = async (username, email, address, phone, password ) => {
+const ApiCreateUser = async (username, email, address, phone,gender ) => {
     try {
-        const salt = bcrypt.genSaltSync(10);
-        const hashPassword = bcrypt.hashSync(password, salt);
+        // const salt = bcrypt.genSaltSync(10);
+        // const hashPassword = bcrypt.hashSync(password, salt);
 
         // Tạo user mới
         const newUser = await userRepository.createUser({
@@ -64,7 +64,8 @@ const ApiCreateUser = async (username, email, address, phone, password ) => {
             email,
             address,
             phone,
-            password: hashPassword
+            gender,
+            // password: hashPassword
         });
 
         return {

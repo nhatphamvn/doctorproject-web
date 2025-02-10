@@ -6,9 +6,25 @@ const createUser = async (userData)=>{
     return await db.User.create(userData)
 }
 
-const getAllUsers = async ()=>{
-    return await db.User.findAll()
-}
+const getAllUsers = async () => {
+    try {
+        const users = await db.User.findAll({
+            attributes: ["id", "username", "email", "phone", "gender"],
+            include: {
+                model: db.Group,
+                as: "Group", // Chắc chắn rằng alias đúng nếu có
+                attributes: ["name", "description"]
+            },
+            raw: true, // Nếu muốn dữ liệu dạng object phẳng
+            nest: true  // Nếu muốn dữ liệu lồng nhau
+        });
+
+        return users;
+    } catch (error) {
+        console.error("Lỗi khi lấy danh sách người dùng:", error);
+        return null;
+    }
+};
 
 const getUserById = async (id)=>{
     return await db.User.findOne({where :{id}})

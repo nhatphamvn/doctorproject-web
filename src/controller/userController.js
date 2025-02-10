@@ -27,7 +27,6 @@ const userReadAllUsers = async (req, res) => {
     try {
         const users = await userApiService.ApiGetAllUsers();
 
-        // Kiểm tra DT có dữ liệu hay không
         if (!users.DT || users.DT.length === 0) {
             return res.status(404).json({ EM: 'No users found', EC: 404, DT: null });
         }
@@ -38,12 +37,11 @@ const userReadAllUsers = async (req, res) => {
     }
 };
 
-
 const userCreateNewDB = async (req, res) => {
     try {
-        const { username, email, password,phone,address } = req.body;
+        const { username, email,phone,address,gender } = req.body;
 
-        if (!email || !password) {
+        if (!email || !phone || !address || !gender || !username) {
             return res.status(400).json({ EM: 'Missing required fields', EC: 400, DT: null });
         }
 
@@ -51,8 +49,9 @@ const userCreateNewDB = async (req, res) => {
             username, 
             email,
             address,
-            phone, 
-            password);
+            phone,
+            gender,
+        );
 
         if (!newUser.DT) {
             return res.status(400).json({ EM: newUser.EM, EC: newUser.EC, DT: null });
