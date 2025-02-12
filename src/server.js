@@ -19,7 +19,7 @@ app.use(cors({
 // Cấu hình body-parser trước khi khởi tạo các route
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
+app.use('/uploads', express.static('uploads'));
 // Thiết lập view engine
 configviewEngine(app);
 connection()

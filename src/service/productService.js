@@ -52,35 +52,33 @@ const ApiGetAllProducts =async()=>{
     
 }
 //POST
-const ApiCreateProduct = async (name,price,description,image ) => {
-    try {
-        // const salt = bcrypt.genSaltSync(10);
-        // const hashPassword = bcrypt.hashSync(password, salt);
-
-        // Tạo Product mới
-        const data = await productRepository.createProduct({
-            name,
-            price,
-            description,
-            image
-        });
-
-        return {
-            EM: "Bạn đã tạo thành công sản phẩm!",
-            EC: 0,
-            DT: {
-                id: data.id
-            }
-        };
-    } catch (error) {
-        console.error(error);
-        return {
-            EM: "Lỗi tạo sản phẩm!",
-            EC: 500,
-            DT: null
-        };
+const ApiCreateProduct = async (name, price, description, image) => {
+  try {
+    if (!name || !price || !description) {
+      return {
+        EM: "Thiếu dữ liệu đầu vào!",
+        EC: 400,
+        DT: null,
+      };
     }
+
+    const data = await productRepository.createProduct({ name, price, description, image });
+
+    return {
+      EM: "Bạn đã tạo thành công sản phẩm!",
+      EC: 0,
+      DT: data
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      EM: "Lỗi tạo sản phẩm!",
+      EC: 500,
+      DT: null,
+    };
+  }
 };
+
 
 //PUT
 const ApiUpdateProduct = async (id, name, price, description,image) => {

@@ -1,4 +1,5 @@
 import productService from '../service/productService';
+import formConfig from '../middleware/uploadMiddleware';
 
 const productReadById = async (req, res) => {
     try {
@@ -35,28 +36,44 @@ const productReadAll = async (req, res) => {
         return res.status(500).json({ EM: "Internal server error", EC: 500, DT: null });
     }
 };
-
 const productCreateNewDB = async (req, res) => {
-    try {
-        const { name, price, description, image } = req.body;
+  const form = formConfig();
 
-        if (!name || !price || !description) {
-            return res.status(400).json({ EM: "Missing required fields", EC: 400, DT: null });
-        }
+  form.parse(req, async (err, fields, files) => {
+  if (err) {
+    return res.status(400).json({ EM: "Error parsing the files", EC: 400, DT: null });
+  }
 
-        const newProduct = await productService.ApiCreateProduct(name, price, description, image);
+  console.log("Fields:", fields);
+  console.log("Files:", files);
 
-        if (!newProduct.DT) {
-            return res.status(400).json({ EM: newProduct.EM, EC: newProduct.EC, DT: null });
-        }
+  const name = fields.name ? fields.name[0] : null;
+  const price = fields.price ? fields.price[0] : null;
+  const description = fields.description ? fields.description[0] : null;
+  const image = files.image ? files.image[0].newFilename : null;
 
-        return res.status(201).json(newProduct);
-    } catch (error) {
-        console.error("Error in productCreateNewDB:", error);
-        return res.status(500).json({ EM: "Internal server error", EC: 500, DT: null });
-    }
+  // Kiểm tra dữ liệu đầu vào
+  if (!name || !price || !description) {
+    return res.status(400).json({ EM: "Missing required fields", EC: 400, DT: null });
+  }
+
+  if (!image) {
+    return res.status(400).json({ EM: "Image is required", EC: 400, DT: null });
+  }
+
+  const newProduct = await productService.ApiCreateProduct(name, price, description, image);
+
+  if (!newProduct || !newProduct.DT) {
+    return res.status(400).json({
+      EM: newProduct?.EM || "Failed to create product",
+      EC: newProduct?.EC || 400,
+      DT: null
+    });
+  }
+
+  return res.status(201).json(newProduct);
+});
 };
-
 const productUpdate = async (req, res) => {
     try {
         const { id } = req.params;
