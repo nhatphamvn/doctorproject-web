@@ -6,9 +6,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        yelloww:'#FFFF00',
         pinkred: '#F28379',
         steel:'#F2AFA0',
-        redd:'#7d1e20'  // Tạo màu mới tên 'steel'
+        redd:'#FF4652',
+        blckk:'#353538'  // Tạo màu mới tên 'steel'
       },
       fontFamily: {
         sans: ['Playfair Display', 'serif'], // Thêm font vào đây

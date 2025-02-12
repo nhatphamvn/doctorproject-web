@@ -15,7 +15,11 @@ const ApiCreateNewProduct = (name, price, description, image) => {
   data.append("description", description);
   data.append("image", image);
 
-  return axios.post("api/v1/product/create-product", data);
+ return axios.post("api/v1/product/create-product", data, {
+  headers: {
+    "Content-Type": "multipart/form-data",
+  },
+});
 };
 
 const ApiUpdateProduct = (id, name, price, description, image) => {
