@@ -57,7 +57,7 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex justify-center items-center flex-wrap p-5 bg-gray-100">
+    <div className="min-h-screen flex justify-center items-center flex-wrap p-5 bg-gray-100 ">
       {/* Form Title */}
       <div className="max-w-md mr-12 text-left">
         <h1 className="hidden xs:block text-5xl font-semibold text-red-600 mb-2 font-mono">

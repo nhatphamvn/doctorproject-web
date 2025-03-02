@@ -37,10 +37,16 @@ const ApiDeleteProduct = (productId) => {
   return axios.delete(`api/v1/product/delete-product/${productId}`); // Truyền id vào URL
 };
 
+const ApiChatWithAi = async (question) => {
+    return axios.post("api/v1/system/ask", { question }); 
+
+}
+
 export {
   ApiGetProductById,
   ApiGetAllProduct,
   ApiCreateNewProduct,
   ApiUpdateProduct,
   ApiDeleteProduct,
+  ApiChatWithAi
 };

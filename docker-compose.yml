@@ -1,0 +1,8 @@
+version: '3.8'
+
+services:
+  backend_nodejs:
+    image: myrepo/my-backend:latest
+    restart: unless-stopped
+    ports:
+      - 8081:8081

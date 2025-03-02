@@ -17,7 +17,7 @@ const Header = () => {
         <NavLink to="/" className="text-white hover:bg-gray-700 px-3 py-2 rounded">
           Home
         </NavLink>
-        <NavLink to="/user" className="text-white hover:bg-gray-700 px-3 py-2 rounded">
+        <NavLink to="/system/user-all" className="text-white hover:bg-gray-700 px-3 py-2 rounded">
           User
         </NavLink>
         <NavLink to="/admin" className="text-white hover:bg-gray-700 px-3 py-2 rounded">
