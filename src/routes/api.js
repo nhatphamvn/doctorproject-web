@@ -3,8 +3,7 @@ import express from 'express';
 import apiControllerTest from '../controller/apiControllerTest';
 import userController from '../controller/userController';
 import productController from '../controller/productController'
-import { uploadImageMiddleware } from '../middleware/uploadMiddleware';
-import upload from '../middleware/uploadMiddleware';
+import aiController from '../controller/aiController'
 
 const router = express.Router()
 
@@ -22,6 +21,7 @@ const initApiRoutes = (app) => {
     router.post('/user/post',userController.userCreateNewDB);
     router.put('/user/update/:id',userController.userUpdate);
     router.delete('/user/delete/:id',userController.userDelete);
+    
     //PRODUCT
     router.get('/product/read/:id',productController.productReadById);
     router.get('/product/read-all-product',productController.productReadAll);
@@ -29,6 +29,10 @@ const initApiRoutes = (app) => {
     router.put('/product/update-product/:id',productController.productUpdate);
     router.delete('/product/delete-product/:id',productController.productDelete);
 
+    //AI
+    router.post("/system/ask", aiController.handleCallApiAi);
+
+    
     return app.use("/api/v1", router); // định nghĩa đường dẫn đầu tiên
 }
 export default initApiRoutes

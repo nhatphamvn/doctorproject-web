@@ -39,11 +39,11 @@ const userReadAllUsers = async (req, res) => {
 
 const userCreateNewDB = async (req, res) => {
     try {
-        const { username, email,phone,address,gender } = req.body;
+        const { username, email,phone,address,gender,image,password } = req.body;
 
-        if (!email || !phone || !address || !gender || !username) {
-            return res.status(400).json({ EM: 'Missing required fields', EC: 400, DT: null });
-        }
+        // if (!email || !phone || !address || !gender || !username) {
+        //     return res.status(400).json({ EM: 'Missing required fields', EC: 400, DT: null });
+        // }
 
         const newUser = await userApiService.ApiCreateUser(
             username, 
@@ -51,10 +51,12 @@ const userCreateNewDB = async (req, res) => {
             address,
             phone,
             gender,
+            image,
+            password
         );
 
         if (!newUser.DT) {
-            return res.status(400).json({ EM: newUser.EM, EC: newUser.EC, DT: null });
+            return res.status(201).json({ EM: newUser.EM, EC: newUser.EC, DT: null });
         }
 
         return res.status(201).json(newUser);
@@ -66,14 +68,14 @@ const userCreateNewDB = async (req, res) => {
 const userUpdate = async (req, res) => {
     try {
         const { id } = req.params;
-        const { username, phone, address } = req.body;
+        const { username, phone, address,gender,image } = req.body;
 
         // Kiểm tra đầu vào hợp lệ
         if (!id || !username || !phone || !address) {
             return res.status(400).json({ EM: "Thiếu thông tin bắt buộc", EC: 400, DT: null });
         }
 
-        const updatedUser = await userApiService.ApiUpdateUser(id, username, phone, address);
+        const updatedUser = await userApiService.ApiUpdateUser(id, username, phone, address,gender,image);
 
         if (updatedUser.EC !== 0) {
             return res.status(400).json({ EM: updatedUser.EM, EC: updatedUser.EC, DT: null });

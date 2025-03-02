@@ -2,6 +2,16 @@ import userRepository from '../repositories/userRepositories'
 import bcrypt from 'bcryptjs';
 
 //GET
+
+const hashPassword = (userPassword) => {
+    if (!userPassword) {
+        throw new Error("Password is required");
+    }
+    const salt = bcrypt.genSaltSync(10);
+    return bcrypt.hashSync(userPassword, salt);
+};
+
+
 const ApiGetUserById = async(id)=>{
 
     try {
@@ -53,18 +63,19 @@ const ApiGetAllUsers =async()=>{
     
 }
 //POST
-const ApiCreateUser = async (username, email, address, phone,gender ) => {
+const ApiCreateUser = async (username, email, address, phone,gender,image,password ) => {
     try {
-        // const salt = bcrypt.genSaltSync(10);
-        // const hashPassword = bcrypt.hashSync(password, salt);
 
-        // Tạo user mới
+        const hashedPassword = await hashPassword(password);
+        
         const newUser = await userRepository.createUser({
             username,
             email,
             address,
             phone,
             gender,
+            image,
+            password:hashedPassword
             // password: hashPassword
         });
 
@@ -86,7 +97,7 @@ const ApiCreateUser = async (username, email, address, phone,gender ) => {
 };
 
 //PUT
-const ApiUpdateUser = async (id, username, phone, address) => {
+const ApiUpdateUser = async (id, username, phone, address,gender,image) => {
     try {
   
         if (!id) {
@@ -97,7 +108,7 @@ const ApiUpdateUser = async (id, username, phone, address) => {
             };
         }
 
-        const updateUser = await userRepository.updateUser(id, { username, phone, address });
+        const updateUser = await userRepository.updateUser(id, { username, phone, address,gender,image });
 
         if (!updateUser) {
             return {

@@ -9,7 +9,7 @@ const createUser = async (userData)=>{
 const getAllUsers = async () => {
     try {
         const users = await db.User.findAll({
-            attributes: ["id", "username", "email", "phone", "gender"],
+            attributes: ["id", "username", "email", "phone", "gender","address","image"],
             include: {
                 model: db.Group,
                 as: "Group", // Chắc chắn rằng alias đúng nếu có

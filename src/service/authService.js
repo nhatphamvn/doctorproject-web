@@ -1,6 +1,7 @@
 import db from "../models/index";
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken'
+require("dotenv").config();
 const salt = bcrypt.genSaltSync(10);
 
 // Hàm băm mật khẩu
