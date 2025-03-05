@@ -1,13 +1,13 @@
 import {useEffect, useState} from 'react'
-import User from './User'
-import {ApiGetAllUser} from '../../../service/apiUserServices'
-import ModalUpdateUser from '../Modal/ModalUpdateUser'
-import ModalDeleteUser from '../Modal/ModalDeleteUser'
-import ModalCreateUsers from '../Modal/ModalCreateUsers'
-import CustomerDetails from '../CustomerDetails'
+import UserTable from '../components/UserTable'
+import {ApiGetAllUser } from '../services/userService'
+import ModalUpdateUser from '../modals/ModalUpdateUsers'
+import ModalDeleteUser from '../modals/ModalDeleteUsers'
+import ModalCreateUsers from '../modals/ModalCreateUsers'
+
 import { useNavigate } from 'react-router-dom';
 
-const ManageUser = () => {
+const UserManagement = () => {
     const [listUser,setListUser]= useState([])
     const [showCreateUser,setShowCreateUser] = useState(false)
     const [showUpdateUser,setShowUpdateUser] = useState(false)
@@ -65,7 +65,7 @@ const ManageUser = () => {
     <>
     <div>
         <div>
-            <User
+            <UserTable
             handleShowUser={handleShowUser}
             handleUpdateUser={handleUpdateUser}
             handleDeleteUser={handleDeleteUser}
@@ -107,4 +107,4 @@ const ManageUser = () => {
     )
     }
 
-export default ManageUser
+export default UserManagement

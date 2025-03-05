@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from './component/Navigation/Header';
+import Header from './containers/Header/Header';
 import { Outlet } from 'react-router-dom';
 
 const App = () => {

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import { ApiRegisterNewUser } from '../../service/apiRequest';
+import { ApiRegisterNewUser } from '../services/AuthService';
 
-const Register = () => {
-  const [username, setUsername] = useState('');
+const RegisterPage = () => {
+ const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhoneNumber] = useState('');
   const [password, setPassword] = useState('');
@@ -75,8 +75,8 @@ const Register = () => {
     <div className='min-h-screen flex items-center justify-center bg-gray-100'>
       <div className='bg-white shadow-md rounded-lg p-6 w-full max-w-md'>
         <div className='mb-6'>
-          <h1 className='text-center text-3xl font-mono text-red-600'>Sunday4</h1>
-          <p className='text-2xl text-pinkred mt-6 font-mono'>Create your account</p>
+          <h1 className='text-center text-3xl font-fantasy text-red-600'>Sunday4</h1>
+          <p className='text-lg text-pinkred mt-6 font-fantasy'>Create your account</p>
         </div>
         <form className='space-y-4'>
           {/* Input Username */}
@@ -158,6 +158,6 @@ const Register = () => {
       </div>
     </div>
   );
-};
+}
 
-export default Register;
+export default RegisterPage

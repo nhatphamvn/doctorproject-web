@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from "../src/redux/store";
-import Layout from './layout';
+import AppRouter from './routes/AppRouter';
 import './input.css';
 import reportWebVitals from './reportWebVitals';
 
@@ -12,7 +12,7 @@ root.render(
   <Provider store={store}>
     <BrowserRouter> {/* Bọc Layout trong BrowserRouter */}
       <React.StrictMode>
-        <Layout />
+        <AppRouter />
       </React.StrictMode>
     </BrowserRouter>
   </Provider>

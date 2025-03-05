@@ -1,13 +1,11 @@
 import {useEffect, useState} from 'react';
 import Modal from "react-modal";
-import { ApiUpdateUsers } from '../../../service/apiUserServices';
+import { ApiUpdateUsers } from '../services/userService';
 import _ from 'lodash';
 
 Modal.setAppElement("#root");
 
-const ModalUpdateUser = (props) => {
-
-    const {show,setShow,dataUpdate,fetchDataUser} =props
+const ModalUpdateUser = ({show,setShow,dataUpdate,fetchDataUser}) => {
 
     const [username,setUsername] = useState('');
     const [phone,setPhoneNumber] = useState('');

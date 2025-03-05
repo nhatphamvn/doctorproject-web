@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { ApiLoginUsers } from "../../service/apiRequest";
+import { ApiLoginUsers } from "../services/AuthService";
 import { useNavigate } from "react-router-dom";
-import {handleLoginSuccess } from '../../redux/features/authSlide/authSlide'
+import {handleLoginSuccess } from '../../../redux/features/authSlide/authSlide'
 import { useDispatch } from "react-redux";
 
-const Login = () => {
-
-  const dispatch = useDispatch()
+const LoginPage = () => {
+const dispatch = useDispatch()
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
@@ -60,10 +59,10 @@ const Login = () => {
     <div className="min-h-screen flex justify-center items-center flex-wrap p-5 bg-gray-100 ">
       {/* Form Title */}
       <div className="max-w-md mr-12 text-left">
-        <h1 className="hidden xs:block text-5xl font-semibold text-red-600 mb-2 font-mono">
+        <h1 className="hidden xs:block text-5xl font-fantasy text-red-600 mb-2">
           Sunday4
         </h1>
-        <p className="hidden sm:block text-xl text-pink-500 leading-relaxed font-playwrite">
+        <p className="hidden sm:block text-xl text-pink-500 leading-relaxed font-fantasy">
           Sunday helps you connect and share with the people in your life.
         </p>
       </div>
@@ -134,6 +133,6 @@ const Login = () => {
       </div>
     </div>
   );
-};
+}
 
-export default Login;
+export default LoginPage

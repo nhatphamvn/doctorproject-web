@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import Modal from 'react-modal';
-import { ApiCreateNewUsers } from '../../../service/apiUserServices';
+import { ApiCreateNewUsers } from '../services/userService';
 import { validateForm } from '../../../utils/validate/formValidation';
 
 Modal.setAppElement('#root');
 
-const ModalCreateUsers = (props) => {
-    const { show, setShow, fetchDataUser } = props;
+const ModalCreateUsers = ({show, setShow, fetchDataUser}) => {
 
     const [username, setUsername] = useState('');
     const [phone, setPhoneNumber] = useState('');
