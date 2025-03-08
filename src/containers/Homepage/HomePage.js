@@ -10,21 +10,27 @@ import { RiMentalHealthLine } from "react-icons/ri";
 import { PiTooth } from "react-icons/pi";
 import { FormattedMessage } from "react-intl";
 import { useIntl } from "react-intl";
+import Specialty from "../Section/Specialty/pages/Specialty";
+import Facility from "../Section/facility/pages/Facility";
+import Doctor from '../Section/doctor/pages/Doctor';
+
 
 const HomePage = () => {
+
     const intl = useIntl();
+    
   return (
     <>
- <div className="relative w-full">
+  <div className="relative w-full">
     {/* Hình nền */}
- <div className="relative w-full max-h-[550px] z-0">
-    <img 
-        src={image} 
-        alt="Banner" 
-        className="w-full max-h-[550px] object-cover"
-    />
-    <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-black/80 to-transparent"></div>
-</div>
+    <div className="relative w-full max-h-[550px] z-0">
+        <img 
+            src={image} 
+            alt="Banner" 
+            className="w-full max-h-[550px] object-cover"
+        />
+        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-black/80 to-transparent"></div>
+    </div>
 
 
     {/* Nội dung chồng lên */}
@@ -96,7 +102,10 @@ const HomePage = () => {
       </div>
 
     </div>
-</div>
+  </div>
+  <Specialty/>
+  <Facility/>
+  <Doctor/>
 
 
     </>

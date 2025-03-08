@@ -5,7 +5,8 @@ const en = {
     facility: "Medical facility",
     doctor:"Doctor",
     test:"Medical examination",
-    help: "Help"
+    help: "Help",
+    guest:"Guest"
     },     
       homePage: 
     {

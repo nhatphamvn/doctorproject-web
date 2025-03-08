@@ -5,7 +5,8 @@ const vi = {
     facility: "Cơ Sở Y Tế",
     doctor:"Bác Sĩ",
     test:"Gói Khám",
-    help: "Hỗ trợ"
+    help: "Hỗ trợ",
+    guest:"Khách"
     },
       homePage: 
     {

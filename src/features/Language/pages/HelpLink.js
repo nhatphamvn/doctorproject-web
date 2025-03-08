@@ -10,7 +10,7 @@ const HelpLink = () => {
 
   return (
     <Menu as="div" className="relative inline-block text-left">
-      <MenuButton className="flex items-center text-lg bg-gray hover:text-gray-900 font-fantasy text-gray-600 mx-4 py-2">
+      <MenuButton className="flex items-center text-lg bg-gray hover:text-gray-900 font-mono text-gray-600 mx-4 py-2">
         <IoIosHelpCircleOutline/>
         <FormattedMessage id="navBar.help"/>
         <IoMdArrowDropdown/>

@@ -8,6 +8,8 @@ import Help from "../../features/Language/pages/HelpLink";
 import HomePage from "../Homepage/HomePage";
 import { FormattedMessage } from "react-intl";
 import Language from "../../features/Language/pages/Language";
+import Specialty from "../Section/Specialty/pages/Specialty";
+import Facility from "../Section/facility/pages/Facility";
 
 const Header = () => {
   const account = useSelector((state) => state.auth.account);
@@ -55,11 +57,11 @@ const Header = () => {
             <Language/>
             <Help/>
               
-              <NavLink to="/register" className="flex items-center text-lg bg-gray hover:text-gray-900 font-fantasy text-gray-600  py-2">
+              <NavLink to="/register" className="flex items-center text-lg bg-gray hover:text-gray-900 font-mono text-gray-600  py-2">
                   <div className="flex items-center mx-1">
                       <FaRegUser/>
                   </div>
-                  Guest
+                  <FormattedMessage id="navBar.guest"/>
               </NavLink>
       
           </div>
@@ -71,6 +73,7 @@ const Header = () => {
         <HomePage/>
 
       </div>
+
 
 
     </>
