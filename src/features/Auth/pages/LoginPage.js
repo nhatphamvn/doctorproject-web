@@ -63,7 +63,7 @@ const dispatch = useDispatch()
           Sunday4
         </h1>
         <p className="hidden sm:block text-xl text-pink-500 leading-relaxed font-fantasy">
-          Sunday helps you connect and share with the people in your life.
+          From the bitterness of disease man learns the sweetness of health.
         </p>
       </div>
 

@@ -12,7 +12,7 @@ const AppRouter = () => {
   <Routes>
   {/* Bọc App để Navbar luôn hiển thị */}
   <Route path="/" element={<App />}>
-    <Route index element={<Home />} />
+    <Route path="/home" element={<Home />} />
     
   </Route>
     <Route element={<PrivateRoutes />}>

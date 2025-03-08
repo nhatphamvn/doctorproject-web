@@ -11,7 +11,8 @@ module.exports = {
         steel:'#F2AFA0',
         redd:'#FF4652',
         blckk:'#353538',
-        fffa:'#edfffa'  // Tạo màu mới tên 'steel'
+        fffa:'#edfffa',
+        graysoul:'#222222'  // Tạo màu mới tên 'steel'
       },
       fontFamily: {
         sans: ['Playfair Display', 'serif'], // Thêm font vào đây

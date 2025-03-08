@@ -5,15 +5,19 @@ import { Provider } from 'react-redux';
 import { store } from "../src/redux/store";
 import AppRouter from './routes/AppRouter';
 import './input.css';
+import LanguageProvider from './features/Language/providers/LanguageProvider'
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
-    <BrowserRouter> {/* Bọc Layout trong BrowserRouter */}
+
+    <BrowserRouter>
+      <LanguageProvider>
       <React.StrictMode>
         <AppRouter />
       </React.StrictMode>
+      </LanguageProvider> {/* Bọc Layout trong BrowserRouter */}
     </BrowserRouter>
   </Provider>
 );

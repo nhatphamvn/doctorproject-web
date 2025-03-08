@@ -11,9 +11,9 @@ const App = () => {
           <Header/>
         </div>
         <div className='main-container'>
-            <div className='app-content'>
+            {/* <div className='app-content'>
               <Outlet/>
-            </div>
+            </div> */}
         </div>
 
       </div>
