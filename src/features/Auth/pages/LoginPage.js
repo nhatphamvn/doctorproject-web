@@ -45,7 +45,7 @@ const dispatch = useDispatch()
         if (data.EC === 0) {
           sessionStorage.setItem('access_token',data.DT.access_token)
           dispatch(handleLoginSuccess(data))
-          navigate('/');
+          navigate("/");
         } else if (data && data.EC !== 0) {
           setErrors({ server: "Đăng nhập không thành công!" });
         }

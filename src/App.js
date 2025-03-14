@@ -1,6 +1,8 @@
 import React from 'react';
 import Header from './containers/Header/Header';
 import { Outlet } from 'react-router-dom';
+import HomePage from './containers/Homepage/HomePage';
+import Footer from './containers/Footer/pages/Footer';
 
 const App = () => {
 
@@ -11,10 +13,11 @@ const App = () => {
           <Header/>
         </div>
         <div className='main-container'>
-            {/* <div className='app-content'>
+            <div className='app-content'>
               <Outlet/>
-            </div> */}
+            </div>
         </div>
+        {/* <Footer/> */}
 
       </div>
       </>

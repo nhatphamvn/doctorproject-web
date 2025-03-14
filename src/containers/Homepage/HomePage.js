@@ -13,6 +13,9 @@ import { useIntl } from "react-intl";
 import Specialty from "../Section/Specialty/pages/Specialty";
 import Facility from "../Section/facility/pages/Facility";
 import Doctor from '../Section/doctor/pages/Doctor';
+import Blogs from '../Section/blogs/pages/Blogs';
+import About from '../Section/about/pages/About';
+import Footer from '../Footer/pages/Footer';
 
 
 const HomePage = () => {
@@ -29,7 +32,7 @@ const HomePage = () => {
             alt="Banner" 
             className="w-full max-h-[550px] object-cover"
         />
-        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-black/80 to-transparent"></div>
+        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-t from-black/ to-transparent"></div>
     </div>
 
 
@@ -56,7 +59,8 @@ const HomePage = () => {
 
       {/* Navbar ngay dưới thanh search */}
       <div className="flex items-center justify-between pt-40">
-        <div className="absolute inset-0 bg-gradient-to-t from-white/20 to-transparent"></div>
+        <div className="absolute bottom-0 left-0 w-full h-2/3 bg-gradient-to-b from-transparent to-white/100"></div>
+
             <div className="flex space-x-6 relative z-10"
             style={{ textShadow: "2px 2px 4px rgba(0, 0, 0, 2)" }}
             >
@@ -106,8 +110,9 @@ const HomePage = () => {
   <Specialty/>
   <Facility/>
   <Doctor/>
-
-
+  <Blogs/>
+  <About/>
+  <Footer/>
     </>
   ) 
 }
