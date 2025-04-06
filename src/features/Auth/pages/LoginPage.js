@@ -6,7 +6,7 @@ import {handleLoginSuccess } from '../../../redux/features/authSlide/authSlide'
 import { useDispatch } from "react-redux";
 
 const LoginPage = () => {
-const dispatch = useDispatch()
+  const dispatch = useDispatch()
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
@@ -43,7 +43,7 @@ const dispatch = useDispatch()
         const data = await ApiLoginUsers(email, password);
 
         if (data.EC === 0) {
-          sessionStorage.setItem('access_token',data.DT.access_token)
+          localStorage.setItem('access_token',data.DT.access_token)
           dispatch(handleLoginSuccess(data))
           navigate("/");
         } else if (data && data.EC !== 0) {

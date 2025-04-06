@@ -24,12 +24,30 @@ const authSlice = createSlice({
         
       };
       state.isAuthenticated = true;
-    }
+    },
+     handleLogout: (state) => {
+      localStorage.removeItem('access_token');
+      state.account = {
+        access_token: "",
+        email: "",
+        refresh_token: "",
+        username: "",
+      };
+      state.isAuthenticated = false;
+    },
+
+    initializeAuth: (state) => {
+      const token = localStorage.getItem('access_token');
+      if (token) {
+        state.account.access_token = token;
+        state.isAuthenticated = true;
+      }
+    },
   },
 });
 
 // Export actions
-export const { handleLoginSuccess, logout } = authSlice.actions;
+export const { handleLoginSuccess,handleLogout, initializeAuth } = authSlice.actions;
 
 // Export reducer
 export default authSlice.reducer;

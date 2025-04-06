@@ -13,8 +13,8 @@ const instance = axios.create({
 // Interceptor cho request
 instance.interceptors.request.use(
   function (config) {
-    console.log(`[REQUEST] ${config.method?.toUpperCase()} - ${config.url}`, config);
-    // Thêm các cấu hình khác vào request nếu cần
+    console.log(`[REQUEST] ${config.method?.toUpperCase()} - ${config.url}`, config);    
+    console.log("Body:", JSON.stringify(config.data));    
     return config;
   },
   function (error) {

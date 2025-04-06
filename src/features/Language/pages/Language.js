@@ -14,32 +14,34 @@ const Language = () => {
   };
 
   return (
-    <Menu as="div" className="relative inline-block text-left">
-      {/* Button hiển thị cờ hiện tại */}
-      <MenuButton className="flex items-center mx-2">
-        <img
-          src={currentLang === "vi" ? vietnamFlag : ukFlag}
-          alt="Current Language"
-          className="w-5 h-5 rounded-full"
-        />
-      </MenuButton>
+    <>
+      <Menu as="div" className="relative inline-block text-left">
+        {/* Button hiển thị cờ hiện tại */}
+        <MenuButton className="flex items-center mx-2">
+          <img
+            src={currentLang === "vi" ? vietnamFlag : ukFlag}
+            alt="Current Language"
+            className="w-5 h-5 rounded-full"
+          />
+        </MenuButton>
 
-      {/* Dropdown hiển thị cờ còn lại */}
-      <MenuItems className="absolute left-0 w-10 rounded-md z-50">
-        <MenuItem>
-          <button
-            onClick={handleLanguageChange}
-            className="block p-2 flex items-center justify-center"
-          >
-            <img
-              src={currentLang === "vi" ? ukFlag : vietnamFlag}
-              alt="Switch Language"
-              className="w-5 h-5 rounded-full"
-            />
-          </button>
-        </MenuItem>
-      </MenuItems>
-    </Menu>
+        {/* Dropdown hiển thị cờ còn lại */}
+        <MenuItems className="absolute left-0 w-10 rounded-md z-50">
+          <MenuItem>
+            <button
+              onClick={handleLanguageChange}
+              className="block p-2 items-center justify-center"
+            >
+              <img
+                src={currentLang === "vi" ? ukFlag : vietnamFlag}
+                alt="Switch Language"
+                className="w-5 h-5 rounded-full"
+              />
+            </button>
+          </MenuItem>
+        </MenuItems>
+      </Menu>
+    </>
   );
 };
 

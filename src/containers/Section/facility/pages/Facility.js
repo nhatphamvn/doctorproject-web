@@ -2,15 +2,17 @@ import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import imageConfiguration from "../untils/imageConfiguration";
-
+import { FormattedMessage } from "react-intl";
 const Facility = () => {
   return (
     <div className="w-full flex flex-col items-center mt-8">
       {/* Thanh tiêu đề và nút xem thêm */}
       <div className="w-full max-w-6xl flex justify-between items-center mb-8">
-        <h4 className="text-2xl font-mono text-gray-800">Cơ Sở Y Tế Nổi Bật</h4>
+        <h4 className="text-2xl font-mono text-gray-800">
+          <FormattedMessage id="homePage.featuredMedicalFacilities" />
+        </h4>
         <button className="bg-gray-500 text-white px-4 py-2 rounded-2xl shadow-md hover:bg-gray-600 font-mono">
-          Xem thêm
+          <FormattedMessage id="homePage.seeMore" />
         </button>
       </div>
 
@@ -24,8 +26,15 @@ const Facility = () => {
         className="w-full max-w-6xl"
       >
         {imageConfiguration.map((item) => (
-          <SwiperSlide key={item.id} className="bg-white p-6 shadow-lg rounded-lg border-2 border-gray-200">
-            <img src={item.img} alt={item.title} className="w-full h-40 object-contain rounded-md" />
+          <SwiperSlide
+            key={item.id}
+            className="bg-white p-6 shadow-lg rounded-lg border-2 border-gray-200"
+          >
+            <img
+              src={item.img}
+              alt={item.title}
+              className="w-full h-40 object-contain rounded-md"
+            />
             <h3 className="text-center mt-2 font-lato">{item.title}</h3>
           </SwiperSlide>
         ))}

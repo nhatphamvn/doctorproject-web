@@ -15,6 +15,9 @@ const ModalCreateUsers = ({show, setShow, fetchDataUser}) => {
     const [gender, setGender] = useState('');
     const [errors, setErrors] = useState({});
 
+    console.log(password);
+    
+
     const handleClose = () => setShow(false);
 
     const handleCreateUsers = async () => {

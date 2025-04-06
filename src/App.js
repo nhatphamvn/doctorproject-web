@@ -1,10 +1,18 @@
-import React from 'react';
+import {useEffect} from 'react';
 import Header from './containers/Header/Header';
 import { Outlet } from 'react-router-dom';
-import HomePage from './containers/Homepage/HomePage';
-import Footer from './containers/Footer/pages/Footer';
+import { useDispatch } from 'react-redux';
+import { initializeAuth } from './redux/features/authSlide/authSlide';
+
 
 const App = () => {
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(initializeAuth());
+  }, [dispatch]);
+
 
   return (
       <>
