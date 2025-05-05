@@ -1,39 +1,31 @@
-
-import authServices from '../service/authService'
+import authServices from "../service/authService";
 
 const apiHandleRegister = async (req, res) => {
+  try {
+    const data = await authServices.registerNewUser(req.body);
 
- try {
-    const data = await authServices.registerNewUser(req.body)
-
-
-    if(data){
+    if (data) {
       return res.status(200).json({
-      EM: data.EM,
-      EC: data.EC, // Thành công
-      DT: '', // Dữ liệu phản hồi
+        EM: data.EM,
+        EC: data.EC, // Thành công
+        DT: "", // Dữ liệu phản hồi
       });
-
-    }else{
+    } else {
       return res.status(400).json({
-        EM:data.EM,
-        EC:1004,
-        DT:''
-      })
+        EM: data.EM,
+        EC: 1004,
+        DT: "",
+      });
     }
+  } catch (error) {
+    console.error("Error during user registration:", error);
 
-  
- } catch (error) {
-      console.error('Error during user registration:', error);
-
-      return res.status(500).json({
-      EM:'Máy chủ bị lỗi, vui lòng thử lại sau.',
-      EC:1004,
-      DT:''
-      }) 
- }
-
-
+    return res.status(500).json({
+      EM: "Máy chủ bị lỗi, vui lòng thử lại sau.",
+      EC: 1004,
+      DT: "",
+    });
+  }
 };
 
 const apiHanleLogin = async (req, res) => {
@@ -49,28 +41,28 @@ const apiHanleLogin = async (req, res) => {
           email: data?.DT?.email,
           username: data?.DT?.username,
           access_token: data?.DT?.access_token,
-          refresh_token:data?.DT?.refresh_token // **Trả token về client**
+          refresh_token: data?.DT?.refresh_token,
+          roleId: data?.DT?.roleId,
+          // **Trả token về client**
         },
       });
     } else {
       return res.status(400).json({
         EM: data.EM,
         EC: data.EC,
-        DT: null
+        DT: null,
       });
     }
-
   } catch (e) {
     return res.status(500).json({
       EM: "Máy chủ bị lỗi, vui lòng thử lại sau.",
       EC: 1004,
-      DT: null
+      DT: null,
     });
   }
 };
 
-
-
-module.exports ={
-  apiHandleRegister,apiHanleLogin
-}
+module.exports = {
+  apiHandleRegister,
+  apiHanleLogin,
+};

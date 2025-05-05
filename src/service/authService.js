@@ -1,6 +1,6 @@
 import db from "../models/index";
-import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken'
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 require("dotenv").config();
 const salt = bcrypt.genSaltSync(10);
 
@@ -16,7 +16,7 @@ const checkExistence = async (field, value) => {
   condition[field] = value;
 
   let user = await db.User.findOne({
-    where: condition
+    where: condition,
   });
 
   return !!user; // Trả về true nếu tìm thấy
@@ -25,29 +25,35 @@ const checkExistence = async (field, value) => {
 // Hàm đăng ký người dùng mới
 const registerNewUser = async (userData) => {
   try {
-    if (!userData || !userData.email || !userData.phone || !userData.password || !userData.username) {
+    if (
+      !userData ||
+      !userData.email ||
+      !userData.phone ||
+      !userData.password ||
+      !userData.username
+    ) {
       return {
-        EM: 'Thiếu dữ liệu cần thiết!',
-        EC: 1001
+        EM: "Thiếu dữ liệu cần thiết!",
+        EC: 1001,
       };
     }
 
     // Kiểm tra email tồn tại
-    const isEmailExist = await checkExistence('email', userData.email);
+    const isEmailExist = await checkExistence("email", userData.email);
     if (isEmailExist) {
       return {
-        EM: 'Email đã tồn tại!',
-        EC: 1002
+        EM: "Email đã tồn tại!",
+        EC: 1002,
       };
     }
 
     // Kiểm tra phone tồn tại
-  
-    const isPhoneExist = await checkExistence('phone', userData.phone);
+
+    const isPhoneExist = await checkExistence("phone", userData.phone);
     if (isPhoneExist) {
       return {
-        EM: 'Số điện thoại đã tồn tại!',
-        EC: 1003
+        EM: "Số điện thoại đã tồn tại!",
+        EC: 1003,
       };
     }
 
@@ -59,65 +65,65 @@ const registerNewUser = async (userData) => {
       username: userData.username,
       email: userData.email,
       phone: userData.phone,
-      password: hashedPassword
+      password: hashedPassword,
     });
 
     if (!user) {
       return {
-        EM: 'Không thể tạo tài khoản, vui lòng thử lại!',
-        EC: 1004
+        EM: "Không thể tạo tài khoản, vui lòng thử lại!",
+        EC: 1004,
       };
     }
 
-
     return {
-      EM: 'Bạn đã đăng kí thành công!',
+      EM: "Bạn đã đăng kí thành công!",
       EC: 0,
-      DT :{
-        id: user.id
-
-      }
+      DT: {
+        id: user.id,
+      },
     };
   } catch (error) {
     return {
-      EM: 'Lỗi gì đó ở Máy Chủ!',
-      EC: -1
+      EM: "Lỗi gì đó ở Máy Chủ!",
+      EC: -1,
     };
   }
 };
 
-
 const logInAccounts = async (userData) => {
   try {
     if (!userData || !userData.email || !userData.password) {
-      return { EM: 'Thiếu dữ liệu cần thiết!', EC: 1001 };
+      return { EM: "Thiếu dữ liệu cần thiết!", EC: 1001 };
     }
 
     let user = await db.User.findOne({
       where: { email: userData.email },
-      attributes: ['id', 'email', 'username', 'password']
+      attributes: ["id", "email", "username", "password", "roleId"],
     });
 
     if (!user) {
-      return { EM: 'Email không tồn tại!', EC: 1002 };
+      return { EM: "Email không tồn tại!", EC: 1002 };
     }
 
-    const isPasswordValid = await bcrypt.compare(userData.password, user.password);
+    const isPasswordValid = await bcrypt.compare(
+      userData.password,
+      user.password
+    );
     if (!isPasswordValid) {
       return { EM: "Mật khẩu không đúng!", EC: 1003 };
     }
 
     // **Tạo JWT Token**
     const accessToken = jwt.sign(
-      { id: user.id, email: user.email }, // Payload
-      process.env.JWT_SECRET,  // **Khóa bí mật**, lưu trong `.env`
-      { expiresIn: '1h' }  // **Thời gian hết hạn**
+      { id: user.id, email: user.email, roleId: user.roleId }, // Payload
+      process.env.JWT_SECRET, // **Khóa bí mật**, lưu trong `.env`
+      { expiresIn: "1h" } // **Thời gian hết hạn**
     );
 
     const refreshToken = jwt.sign(
-      { id: user.id}, // Payload
-      process.env.JWT_REFRESH_SECRET,  // **Khóa bí mật**, lưu trong `.env`
-      { expiresIn: '7d' }  // **Thời gian hết hạn**
+      { id: user.id }, // Payload
+      process.env.JWT_REFRESH_SECRET, // **Khóa bí mật**, lưu trong `.env`
+      { expiresIn: "7d" } // **Thời gian hết hạn**
     );
 
     return {
@@ -127,17 +133,17 @@ const logInAccounts = async (userData) => {
         id: user.id,
         email: user.email,
         username: user.username,
+        roleId: user.roleId,
         access_token: accessToken,
-        refresh_token: refreshToken  // **Gửi token về client**
-      }
+        refresh_token: refreshToken, // **Gửi token về client**
+      },
     };
-
   } catch (error) {
     return { EM: "Lỗi gì đó ở Máy Chủ!", EC: 1004 };
   }
 };
 
-
 module.exports = {
-  registerNewUser,logInAccounts
+  registerNewUser,
+  logInAccounts,
 };

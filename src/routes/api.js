@@ -31,6 +31,19 @@ const initApiRoutes = (app) => {
 
   //Doctor
   router.get("/doctor/top-doctor", doctorController.getAllDoctor);
+  router.get("/doctor/get-all-doctors", doctorController.getDoctorsController);
+  router.post("/doctor/save-data-doctors", doctorController.saveNewDoctors);
+  router.get(
+    "/doctor/get-doctor/:id",
+    doctorController.getDoctorControllerById
+  );
+
+  //Schedule
+  router.post(
+    "/doctor/bulkcreate-schedule",
+    doctorController.bulkCreateDoctors
+  );
+  router.get("/doctor/get-all-schedule", doctorController.getAllSchedules);
 
   return app.use("/api/v1", router); // định nghĩa đường dẫn đầu tiên
 };
