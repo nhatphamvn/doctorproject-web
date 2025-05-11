@@ -95,31 +95,69 @@ const saveDoctorsService = async (
   contentHTML,
   contentMarkDown,
   description,
-  doctorId
+  doctorId,
+  priceId,
+  paymentId,
+  provinceId,
+  addressClinic,
+  nameClinic,
+  note,
+  count
 ) => {
-  if (!contentHTML || !contentMarkDown) {
+  try {
+    // Kiểm tra các tham số bắt buộc
+    if (!contentHTML || !contentMarkDown || !doctorId) {
+      return {
+        EM: "Thiếu thông tin bắt buộc: contentHTML, contentMarkDown, doctorId.",
+        EC: 1,
+        DT: null,
+      };
+    }
+
+    if (
+      !priceId ||
+      !paymentId ||
+      !provinceId ||
+      !addressClinic ||
+      !nameClinic
+    ) {
+      return {
+        EM: "Thiếu thông tin bắt buộc: priceId, paymentId, provinceId, addressClinic, nameClinic.",
+        EC: 1,
+        DT: null,
+      };
+    }
+
+    // Nếu không có lỗi, tiến hành lưu thông tin bác sĩ và thông tin khác
+    const markdownResult = await doctorRepositories.saveDoctors(doctorId, {
+      contentHTML,
+      contentMarkDown,
+      description,
+    });
+
+    const inforResult = await doctorRepositories.upsertDoctorInfor(doctorId, {
+      priceId,
+      provinceId,
+      paymentId,
+      addressClinic,
+      nameClinic,
+      note,
+      count,
+    });
+
     return {
-      EM: "Không lưu được bác sĩ!",
-      EC: 1,
-      DT: null,
+      EM: "Lưu bác sĩ thành công!",
+      EC: 0,
+      DT: {
+        markdown: markdownResult,
+        doctorInfor: inforResult,
+      },
     };
+  } catch (error) {
+    throw error; // Ném lỗi ra ngoài để có thể xử lý ở nơi gọi
   }
-
-  const data = await doctorRepositories.saveDoctors({
-    contentHTML,
-    contentMarkDown,
-    description,
-    doctorId,
-  });
-
-  console.log("check dataa", contentHTML);
-
-  return {
-    EM: "Lưu bác sĩ thành công!",
-    EC: 0,
-    DT: data,
-  };
 };
+
 const bulkCreateDoctorsService = (doctorId, date, timeTypeArray) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -206,8 +244,32 @@ const getAllSchedulesService = (doctorId, date) => {
     }
   });
 };
+const getPriceDoctorsService = (doctorId) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let data = await doctorRepositories.getPriceRepositories(doctorId);
+
+      if (!data) {
+        resolve({
+          EM: "Không có prices!",
+          EC: 1,
+          DT: null,
+        });
+      } else {
+        resolve({
+          EM: "Tìm kiếm giá thành công!",
+          EC: 0,
+          DT: data,
+        });
+      }
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
 
 module.exports = {
+  getPriceDoctorsService,
   getAllDoctorService,
   getDoctorsService,
   saveDoctorsService,

@@ -1,5 +1,6 @@
 import db from "../models";
 const { Op, fn, col, where } = require("sequelize");
+import _, { includes } from "lodash";
 
 const getAllDoctorRepositories = async (limitInput) => {
   try {
@@ -64,6 +65,29 @@ const getDoctorRepositoriesById = async (inputId) => {
           },
         },
         {
+          model: db.Doctor_Infor,
+          attributes: {
+            exclude: ["doctorId"],
+          },
+          include: [
+            {
+              model: db.Allcode,
+              as: "priceData",
+              attributes: ["valueEn", "valueVi"],
+            },
+            {
+              model: db.Allcode,
+              as: "paymentData",
+              attributes: ["valueEn", "valueVi"],
+            },
+            {
+              model: db.Allcode,
+              as: "provinceData",
+              attributes: ["valueEn", "valueVi"],
+            },
+          ],
+        },
+        {
           model: db.Allcode,
           as: "positionData",
           attributes: ["valueEn", "valueVi"],
@@ -80,10 +104,48 @@ const getDoctorRepositoriesById = async (inputId) => {
   }
 };
 
-const saveDoctors = async (data) => {
-  // const newMarkdown = db.MarkDown.build(data);
-  // await newMarkdown.save();
-  return await db.MarkDown.create(data);
+const saveDoctors = async (doctorId, data) => {
+  try {
+    // Tìm bác sĩ trong bảng MarkDown
+    const existingMarkDown = await db.MarkDown.findOne({
+      where: { doctorId },
+    });
+
+    // Kết hợp dữ liệu đầu vào với dữ liệu hiện có
+    const dataToUpsert = {
+      doctorId,
+      ...data,
+      ...existingMarkDown, // Nếu tồn tại, sẽ thay thế các giá trị cũ
+    };
+
+    // Thực hiện upsert dữ liệu
+    return await db.MarkDown.upsert(dataToUpsert);
+  } catch (error) {
+    console.error("Error in saveDoctors:", error);
+    throw new Error("Error saving doctor markdown");
+  }
+};
+
+const upsertDoctorInfor = async (doctorId, data) => {
+  try {
+    // Tìm thông tin bác sĩ trong bảng Doctor_Infor
+    const existingDoctorInfor = await db.Doctor_Infor.findOne({
+      where: { doctorId },
+    });
+
+    // Kết hợp dữ liệu đầu vào với dữ liệu hiện có
+    const dataToUpsert = {
+      doctorId,
+      ...data,
+      ...existingDoctorInfor, // Nếu tồn tại, sẽ thay thế các giá trị cũ
+    };
+
+    // Thực hiện upsert dữ liệu
+    return await db.Doctor_Infor.upsert(dataToUpsert);
+  } catch (error) {
+    console.error("Error in upsertDoctorInfor:", error);
+    throw new Error("Error upserting doctor information");
+  }
 };
 
 const bulkCreateSchedules = async (inputData) => {
@@ -133,6 +195,40 @@ const getAllSchedules = async (doctorId, date) => {
     return null;
   }
 };
+const getPriceRepositories = async (doctorId) => {
+  try {
+    const data = await db.Doctor_Infor.findOne({
+      where: { doctorId },
+      attributes: {
+        exclude: ["id", "priceId", "paymentId", "provinceId"],
+      },
+      include: [
+        {
+          model: db.Allcode,
+          as: "priceData",
+          attributes: ["valueEn", "valueVi"],
+        },
+        {
+          model: db.Allcode,
+          as: "paymentData",
+          attributes: ["valueEn", "valueVi"],
+        },
+        {
+          model: db.Allcode,
+          as: "provinceData",
+          attributes: ["valueEn", "valueVi"],
+        },
+      ],
+      raw: true,
+      nest: true,
+    });
+
+    return data;
+  } catch (error) {
+    console.error("Lỗi khi lấy danh sách người dùng:", error);
+    return null;
+  }
+};
 
 module.exports = {
   getAllDoctorRepositories,
@@ -142,4 +238,6 @@ module.exports = {
   bulkCreateSchedules,
   existedSchedules,
   getAllSchedules,
+  upsertDoctorInfor,
+  getPriceRepositories,
 };

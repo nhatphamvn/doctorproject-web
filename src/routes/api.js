@@ -44,6 +44,7 @@ const initApiRoutes = (app) => {
     doctorController.bulkCreateDoctors
   );
   router.get("/doctor/get-all-schedule", doctorController.getAllSchedules);
+  router.get("/doctor/get-price-doctors", doctorController.getPriceDoctors);
 
   return app.use("/api/v1", router); // định nghĩa đường dẫn đầu tiên
 };

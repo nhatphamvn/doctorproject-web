@@ -64,17 +64,36 @@ const getDoctorControllerById = async (req, res) => {
 
 const saveNewDoctors = async (req, res) => {
   try {
-    const { contentHTML, contentMarkDown, description, doctorId } = req.body;
+    const {
+      contentHTML,
+      contentMarkDown,
+      description,
+      doctorId,
+      priceId,
+      paymentId,
+      provinceId,
+      addressClinic,
+      nameClinic,
+      note,
+      count,
+    } = req.body;
 
     const newUser = await doctorService.saveDoctorsService(
       contentHTML,
       contentMarkDown,
       description,
-      doctorId
+      doctorId,
+      priceId,
+      paymentId,
+      provinceId,
+      addressClinic,
+      nameClinic,
+      note,
+      count
     );
 
     if (!newUser.DT) {
-      return res.status(201).json({ EM: newUser.EM, EC: newUser.EC, DT: null });
+      return res.status(300).json({ EM: newUser.EM, EC: newUser.EC, DT: null });
     }
 
     return res.status(201).json(newUser);
@@ -129,6 +148,32 @@ const getAllSchedules = async (req, res) => {
     });
   }
 };
+const getPriceDoctors = async (req, res) => {
+  try {
+    const { doctorId } = req.query;
+
+    const data = await doctorService.getPriceDoctorsService(doctorId);
+
+    if (data.EC !== 0) {
+      return res.status(201).json({
+        EM: data.EM,
+        EC: data.EC,
+        DT: data.DT,
+      });
+    }
+    return res.status(200).json({
+      EM: data.EM,
+      EC: data.EC,
+      DT: data.DT,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      EC: -1,
+      EM: "Lỗi từ server",
+      DT: null,
+    });
+  }
+};
 
 module.exports = {
   getAllDoctor,
@@ -138,4 +183,5 @@ module.exports = {
   bulkCreateDoctors,
   getAllSchedules,
   bulkCreateDoctors,
+  getPriceDoctors,
 };

@@ -19,6 +19,7 @@ module.exports = {
       },
       doctorId: {
         type: Sequelize.INTEGER,
+        unique: true,
       },
       specialtyId: {
         type: Sequelize.INTEGER,

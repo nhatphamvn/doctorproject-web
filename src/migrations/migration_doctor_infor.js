@@ -10,6 +10,7 @@ module.exports = {
       },
       doctorId: {
         type: Sequelize.INTEGER,
+        unique: true,
       },
       priceId: {
         type: Sequelize.STRING,

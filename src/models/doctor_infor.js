@@ -8,7 +8,24 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      Doctor_Infor.belongsTo(models.User, {
+        foreignKey: "doctorId",
+      });
+      Doctor_Infor.belongsTo(models.Allcode, {
+        foreignKey: "priceId",
+        targetKey: "key",
+        as: "priceData",
+      });
+      Doctor_Infor.belongsTo(models.Allcode, {
+        foreignKey: "provinceId",
+        targetKey: "key",
+        as: "provinceData",
+      });
+      Doctor_Infor.belongsTo(models.Allcode, {
+        foreignKey: "paymentId",
+        targetKey: "key",
+        as: "paymentData",
+      });
     }
   }
   Doctor_Infor.init(
@@ -25,6 +42,8 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "Doctor_Infor",
+      tableName: "doctor_infor", // ✅ Đúng tên bảng MySQL
+      timestamps: false,
     }
   );
   return Doctor_Infor;
