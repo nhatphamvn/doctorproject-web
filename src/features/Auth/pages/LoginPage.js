@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { ApiLoginUsers } from "../services/AuthService";
 import { useNavigate } from "react-router-dom";
-import {handleLoginSuccess } from '../../../redux/features/authSlide/authSlide'
+import { handleLoginSuccess } from "../../../redux/features/authSlide/authSlide";
 import { useDispatch } from "react-redux";
 
 const LoginPage = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
@@ -25,13 +25,13 @@ const LoginPage = () => {
     return newErrors;
   };
 
-  const handleKeyDown =(e)=>{
+  const handleKeyDown = (e) => {
     if (e.key === "Enter") {
       handleLogin(e);
     }
-  }
+  };
 
-  const handleLogin =async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault(); // Ngăn trình duyệt reload trang khi nhấn nút
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
@@ -42,11 +42,18 @@ const LoginPage = () => {
       try {
         const data = await ApiLoginUsers(email, password);
 
+        const { access_token, refresh_token, roleId } = data.DT;
+
         if (data.EC === 0) {
-          localStorage.setItem('access_token',data.DT.access_token)
-          dispatch(handleLoginSuccess(data))
-          navigate("/");
-        } else if (data && data.EC !== 0) {
+          localStorage.setItem("access_token", access_token);
+          localStorage.setItem("access_token", refresh_token);
+          localStorage.setItem("user", JSON.stringify(data.DT));
+
+          dispatch(handleLoginSuccess(data));
+          if (roleId === "R1") navigate("/admin");
+          else if (roleId === "R2") navigate("/doctor/medical-appointment");
+          else navigate("/");
+        } else {
           setErrors({ server: "Đăng nhập không thành công!" });
         }
       } catch (error) {
@@ -70,11 +77,13 @@ const LoginPage = () => {
       {/* Form Login */}
       <div className="max-w-md bg-white p-5 rounded-lg shadow-md w-full">
         <form>
-            {errors.server && (
-              <div className="w-full mb-4 border-2 border-red-500 rounded-md">
-                <p className="text-red-500 text-sm mt-1 py-4 px-8 text-center font-bold">{errors.server}</p>
-              </div>
-            )}
+          {errors.server && (
+            <div className="w-full mb-4 border-2 border-red-500 rounded-md">
+              <p className="text-red-500 text-sm mt-1 py-4 px-8 text-center font-bold">
+                {errors.server}
+              </p>
+            </div>
+          )}
           {/* Email Input */}
           <div className="mb-4">
             <input
@@ -97,9 +106,9 @@ const LoginPage = () => {
               type="password"
               placeholder="Password"
               className="w-full p-3 border border-gray-500 rounded-md text-lg"
-              onKeyDown={(e)=>handleKeyDown(e)}
+              onKeyDown={(e) => handleKeyDown(e)}
             />
-          
+
             {errors.password && (
               <p className="text-red-500 text-sm mt-1">{errors.password}</p>
             )}
@@ -133,6 +142,6 @@ const LoginPage = () => {
       </div>
     </div>
   );
-}
+};
 
-export default LoginPage
+export default LoginPage;

@@ -52,10 +52,6 @@ const UserRedux = () => {
 
   console.log("base64", fileBase64);
 
-  const handleListUsers = () => {
-    navigate("/system/list-users-redux");
-  };
-
   const handleCreateUser = async (e) => {
     e.preventDefault();
     const formValues = { username, email, password, phone, address };
@@ -94,13 +90,10 @@ const UserRedux = () => {
 
   return (
     <>
-      <div>
-        <button onClick={handleListUsers}>Danh sách</button>
-      </div>
       <div className="flex items-center justify-center w-full min-h-screen bg-gray-100 py-12">
         <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-4xl">
           <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">
-            Thông Tin Người Dùng
+            Tạo Thông Tin Người Dùng
           </h2>
           <form className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="mb-4 md:col-span-2">

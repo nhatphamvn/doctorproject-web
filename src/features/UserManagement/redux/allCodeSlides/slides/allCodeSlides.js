@@ -3,6 +3,10 @@ import {
   fetchGenders,
   fetchPositions,
   fetchRoles,
+  fetchTimes,
+  fetchPrice,
+  fetchPayment,
+  fetchProvince,
 } from "../actions/allcodeActions";
 
 const allCodeSlice = createSlice({
@@ -11,9 +15,17 @@ const allCodeSlice = createSlice({
     genders: [],
     roles: [],
     positions: [],
+    times: [],
+    price: [],
+    payment: [],
+    province: [],
     isLoadingGenders: false, // Tách riêng cho từng action
     isLoadingPositions: false,
     isLoadingRoles: false,
+    isLoadingTimes: false,
+    isLoadingPrice: false,
+    isLoadingPayment: false,
+    isLoadingProvince: false,
     error: null,
   },
   reducers: {
@@ -60,6 +72,54 @@ const allCodeSlice = createSlice({
       })
       .addCase(fetchRoles.rejected, (state, action) => {
         state.isLoadingRoles = false;
+        state.error = action.payload;
+      })
+      //TIME
+      .addCase(fetchTimes.pending, (state) => {
+        state.isLoadingTimes = true;
+      })
+      .addCase(fetchTimes.fulfilled, (state, action) => {
+        state.isLoadingTimes = false;
+        state.times = action.payload;
+      })
+      .addCase(fetchTimes.rejected, (state, action) => {
+        state.isLoadingTimes = false;
+        state.error = action.payload;
+      })
+      //PRICE
+      .addCase(fetchPrice.pending, (state) => {
+        state.isLoadingPrice = true;
+      })
+      .addCase(fetchPrice.fulfilled, (state, action) => {
+        state.isLoadingPrice = false;
+        state.price = action.payload;
+      })
+      .addCase(fetchPrice.rejected, (state, action) => {
+        state.isLoadingPrice = false;
+        state.error = action.payload;
+      })
+      //PAYMENT
+      .addCase(fetchPayment.pending, (state) => {
+        state.isLoadingPayment = true;
+      })
+      .addCase(fetchPayment.fulfilled, (state, action) => {
+        state.isLoadingPayment = false;
+        state.payment = action.payload;
+      })
+      .addCase(fetchPayment.rejected, (state, action) => {
+        state.isLoadingPayment = false;
+        state.error = action.payload;
+      })
+      //PROVINCE
+      .addCase(fetchProvince.pending, (state) => {
+        state.isLoadingProvince = true;
+      })
+      .addCase(fetchProvince.fulfilled, (state, action) => {
+        state.isLoadingProvince = false;
+        state.province = action.payload;
+      })
+      .addCase(fetchProvince.rejected, (state, action) => {
+        state.isLoadingProvince = false;
         state.error = action.payload;
       });
   },

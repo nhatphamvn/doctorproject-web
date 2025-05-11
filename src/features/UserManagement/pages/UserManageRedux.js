@@ -4,7 +4,7 @@ import { fetchUsers } from "../redux/userSlides/actions/userActions";
 import ReduxUpdateUsers from "../modals/ReduxUpdateUsers";
 import ReduxDeleteUsers from "../modals/ReduxDeleteUsers";
 import { useDispatch, useSelector } from "react-redux";
-
+import { useNavigate } from "react-router-dom";
 const UserManageRedux = () => {
   const dispatch = useDispatch();
   const users = useSelector((state) => state.users.users);
@@ -13,9 +13,14 @@ const UserManageRedux = () => {
   const [dataUpdate, setDataUpdate] = useState({});
   const [dataDelete, setDataDelete] = useState({});
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     dispatch(fetchUsers());
   }, [dispatch]);
+  const handleCreateUsers = () => {
+    navigate("/system/user-redux");
+  };
 
   const handleUpdateUser = (user) => {
     setShowUpdateUser(true);
@@ -35,6 +40,7 @@ const UserManageRedux = () => {
             handleUpdateUser={handleUpdateUser}
             handleDeleteUser={handleDeleteUser}
             listUser={users}
+            handleCreateUsers={handleCreateUsers}
           />
 
           <ReduxUpdateUsers

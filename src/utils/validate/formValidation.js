@@ -1,6 +1,12 @@
-import { USERNAME_REGEX, EMAIL_REGEX, PASSWORD_REGEX, PHONE_REGEX,ADDRESS_REGEX } from "./regexPatterns";
+import {
+  USERNAME_REGEX,
+  EMAIL_REGEX,
+  PASSWORD_REGEX,
+  PHONE_REGEX,
+  ADDRESS_REGEX,
+  DATEOFBIRTH_REGEX,
+} from "./regexPatterns";
 import { ERROR_MESSAGES } from "./messages";
-
 
 export const validateForm = (values) => {
   let errors = {};
@@ -32,6 +38,11 @@ export const validateForm = (values) => {
     errors.address = "Địa chỉ không được để trống!";
   } else if (!ADDRESS_REGEX.test(values.address)) {
     errors.address = ERROR_MESSAGES.address;
+  }
+  if (!values.dateOfBirth) {
+    errors.address = "Ngày Sinh không được để trống!";
+  } else if (!DATEOFBIRTH_REGEX.test(values.dateOfBirth)) {
+    errors.address = ERROR_MESSAGES.dateOfBirth;
   }
 
   return errors;

@@ -1,9 +1,22 @@
 import React from "react";
 
-const ListUserRedux = ({ handleUpdateUser, handleDeleteUser, listUser }) => {
+const ListUserRedux = ({
+  handleUpdateUser,
+  handleDeleteUser,
+  listUser,
+  handleCreateUsers,
+}) => {
   console.log("users data", listUser);
   return (
     <>
+      <div className="mb-4">
+        <button
+          className="p-2 rounded-md bg-green-500 text-white"
+          onClick={handleCreateUsers}
+        >
+          Tạo Người Dùng
+        </button>
+      </div>
       <div>
         <h1 className="text-2xl font-bold mb-4 text-center text-red-600 border">
           Manager List Users

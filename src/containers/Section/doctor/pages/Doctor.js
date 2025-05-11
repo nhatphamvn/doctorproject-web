@@ -2,16 +2,15 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
-import imageConfiguration from "../untils/imageConfiguration";
 import bgImage from "../../../../assets/image/facility/140311-background5.png";
 import { fetchDoctors } from "../../../../redux/features/doctorSlide/actions/doctorActions";
 import { FormattedMessage } from "react-intl";
+import { useNavigate } from "react-router-dom";
 
 const Doctor = () => {
   const dispatch = useDispatch();
   const locale = useSelector((state) => state.language.locale);
-  const state = useSelector((state) => state);
-  console.log(state); // In ra toàn bộ state để kiểm tra cấu trúc
+  const navigate = useNavigate();
 
   const doctors = useSelector((state) => state.doctors?.doctors);
 
@@ -57,6 +56,7 @@ const Doctor = () => {
               <SwiperSlide
                 key={item.id}
                 className="flex flex-col items-center justify-center"
+                onClick={() => navigate(`/system/doctor-detail/${item.id}`)}
               >
                 <div className="w-48 h-48 rounded-full border-gray-400 overflow-hidden">
                   <img

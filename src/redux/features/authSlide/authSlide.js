@@ -6,6 +6,7 @@ const initialState = {
     email: "",
     refresh_token: "",
     username: "",
+    roleId: "",
   },
   isAuthenticated: false,
 };
@@ -21,25 +22,28 @@ const authSlice = createSlice({
         email: action.payload?.DT?.email,
         refresh_token: action.payload?.DT?.refresh_token,
         username: action.payload?.DT?.username,
-        
+        roleId: action.payload?.DT?.roleId,
       };
       state.isAuthenticated = true;
     },
-     handleLogout: (state) => {
-      localStorage.removeItem('access_token');
+    handleLogout: (state) => {
+      localStorage.removeItem("access_token");
       state.account = {
         access_token: "",
         email: "",
         refresh_token: "",
         username: "",
+        roleId: "",
       };
       state.isAuthenticated = false;
     },
 
     initializeAuth: (state) => {
-      const token = localStorage.getItem('access_token');
+      const token = localStorage.getItem("access_token");
+      const token_res = localStorage.getItem("refresh_token");
       if (token) {
         state.account.access_token = token;
+        state.account.refresh_token = token_res;
         state.isAuthenticated = true;
       }
     },
@@ -47,7 +51,8 @@ const authSlice = createSlice({
 });
 
 // Export actions
-export const { handleLoginSuccess,handleLogout, initializeAuth } = authSlice.actions;
+export const { handleLoginSuccess, handleLogout, initializeAuth } =
+  authSlice.actions;
 
 // Export reducer
 export default authSlice.reducer;

@@ -1,10 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchDoctors } from "../actions/doctorActions";
+import {
+  fetchDoctors,
+  fetchAllDoctors,
+  saveDoctors,
+  fetchDoctorById,
+  createSchedules,
+  fetchPricesDoctors,
+  fetchSchedules,
+} from "../actions/doctorActions";
 
 const doctorSlice = createSlice({
   name: "doctors",
   initialState: {
-    doctors: [], // Đảm bảo doctors được khởi tạo là mảng rỗng
+    doctors: [],
+    doctor: null,
+    schedules: [],
+    prices: [],
     isLoading: false,
     error: null,
     successMessage: null,
@@ -12,6 +23,22 @@ const doctorSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+      //Create markdown
+      .addCase(saveDoctors.pending, (state) => {
+        state.isLoading = true;
+        state.successMessage = null;
+        state.error = null;
+      })
+      .addCase(saveDoctors.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.doctors.push(action.payload); // Thêm user mới vào danh sách
+        state.successMessage = "User created successfully!";
+      })
+      .addCase(saveDoctors.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      //fetchDoctor R2
       .addCase(fetchDoctors.pending, (state) => {
         state.isLoading = true;
         state.error = null;
@@ -21,6 +48,73 @@ const doctorSlice = createSlice({
         state.doctors = action.payload; // Cập nhật doctors với dữ liệu từ API
       })
       .addCase(fetchDoctors.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      //fetchDoctor byId
+      .addCase(fetchDoctorById.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+        state.doctor = null;
+      })
+      .addCase(fetchDoctorById.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.doctor = action.payload; // Cập nhật doctors với dữ liệu từ API
+      })
+      .addCase(fetchDoctorById.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+
+      //GET ALL DOCTORS SECOND
+      .addCase(fetchAllDoctors.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(fetchAllDoctors.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.doctors = action.payload;
+      })
+      .addCase(fetchAllDoctors.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      //SCHEDULE
+      .addCase(fetchSchedules.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(fetchSchedules.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.schedules = action.payload;
+      })
+      .addCase(fetchSchedules.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+
+      .addCase(createSchedules.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(createSchedules.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.schedules.push(action.payload);
+      })
+      .addCase(createSchedules.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      //Price
+      .addCase(fetchPricesDoctors.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+        state.prices = null;
+      })
+      .addCase(fetchPricesDoctors.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.prices = action.payload; // Cập nhật doctors với dữ liệu từ API
+      })
+      .addCase(fetchPricesDoctors.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
       });

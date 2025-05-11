@@ -13,9 +13,6 @@ const Header = () => {
   const account = useSelector((state) => state.auth.account);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
-  console.log("account login", account);
-  console.log("check account", isAuthenticated);
-
   return (
     <>
       <div className="flex items-center justify-between bg-gray-300 p-4 shadow-lg">

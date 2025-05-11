@@ -20,7 +20,7 @@ const UserNavbar = () => {
             </MenuItem>
             <MenuItem>
               <NavLink
-                to="/system/user-redux"
+                to="system/list-users-redux"
                 className="block px-4 py-2 data-[focus]:bg-gray-200"
               >
                 Quản Lí Người Redux
@@ -32,6 +32,14 @@ const UserNavbar = () => {
                 className="block px-4 py-2 data-[focus]:bg-gray-200"
               >
                 Manage Doctor
+              </NavLink>
+            </MenuItem>
+            <MenuItem>
+              <NavLink
+                to="/doctor/medical-appointment"
+                className="block px-4 py-2 data-[focus]:bg-gray-200"
+              >
+                Quản lí lịch khám bệnh
               </NavLink>
             </MenuItem>
           </MenuItems>

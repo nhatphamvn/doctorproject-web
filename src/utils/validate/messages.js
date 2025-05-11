@@ -4,5 +4,6 @@ export const ERROR_MESSAGES = {
   email: "Email không hợp lệ!",
   password: "Mật khẩu phải có ít nhất 6 ký tự, chữ thường và số!",
   phone: "Số điện thoại không hợp lệ!",
-  address:"Address phải bao gồm chữ và số!"
+  address: "Address phải bao gồm chữ và số!",
+  dateOfBirth: "...",
 };
