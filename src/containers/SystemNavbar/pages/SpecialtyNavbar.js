@@ -21,10 +21,10 @@ const SpecialtyNavbar = () => {
               <MenuItems className="absolute left-full top-0 mt-0 w-64 bg-white shadow-lg rounded-md z-10">
                 <MenuItem>
                   <NavLink
-                    to="/system/user-all"
+                    to="/system/specialties"
                     className="block px-4 py-2 bg-gray-300 font-lato"
                   >
-                    Quản Lí Người Dùng
+                    Tạo Chuyên Khoa
                   </NavLink>
                 </MenuItem>
                 <MenuItem>

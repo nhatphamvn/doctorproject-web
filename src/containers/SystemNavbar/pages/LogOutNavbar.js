@@ -7,8 +7,6 @@ import { useSelector } from "react-redux";
 const LogOutNavbar = () => {
   const { account } = useSelector((state) => state.auth);
 
-  console.log("account login", account);
-
   const dispatch = useDispatch();
   const handleLogOut = () => {
     dispatch(handleLogout());

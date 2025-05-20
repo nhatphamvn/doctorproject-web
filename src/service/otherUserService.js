@@ -7,7 +7,6 @@ const ApiGetAllDoctors = () => {
   return axios.get("api/v1/doctor/get-all-doctors");
 };
 const ApiGetDoctorById = (id) => {
-  console.log("🔁 Gửi request lấy doctor với id:", id);
   return axios.get(`api/v1/doctor/get-doctor/${id}`);
 };
 const ApiSaveDoctors = (
@@ -21,7 +20,9 @@ const ApiSaveDoctors = (
   addressClinic,
   nameClinic,
   note,
-  count
+  count,
+  specialtyId,
+  clinicId
 ) => {
   const data = {
     contentHTML: contentHTML,
@@ -35,6 +36,8 @@ const ApiSaveDoctors = (
     nameClinic,
     note,
     count,
+    specialtyId,
+    clinicId,
   };
   console.log("🚀 Data gửi đi:", JSON.stringify(data));
   return axios.post("api/v1/doctor/save-data-doctors", data, {
@@ -62,10 +65,43 @@ const getAllScheduleDoctors = (doctorId, date) => {
     `api/v1/doctor/get-all-schedule?doctorId=${doctorId}&date=${date}`
   );
 };
+
 const ApiGetPriceDoctors = (doctorId) => {
   return axios.get(`api/v1/doctor/get-price-doctors?doctorId=${doctorId}`);
 };
+const ApiGetDoctorSchedule = (inputId) => {
+  return axios.get(`api/v1/doctor/get-doctor-schedule?id=${inputId}`);
+};
+
+const ApiCreateBooking = (data) => {
+  console.log("🚀 Data gửi đi:", JSON.stringify(data));
+  return axios.post("api/v1/patient/create-bookingPatient", data, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+};
+const ConfirmVerifyBooking = async (data) => {
+  return axios.post("api/v1/patient/verify-book-appointment", data);
+};
+
+const ApiCreateSpecialties = async (data) => {
+  return axios.post("api/v1/specialties/create-specialties", data);
+};
+const ApiGetAllLimitSpecialties = async () => {
+  return axios.get(`api/v1/specialties/get-all-specialties`);
+};
+
+const ApiGetSpecialtyById = (inputId, location) => {
+  return axios.get(
+    `api/v1/specialties/get-specialty-id?id=${inputId}&location=${location}`
+  );
+};
+const ApiCreateClinics = async (data) => {
+  return axios.post("api/v1/clinics/create-clinics", data);
+};
 export {
+  ApiCreateBooking,
   GetAllDoctors,
   ApiGetAllDoctors,
   ApiSaveDoctors,
@@ -73,4 +109,10 @@ export {
   createScheduleDoctors,
   getAllScheduleDoctors,
   ApiGetPriceDoctors,
+  ApiGetDoctorSchedule,
+  ConfirmVerifyBooking,
+  ApiCreateSpecialties,
+  ApiGetAllLimitSpecialties,
+  ApiGetSpecialtyById,
+  ApiCreateClinics,
 };

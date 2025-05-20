@@ -20,8 +20,6 @@ const Appointment = () => {
   const { times } = useSelector((state) => state.allcode);
   const locale = useSelector((state) => state.language.locale);
 
-  console.log("TIMES", times);
-
   const handleToggleTime = (key) => {
     setSelectedTimes((prevSelected) =>
       prevSelected.includes(key)
@@ -49,8 +47,6 @@ const Appointment = () => {
       };
     });
 
-    console.log("Lịch khám chuẩn bị gửi:", scheduleData);
-
     // Dispatch Redux action để tạo lịch
     try {
       const response = await dispatch(
@@ -76,7 +72,6 @@ const Appointment = () => {
   const handleChageSelected = (options) => {
     setSelectedOption(options);
     dispatch(fetchDoctorById(options.value));
-    console.log("handle select doctor", doctor);
   };
 
   const doctorOptions = doctors?.map((doctor) => ({

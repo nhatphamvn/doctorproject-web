@@ -14,8 +14,6 @@ const Doctor = () => {
 
   const doctors = useSelector((state) => state.doctors?.doctors);
 
-  console.log("check doctors", doctors);
-
   useEffect(() => {
     dispatch(fetchDoctors());
   }, [dispatch]);

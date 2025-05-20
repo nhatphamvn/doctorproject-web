@@ -7,6 +7,10 @@ import {
   createScheduleDoctors,
   ApiGetPriceDoctors,
   getAllScheduleDoctors,
+  ApiGetDoctorSchedule,
+  ApiCreateSpecialties,
+  ApiGetAllLimitSpecialties,
+  ApiCreateClinics,
 } from "../../../../service/otherUserService";
 
 export const fetchDoctors = createAsyncThunk(
@@ -75,7 +79,9 @@ export const saveDoctors = createAsyncThunk(
         data.addressClinic,
         data.nameClinic,
         data.note,
-        data.count
+        data.count,
+        data.specialtyId,
+        data.clinicId
       );
       console.log("check new data doctor infor", response);
 
@@ -136,6 +142,69 @@ export const fetchSchedules = createAsyncThunk(
       return rejectWithValue(response.EM);
     } catch (error) {
       return rejectWithValue(error?.message || "Something went wrong");
+    }
+  }
+);
+export const fetchDoctorSchedule = createAsyncThunk(
+  "doctor/fetchDoctorSchedule",
+  async (doctorId, { rejectWithValue }) => {
+    try {
+      const response = await ApiGetDoctorSchedule(doctorId);
+      console.log("📥 Kết quả fetchDoctorById:", response);
+
+      if (response?.EC === 0) {
+        console.log("✅ Dữ liệu hợp lệ:", response.DT);
+        return response.DT;
+      }
+      return rejectWithValue(response.EM);
+    } catch (error) {
+      return rejectWithValue(error?.message || "Something went wrong");
+    }
+  }
+);
+
+export const createSpecialties = createAsyncThunk(
+  "specialties/createSpecialties",
+  async (data, { rejectWithValue }) => {
+    console.log("🔥 Dữ liệu data trước khi gửi:", data);
+    try {
+      const response = await ApiCreateSpecialties(data);
+      if (response?.EC === 0) {
+        return response.DT;
+      }
+      return rejectWithValue(response.EM);
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+export const fetchSpecialties = createAsyncThunk(
+  "specialties/fetchSpecialties",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await ApiGetAllLimitSpecialties();
+
+      if (response.EC === 0) {
+        return response.DT;
+      }
+      return rejectWithValue(response.EM);
+    } catch (error) {
+      return rejectWithValue(error?.message || "Something went wrong");
+    }
+  }
+);
+export const createClinics = createAsyncThunk(
+  "clinics/createClinics",
+  async (data, { rejectWithValue }) => {
+    console.log("🔥 Dữ liệu data trước khi gửi:", data);
+    try {
+      const response = await ApiCreateClinics(data);
+      if (response?.EC === 0) {
+        return response.DT;
+      }
+      return rejectWithValue(response.EM);
+    } catch (error) {
+      return rejectWithValue(error);
     }
   }
 );

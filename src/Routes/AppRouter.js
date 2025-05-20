@@ -14,6 +14,10 @@ import MarkDown from "../features/MarkDown/MarkDown.js";
 import DoctorDetail from "../containers/Section/doctor/pages/DoctorDetail.js";
 import Appointment from "../features/DoctorManagement/pages/Appointment.js";
 import Unauthorized from "../containers/Homepage/Unauthorized.js";
+import ConfirmVerify from "../containers/Homepage/ConfirmVerify.js";
+import Specialties from "../features/Specialties/Specialties.js";
+import DetailSpecialty from "../containers/Section/Specialty/pages/DetailSpecialty.js";
+import Clinics from "../features/Clinics/Clinics.js";
 
 const AppRouter = () => {
   return (
@@ -21,7 +25,12 @@ const AppRouter = () => {
       <Route path="/" element={<App />}>
         <Route index element={<Home />} />
         <Route path="/system/doctor-detail/:id" element={<DoctorDetail />} />
+        <Route
+          path="/system/specialty-detail/:id"
+          element={<DetailSpecialty />}
+        />
         <Route path="/unauthorized" element={<Unauthorized />} />
+        <Route path="/verify-booking" element={<ConfirmVerify />} />
       </Route>
 
       <Route element={<PrivateRoutes allowedRoles={["R1"]} />}>
@@ -32,6 +41,9 @@ const AppRouter = () => {
             element={<UserManageRedux />}
           />
           <Route path="/system/markdown" element={<MarkDown />} />
+          <Route path="/system/specialties" element={<Specialties />} />
+          <Route path="/system/clinics" element={<Clinics />} />
+
           <Route path="/admin" element={<Admin />} />
           <Route path="/system/user-all" element={<User />} />
         </Route>

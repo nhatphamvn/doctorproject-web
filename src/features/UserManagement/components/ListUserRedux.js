@@ -6,7 +6,6 @@ const ListUserRedux = ({
   listUser,
   handleCreateUsers,
 }) => {
-  console.log("users data", listUser);
   return (
     <>
       <div className="mb-4">

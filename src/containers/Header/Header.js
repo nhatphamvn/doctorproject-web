@@ -15,7 +15,7 @@ const Header = () => {
 
   return (
     <>
-      <div className="flex items-center justify-between bg-gray-300 p-4 shadow-lg">
+      <div className="flex items-center justify-between bg-gray-100 p-4 shadow-lg">
         <div className="flex items-center justify-between space-x-6">
           <div className="flex items-center cursor-pointer">
             <FaBars size={25} />

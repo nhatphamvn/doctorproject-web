@@ -16,7 +16,6 @@ const DoctorDetail = () => {
   const locale = useSelector((state) => state.language.locale);
 
   const dispatch = useDispatch();
-  console.log("doctors prices", prices);
 
   useEffect(() => {
     dispatch(fetchDoctorById(id));
@@ -39,7 +38,7 @@ const DoctorDetail = () => {
 
   return (
     <>
-      <div className="">
+      <div className="bg-gray-100">
         <div
           className="w-full h-96 bg-cover bg-center relative"
           style={{ backgroundImage: `url(${bgImage})` }}
@@ -55,25 +54,30 @@ const DoctorDetail = () => {
         <div className="mt-12 w-full h-full flex justify-center gap-10 mb-24">
           <div className="flex flex-col items-center gap-4">
             <div className="w-72 h-72 border-gray-400 overflow-hidden">
-              <img src={imagebase64} className="w-full h-full object-cover" />
+              <img
+                src={imagebase64}
+                className="w-full h-full object-cover rounded-md"
+              />
             </div>
             <div>
               <Schedules doctorId={id} />
             </div>
           </div>
-          <div className="h-full w-[50%]">
-            <div className="text-2xl text-blue-400 font-sans">
+          <div className="h-full w-[50%] bg-gray-50 rounded-lg">
+            <div className="text-2xl text-blue-400 font-sans py-2 px-2">
               {locale === "vi" ? nameVi : nameEn}
             </div>
-            <div className="flex items-center">
+            <div className="flex items-center ml-4">
               <div className="text-base p-4 font-normal w-[60%]">
                 {doctor.MarkDown?.description && (
                   <span>{doctor.MarkDown.description}</span>
                 )}
               </div>
-              {doctor && <AddressAndPrice prices={prices} locale={locale} />}
+              <div>
+                {doctor && <AddressAndPrice prices={prices} locale={locale} />}
+              </div>
             </div>
-            <div className="text-lg p-2 font-sans">
+            <div className="text-lg p-2 font-sans ml-4">
               {doctor.MarkDown?.contentHTML && (
                 <div
                   dangerouslySetInnerHTML={{

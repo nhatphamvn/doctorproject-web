@@ -2,15 +2,18 @@ import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import { getAllScheduleDoctors } from "../../../../service/otherUserService";
 import ModalCreateSchedule from "../modal/ModalCreateSchedule";
+import { FaCalendarPlus } from "react-icons/fa";
 
 const Schedules = ({ doctorId }) => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [scheduleData, setScheduleData] = useState([]);
   const [dateOptions, setDateOptions] = useState([]);
   const [show, setShowSchedule] = useState(false);
+  const [dataSchedule, setDataSchedule] = useState({});
 
-  const handleSChedule = () => {
+  const handleSChedule = (item) => {
     setShowSchedule(true);
+    setDataSchedule(item);
   };
 
   // Tạo danh sách 7 ngày tới và chọn mặc định là hôm nay
@@ -86,14 +89,17 @@ const Schedules = ({ doctorId }) => {
         />
       </div>
       <div className="p-2 mt-1 ">
-        <h3>Lịch Khám</h3>
+        <div className="flex items-center space-x-2">
+          <FaCalendarPlus className="text-gray-700" />
+          <h3>Lịch Khám</h3>
+        </div>
         {scheduleData.length > 0 ? (
           <ul className="grid grid-cols-2 gap-2 mt-2">
             {scheduleData.map((item) => (
               <li
                 key={item.id}
-                className="mb-2 text-center text-xs p-2 bg-yellow-300 text-black cursor-pointer font-bold"
-                onClick={handleSChedule}
+                className="mb-2 text-center text-xs w-36 p-1 bg-yellow-300 text-black cursor-pointer font-bold"
+                onClick={() => handleSChedule(item)}
               >
                 {item.timeTypeData?.valueEn}
               </li>
@@ -103,7 +109,11 @@ const Schedules = ({ doctorId }) => {
           <p>Không có lịch hoặc chưa chọn ngày.</p>
         )}
       </div>
-      <ModalCreateSchedule show={show} setShow={setShowSchedule} />
+      <ModalCreateSchedule
+        show={show}
+        data={dataSchedule}
+        setShow={setShowSchedule}
+      />
     </div>
   );
 };

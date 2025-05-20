@@ -8,6 +8,7 @@ import {
   fetchAllDoctors,
   saveDoctors,
   fetchDoctorById,
+  fetchSpecialties,
 } from "../../redux/features/doctorSlide/actions/doctorActions";
 import {
   fetchPayment,
@@ -26,22 +27,26 @@ function MarkDown() {
   const [prices, setPrices] = useState("");
   const [payments, setPayment] = useState("");
   const [provinces, setProvince] = useState("");
+  const [specialtyId, setSpecialtyId] = useState(null);
   const [nameClinic, setNameClinic] = useState("");
   const [addressClinic, setAddressClinic] = useState("");
   const [note, setNote] = useState("");
   const [count, setCount] = useState(0);
+  const [clinicId, setClinicId] = useState(null);
 
   const dispatch = useDispatch();
-  const { doctors, doctor } = useSelector((state) => state.doctors);
-  const { price, payment, province } = useSelector((state) => state.allcode);
+  const { doctors, doctor, specialties } = useSelector(
+    (state) => state.doctors
+  );
 
-  console.log("check doctor markdown", doctor);
+  const { price, payment, province } = useSelector((state) => state.allcode);
 
   useEffect(() => {
     dispatch(fetchAllDoctors());
     dispatch(fetchPayment());
     dispatch(fetchPrice());
     dispatch(fetchProvince());
+    dispatch(fetchSpecialties());
   }, [dispatch]);
 
   useEffect(() => {
@@ -58,8 +63,11 @@ function MarkDown() {
       setAddressClinic(doctor?.Doctor_Infor?.addressClinic || "");
       setNote(doctor?.Doctor_Infor?.note || "");
       setCount(doctor?.Doctor_Infor?.count || "");
+      setSpecialtyId(doctor?.Doctor_Infor?.specialtyId || "");
     }
   }, [doctor]);
+
+  console.log("check data", doctor);
 
   const doctorOptions = doctors?.map((doctor) => ({
     value: doctor.id,
@@ -80,6 +88,8 @@ function MarkDown() {
         nameClinic: nameClinic,
         note: note,
         count: count,
+        specialtyId: specialtyId,
+        clinicId: clinicId,
       })
     );
     alert("Đã lưu thành công!");
@@ -92,7 +102,6 @@ function MarkDown() {
   const handleChageSelected = (options) => {
     setSelectedOption(options);
     dispatch(fetchDoctorById(options.value));
-    console.log("handle select doctor", doctor);
   };
 
   return (
@@ -204,6 +213,24 @@ function MarkDown() {
             onChange={(e) => setNote(e.target.value)}
           />
         </div>
+      </div>
+      <div className="flex gap-12">
+        <div className="w-full sm:w-1/3">
+          <select
+            value={specialtyId}
+            onChange={(e) => setSpecialtyId(e.target.value)}
+            className="w-full p-2 border rounded-md"
+          >
+            <option value="">Chọn Chuyên Khoa</option>
+            {specialties &&
+              specialties.map((item) => (
+                <option key={item.id} value={item.id}>
+                  {item.name}
+                </option>
+              ))}
+          </select>
+        </div>
+        <div className="w-full sm:w-1/3"></div>
       </div>
 
       {/* Markdown Editor */}

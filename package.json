@@ -13,6 +13,7 @@
     "lodash": "^4.17.21",
     "markdown-it": "^14.1.0",
     "mqtt": "^5.5.5",
+    "nodemailer": "^6.10.1",
     "react": "^18.2.0",
     "react-datepicker": "^4.25.0",
     "react-dom": "^18.2.0",

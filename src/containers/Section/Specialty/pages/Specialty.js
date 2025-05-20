@@ -1,10 +1,24 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
-import imageConfiguration from "../untils/imageConfiguration";
 import { FormattedMessage } from "react-intl";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchSpecialties } from "../../../../redux/features/doctorSlide/actions/doctorActions";
+import { useNavigate } from "react-router-dom";
 
 const Specialty = () => {
+  const { specialties } = useSelector((state) => state.doctors);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  useEffect(() => {
+    dispatch(fetchSpecialties());
+  }, [dispatch]);
+
+  const handleDetailSpecialty = (item) => {
+    navigate(`/system/specialty-detail/${item.id}`);
+  };
+
+  console.log("check special", specialties);
   return (
     <div className="w-full flex flex-col items-center mt-8">
       {/* Thanh tiêu đề và nút xem thêm */}
@@ -17,7 +31,6 @@ const Specialty = () => {
         </button>
       </div>
 
-      {/* Swiper */}
       <Swiper
         navigation={true}
         modules={[Navigation]}
@@ -26,19 +39,38 @@ const Specialty = () => {
         slidesPerGroup={1}
         className="w-full max-w-6xl"
       >
-        {imageConfiguration.map((item) => (
-          <SwiperSlide
-            key={item.id}
-            className="bg-white p-6 shadow-lg rounded-lg border-2 border-gray-200"
-          >
-            <img
-              src={item.img}
-              alt={item.title}
-              className="w-full h-40 object-cover rounded-md"
-            />
-            <h3 className="text-center mt-2 font-lato">{item.title}</h3>
-          </SwiperSlide>
-        ))}
+        {specialties && specialties.length > 0 ? (
+          specialties.map((item) => {
+            // Khai báo biến ngoài JSX
+            let imagebase64 = "";
+            if (item.image) {
+              imagebase64 = atob(item.image);
+            }
+
+            return (
+              <SwiperSlide
+                key={item.id}
+                className="flex flex-col items-center justify-center"
+              >
+                <div
+                  className="w-auto h-48 border-gray-100 rounded-md border-2 overflow-hidden"
+                  onClick={() => handleDetailSpecialty(item)}
+                >
+                  <img
+                    src={imagebase64}
+                    // alt={item.username}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <h3 className="text-center text-black mt-2 font-lato">
+                  {item.name}
+                </h3>
+              </SwiperSlide>
+            );
+          })
+        ) : (
+          <div className="text-center text-gray-600">Không có bác sĩ nào</div>
+        )}
       </Swiper>
     </div>
   );

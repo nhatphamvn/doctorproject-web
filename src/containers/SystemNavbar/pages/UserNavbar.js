@@ -42,6 +42,14 @@ const UserNavbar = () => {
                 Quản lí lịch khám bệnh
               </NavLink>
             </MenuItem>
+            {/* <MenuItem>
+              <NavLink
+                to="/system/specialties"
+                className="block px-4 py-2 data-[focus]:bg-gray-200"
+              >
+                Tạo Chuyên Ngành
+              </NavLink>
+            </MenuItem> */}
           </MenuItems>
         </Menu>
       </div>
