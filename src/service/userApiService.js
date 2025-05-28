@@ -49,7 +49,7 @@ const ApiGetAllUsers = async () => {
     const updatedUsers = users.map((user) => {
       if (user.image && Buffer.isBuffer(user.image)) {
         // Chuyển đổi Buffer thành base64
-        user.image = user.image.toString("base64");
+        user.image = user.image.toString();
       }
       return user;
     });

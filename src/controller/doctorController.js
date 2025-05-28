@@ -76,6 +76,8 @@ const saveNewDoctors = async (req, res) => {
       nameClinic,
       note,
       count,
+      specialtyId,
+      clinicId,
     } = req.body;
 
     const newUser = await doctorService.saveDoctorsService(
@@ -89,7 +91,9 @@ const saveNewDoctors = async (req, res) => {
       addressClinic,
       nameClinic,
       note,
-      count
+      count,
+      specialtyId,
+      clinicId
     );
 
     if (!newUser.DT) {
@@ -174,7 +178,84 @@ const getPriceDoctors = async (req, res) => {
     });
   }
 };
+const getDoctorSchedule = async (req, res) => {
+  try {
+    let data = await doctorService.getDoctorScheduleService(req.query.id);
 
+    if (data.EC !== 0) {
+      return res.status(201).json({
+        EM: "Không có doctor!",
+        EC: 201,
+        DT: null,
+      });
+    }
+    return res.status(200).json(data);
+  } catch (error) {
+    return res.status(500).json({
+      EC: -1,
+      EM: "Lỗi từ server",
+      DT: null,
+    });
+  }
+};
+const CreateBlogController = async (req, res) => {
+  try {
+    const data = await doctorService.CreateBlogService(req.body);
+
+    if (data && data.EC !== 0) {
+      return res.status(201).json({ EM: data.EM, EC: data.EC, DT: null });
+    }
+
+    return res.status(201).json({ EM: data.EM, EC: data.EC, DT: data.DT });
+  } catch (error) {
+    return res.status(500).json({
+      EM: "Internal server error",
+      EC: 500,
+      DT: null,
+    });
+  }
+};
+const GetAllBlogController = async (req, res) => {
+  try {
+    const limit = req.query.limit ? parseInt(req.query.limit) : 10;
+    let data = await doctorService.getAllBlogService(limit);
+
+    if (data.EC !== 0) {
+      return res.status(201).json({
+        EM: "Không có blog!",
+        EC: 201,
+        DT: null,
+      });
+    }
+    return res.status(200).json(data);
+  } catch (error) {
+    return res.status(500).json({
+      EC: -1,
+      EM: "Lỗi từ server",
+      DT: null,
+    });
+  }
+};
+const getBlogControllerById = async (req, res) => {
+  try {
+    let data = await doctorService.getBlogServiceById(req.query);
+
+    if (data.EC !== 0) {
+      return res.status(201).json({
+        EM: "Không có blog!",
+        EC: 201,
+        DT: null,
+      });
+    }
+    return res.status(200).json(data);
+  } catch (error) {
+    return res.status(500).json({
+      EC: -1,
+      EM: "Lỗi từ server",
+      DT: null,
+    });
+  }
+};
 module.exports = {
   getAllDoctor,
   getDoctorsController,
@@ -184,4 +265,8 @@ module.exports = {
   getAllSchedules,
   bulkCreateDoctors,
   getPriceDoctors,
+  getDoctorSchedule,
+  CreateBlogController,
+  GetAllBlogController,
+  getBlogControllerById,
 };

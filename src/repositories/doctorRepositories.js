@@ -61,13 +61,13 @@ const getDoctorRepositoriesById = async (inputId) => {
         {
           model: db.MarkDown,
           attributes: {
-            exclude: ["specialtyId", "clinicId", "doctorId"],
+            exclude: ["doctorId"],
           },
         },
         {
           model: db.Doctor_Infor,
           attributes: {
-            exclude: ["doctorId"],
+            exclude: ["id", "createdAt"],
           },
           include: [
             {
@@ -137,7 +137,7 @@ const upsertDoctorInfor = async (doctorId, data) => {
     const dataToUpsert = {
       doctorId,
       ...data,
-      ...existingDoctorInfor, // Nếu tồn tại, sẽ thay thế các giá trị cũ
+      ...existingDoctorInfor,
     };
 
     // Thực hiện upsert dữ liệu
@@ -184,6 +184,11 @@ const getAllSchedules = async (doctorId, date) => {
           as: "timeTypeData",
           attributes: ["valueEn", "valueVi"],
         },
+        {
+          model: db.User,
+          as: "nameData",
+          attributes: ["username"],
+        },
       ],
       raw: true,
       nest: true,
@@ -229,6 +234,97 @@ const getPriceRepositories = async (doctorId) => {
     return null;
   }
 };
+const getDoctorScheduleRep = async (inputId) => {
+  try {
+    const data = await db.User.findOne({
+      where: { id: inputId },
+      attributes: {
+        exclude: ["password", "roleId", "positionId", "groupId", "GroupId"],
+      },
+
+      include: [
+        {
+          model: db.MarkDown,
+          attributes: {
+            exclude: ["contentHTML", "contentMarkDown"],
+          },
+        },
+        {
+          model: db.Doctor_Infor,
+          attributes: {
+            exclude: ["id"],
+          },
+          include: [
+            {
+              model: db.Allcode,
+              as: "priceData",
+              attributes: ["valueEn", "valueVi"],
+            },
+            {
+              model: db.Allcode,
+              as: "paymentData",
+              attributes: ["valueEn", "valueVi"],
+            },
+            {
+              model: db.Allcode,
+              as: "provinceData",
+              attributes: ["valueEn", "valueVi"],
+            },
+          ],
+        },
+        {
+          model: db.Allcode,
+          as: "positionData",
+          attributes: ["valueEn", "valueVi"],
+        },
+      ],
+      raw: true,
+      nest: true,
+    });
+
+    return data;
+  } catch (error) {
+    console.error("Lỗi khi lấy danh sách người dùng:", error);
+    return null;
+  }
+};
+const createBlogRepositories = async (data) => {
+  return await db.Blog.create(data);
+};
+const getAllBlogRepositories = async (limitInput) => {
+  try {
+    const data = await db.Blog.findAll({
+      limit: limitInput,
+    });
+    return data;
+  } catch (error) {
+    console.error("Lỗi khi lấy danh sách người chuyên khoa:", error);
+    return null;
+  }
+};
+const getBlogByIdRepository = async (input) => {
+  try {
+    const data = await db.Blog.findOne({
+      where: { id: input.id },
+      attributes: ["author", "title", "date", "postHTML", "image", "userId"],
+      include: [
+        {
+          model: db.User,
+          as: "userData",
+          attributes: ["username"],
+        },
+      ],
+    });
+    if (!data) {
+      return { error: "Blog not found" };
+    }
+
+    return data;
+  } catch (error) {
+    console.error("Lỗi khi lấy thông tin phòng khám:", error);
+    return null;
+  }
+};
 
 module.exports = {
   getAllDoctorRepositories,
@@ -240,4 +336,8 @@ module.exports = {
   getAllSchedules,
   upsertDoctorInfor,
   getPriceRepositories,
+  getDoctorScheduleRep,
+  createBlogRepositories,
+  getAllBlogRepositories,
+  getBlogByIdRepository,
 };

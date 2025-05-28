@@ -13,6 +13,12 @@ module.exports = (sequelize, DataTypes) => {
         targetKey: "key",
         as: "timeTypeData",
       });
+
+      Schedule.belongsTo(models.User, {
+        foreignKey: "doctorId",
+        targetKey: "id",
+        as: "nameData",
+      });
     }
   }
   Schedule.init(
