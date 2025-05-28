@@ -1,37 +1,29 @@
 import React from "react";
 import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/react";
 import { NavLink } from "react-router-dom";
-const UserNavbar = () => {
+const DoctorNavbar = () => {
   return (
     <>
       <div>
         <Menu as="div" className="relative inline-block text-left">
           <MenuButton className=" flex items-center text-white text-lg font-lato">
-            Người Dùng
+            Bác Sĩ
           </MenuButton>
           <MenuItems className="absolute left-[-18px] mt-4 w-60 bg-white shadow-lg z-10">
             <MenuItem>
               <NavLink
-                to="/system/system-private"
+                to="doctor/check-list-patient"
                 className="block px-4 py-2 data-[focus]:bg-gray-200"
               >
-                Phân luồng
+                Kiểm tra lịch khám
               </NavLink>
             </MenuItem>
             <MenuItem>
               <NavLink
-                to="system/list-users-redux"
+                to="/doctor/medical-appointment"
                 className="block px-4 py-2 data-[focus]:bg-gray-200"
               >
-                Quản Lí Người Dùng
-              </NavLink>
-            </MenuItem>
-            <MenuItem>
-              <NavLink
-                to="/system/markdown"
-                className="block px-4 py-2 data-[focus]:bg-gray-200"
-              >
-                Manage Doctor
+                Quản lí lịch khám bệnh
               </NavLink>
             </MenuItem>
           </MenuItems>
@@ -41,4 +33,4 @@ const UserNavbar = () => {
   );
 };
 
-export default UserNavbar;
+export default DoctorNavbar;

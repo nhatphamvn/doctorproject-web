@@ -12,7 +12,7 @@ const Footer = () => {
             <p className="mt-2 text-sm text-gray-400">
               Địa chỉ: 123 Đường Công Nghệ, TP. Đà Nẵng
             </p>
-            <p className="text-sm text-gray-400">Email: contact@sunday4.com</p>
+            <p className="text-sm text-gray-400">Email: phvnnhat@gmail.com</p>
           </div>
 
           <div className="flex flex-col text-center md:text-right">
@@ -24,7 +24,7 @@ const Footer = () => {
         </div>
 
         <div className="mt-8 border-t border-gray-700 pt-4 text-center">
-          <p className="text-sm text-gray-500">Sunday4. All rights reserved.</p>
+          <p className="text-sm text-gray-500">Pham Van Nhat.</p>
         </div>
       </div>
     </div>

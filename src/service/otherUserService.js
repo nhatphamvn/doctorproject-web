@@ -97,9 +97,36 @@ const ApiGetSpecialtyById = (inputId, location) => {
     `api/v1/specialties/get-specialty-id?id=${inputId}&location=${location}`
   );
 };
+//clinic
 const ApiCreateClinics = async (data) => {
   return axios.post("api/v1/clinics/create-clinics", data);
 };
+const ApiGetAllClinics = async () => {
+  return axios.get(`api/v1/clinics/get-all-clinics`);
+};
+const ApiGetClinicById = (inputId) => {
+  return axios.get(`api/v1/clinics/get-clinics-id?id=${inputId}`);
+};
+const getListPatientDoctor = (doctorId, date) => {
+  return axios.get(
+    `api/v1/patient/get-list-patient-doctor?doctorId=${doctorId}&date=${date}`
+  );
+};
+
+const ApiCreateRemedy = async (data) => {
+  return axios.post("api/v1/patient/send-remedy", data);
+};
+//Blog
+const ApiCreateBlog = async (data) => {
+  return axios.post("api/v1/blog/create-post-blog", data);
+};
+const ApiGetAllBlog = async () => {
+  return axios.get(`api/v1/blog/get-all-blog`);
+};
+const ApiGetBlogById = (inputId) => {
+  return axios.get(`api/v1/blog/get-blog-id?id=${inputId}`);
+};
+
 export {
   ApiCreateBooking,
   GetAllDoctors,
@@ -115,4 +142,11 @@ export {
   ApiGetAllLimitSpecialties,
   ApiGetSpecialtyById,
   ApiCreateClinics,
+  ApiGetAllClinics,
+  ApiGetClinicById,
+  getListPatientDoctor,
+  ApiCreateRemedy,
+  ApiCreateBlog,
+  ApiGetAllBlog,
+  ApiGetBlogById,
 };

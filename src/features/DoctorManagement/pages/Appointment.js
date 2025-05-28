@@ -52,11 +52,12 @@ const Appointment = () => {
       const response = await dispatch(
         createSchedules({ doctorId, date, timeType: selectedTimes })
       );
+      console.log("lịch khám", response);
 
       if (response?.EC === 0) {
         alert("Tạo lịch khám thành công!");
       } else {
-        alert(`Lỗi: ${response.EM}`);
+        alert(response.EM);
       }
     } catch (error) {
       console.error("Lỗi khi tạo lịch khám:", error);

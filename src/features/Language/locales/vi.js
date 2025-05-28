@@ -3,7 +3,7 @@ const vi = {
     specialty: "Chuyên Khoa",
     facility: "Cơ Sở Y Tế",
     doctor: "Bác Sĩ",
-    test: "Gói Khám",
+    blog: "Bài Viết",
     help: "Hỗ trợ",
     guest: "Khách",
   },

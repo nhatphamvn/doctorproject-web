@@ -11,6 +11,10 @@ import {
   ApiCreateSpecialties,
   ApiGetAllLimitSpecialties,
   ApiCreateClinics,
+  ApiGetAllClinics,
+  ApiCreateBlog,
+  ApiGetAllBlog,
+  ApiGetBlogById,
 } from "../../../../service/otherUserService";
 
 export const fetchDoctors = createAsyncThunk(
@@ -205,6 +209,69 @@ export const createClinics = createAsyncThunk(
       return rejectWithValue(response.EM);
     } catch (error) {
       return rejectWithValue(error);
+    }
+  }
+);
+export const fetchClinics = createAsyncThunk(
+  "clinics/fetchClinics",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await ApiGetAllClinics();
+
+      if (response.EC === 0) {
+        return response.DT;
+      }
+      return rejectWithValue(response.EM);
+    } catch (error) {
+      return rejectWithValue(error?.message || "Something went wrong");
+    }
+  }
+);
+//Blog
+export const createBlog = createAsyncThunk(
+  "blog/createBlog",
+  async (data, { rejectWithValue }) => {
+    console.log("🔥 Dữ liệu data trước khi gửi:", data);
+    try {
+      const response = await ApiCreateBlog(data);
+      if (response?.EC === 0) {
+        return response.DT;
+      }
+      return rejectWithValue(response.EM);
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+export const fetchBlog = createAsyncThunk(
+  "blog/fetchBlog",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await ApiGetAllBlog();
+
+      if (response.EC === 0) {
+        return response.DT;
+      }
+      return rejectWithValue(response.EM);
+    } catch (error) {
+      return rejectWithValue(error?.message || "Something went wrong");
+    }
+  }
+);
+export const fetchBlogById = createAsyncThunk(
+  "blog/fetchBlogById",
+  async (id, { rejectWithValue }) => {
+    try {
+      const response = await ApiGetBlogById(id);
+      console.log("📥 Kết quả fetchDoctorById:", response);
+
+      if (response?.EC === 0) {
+        console.log("✅ Dữ liệu hợp lệ:", response.DT);
+        return response.DT;
+      }
+      return rejectWithValue(response.EM);
+    } catch (error) {
+      return rejectWithValue(error?.message || "Something went wrong");
     }
   }
 );

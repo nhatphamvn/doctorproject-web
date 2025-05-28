@@ -9,6 +9,7 @@ import {
   saveDoctors,
   fetchDoctorById,
   fetchSpecialties,
+  fetchClinics,
 } from "../../redux/features/doctorSlide/actions/doctorActions";
 import {
   fetchPayment,
@@ -35,7 +36,7 @@ function MarkDown() {
   const [clinicId, setClinicId] = useState(null);
 
   const dispatch = useDispatch();
-  const { doctors, doctor, specialties } = useSelector(
+  const { doctors, doctor, specialties, clinics } = useSelector(
     (state) => state.doctors
   );
 
@@ -47,7 +48,10 @@ function MarkDown() {
     dispatch(fetchPrice());
     dispatch(fetchProvince());
     dispatch(fetchSpecialties());
+    dispatch(fetchClinics());
   }, [dispatch]);
+
+  console.log("check clinic", clinics);
 
   useEffect(() => {
     if (doctor && doctor?.MarkDown) {
@@ -64,6 +68,7 @@ function MarkDown() {
       setNote(doctor?.Doctor_Infor?.note || "");
       setCount(doctor?.Doctor_Infor?.count || "");
       setSpecialtyId(doctor?.Doctor_Infor?.specialtyId || "");
+      setClinicId(doctor?.Doctor_Infor?.clinicId || "");
     }
   }, [doctor]);
 
@@ -230,7 +235,36 @@ function MarkDown() {
               ))}
           </select>
         </div>
-        <div className="w-full sm:w-1/3"></div>
+        <div className="w-full sm:w-1/3">
+          <select
+            value={clinicId}
+            onChange={(e) => setClinicId(e.target.value)}
+            className="w-full p-2 border rounded-md"
+          >
+            <option value="">Chọn Cở Sở Khám</option>
+            {clinics &&
+              clinics.map((item) => (
+                <option key={item.id} value={item.id}>
+                  {item.name}
+                </option>
+              ))}
+          </select>
+        </div>
+        {/* <div className="w-full sm:w-1/3">
+          <select
+            value={specialtyId}
+            onChange={(e) => setSpecialtyId(e.target.value)}
+            className="w-full p-2 border rounded-md"
+          >
+            <option value="">Chọn Chuyên Khoa</option>
+            {specialties &&
+              specialties.map((item) => (
+                <option key={item.id} value={item.id}>
+                  {item.name}
+                </option>
+              ))}
+          </select>
+        </div> */}
       </div>
 
       {/* Markdown Editor */}

@@ -11,7 +11,7 @@ const AddressAndPrice = ({ locale, prices }) => {
         <div className="text-sm text-black ">
           {prices?.nameClinic && <p>{prices.nameClinic}</p>}
         </div>
-        <div className="text-xs text-black ">
+        <div className="text-xs text-black w-48">
           {prices?.addressClinic && <p>{prices.addressClinic}</p>}
         </div>
       </div>

@@ -24,13 +24,12 @@ const DoctorDetail = () => {
 
   // Nếu doctor chưa có dữ liệu thì hiển thị đang tải
   if (!doctor || !doctor.positionData) return null;
-  if (isLoading) return <div>Đang tải dữ liệu bác sĩ...</div>;
-
-  // Xử lý ảnh nếu có
-  let imagebase64 = "";
-  if (doctor.image) {
-    imagebase64 = atob(doctor.image);
-  }
+  if (isLoading)
+    return (
+      <div className="text-center text-gray-600 py-10">
+        Đang tải dữ liệu bác sĩ...
+      </div>
+    );
 
   // Tên hiển thị theo ngôn ngữ
   let nameVi = `${doctor.positionData?.valueVi} - ${doctor.username}`;
@@ -38,58 +37,63 @@ const DoctorDetail = () => {
 
   return (
     <>
-      <div className="bg-gray-100">
+      <div className="bg-gradient-to-b from-blue-50  min-h-screen">
         <div
           className="w-full h-96 bg-cover bg-center relative"
           style={{ backgroundImage: `url(${bgImage})` }}
         >
           {/* Overlay gradient */}
-          <div className="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-white/100 to-transparent"></div>
+          <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-blue-50 to-transparent"></div>
 
           <div className="flex items-center h-full relative z-10">
-            <div className="pl-12 text-black text-3xl font-lato">Bác Sĩ</div>
+            <div className="pl-8 md:pl-12 text-3xl md:text-4xl font-mono text-blue-400 drop-shadow-lg">
+              Bác Sĩ
+            </div>
           </div>
         </div>
 
-        <div className="mt-12 w-full h-full flex justify-center gap-10 mb-24">
-          <div className="flex flex-col items-center gap-4">
-            <div className="w-72 h-72 border-gray-400 overflow-hidden">
+        <div className="mt-12 w-full max-w-6xl mx-auto flex flex-col md:flex-row justify-center gap-6 md:gap-10 px-4 md:px-0 mb-24">
+          <div className="flex flex-col items-center gap-6">
+            <div className="w-64 h-64 md:w-72 md:h-72 rounded-lg overflow-hidden border-4 border-blue-200 shadow-lg transform transition-transform hover:scale-105">
               <img
-                src={imagebase64}
-                className="w-full h-full object-cover rounded-md"
+                src={doctor.image}
+                alt={doctor.username}
+                className="w-full h-full object-cover"
               />
             </div>
-            <div>
+            <div className="w-full max-w-md bg-white rounded-lg shadow-md p-6">
               <Schedules doctorId={id} />
             </div>
           </div>
-          <div className="h-full w-[50%] bg-gray-50 rounded-lg">
-            <div className="text-2xl text-blue-400 font-sans py-2 px-2">
+          <div className="w-full md:w-1/2 bg-white rounded-lg shadow-lg p-6 transition-all hover:shadow-xl">
+            <div className="text-2xl md:text-3xl text-blue-600 font-lato font-semibold py-2">
               {locale === "vi" ? nameVi : nameEn}
             </div>
-            <div className="flex items-center ml-4">
-              <div className="text-base p-4 font-normal w-[60%]">
+            <div className="flex flex-col md:flex-row items-start gap-6">
+              <div className="text-base font-lato text-gray-700 w-full md:w-[60%] p-4 bg-blue-50 rounded-md">
                 {doctor.MarkDown?.description && (
                   <span>{doctor.MarkDown.description}</span>
                 )}
               </div>
-              <div>
+              <div className="w-full md:w-[40%]">
                 {doctor && <AddressAndPrice prices={prices} locale={locale} />}
               </div>
             </div>
-            <div className="text-lg p-2 font-sans ml-4">
+            <div className="text-lg font-lato text-gray-800 mt-4 p-4 bg-gray-50 rounded-md">
               {doctor.MarkDown?.contentHTML && (
                 <div
                   dangerouslySetInnerHTML={{
                     __html: doctor.MarkDown.contentHTML,
                   }}
-                ></div>
+                />
               )}
             </div>
           </div>
         </div>
       </div>
-      <Footer />
+      <div>
+        <Footer />
+      </div>
     </>
   );
 };

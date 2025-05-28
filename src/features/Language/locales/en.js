@@ -3,7 +3,7 @@ const en = {
     specialty: "Specialty",
     facility: "Medical facility",
     doctor: "Doctor",
-    test: "Medical examination",
+    blog: "Blog",
     help: "Help",
     guest: "Guest",
   },

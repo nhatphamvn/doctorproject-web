@@ -37,11 +37,8 @@ const ReduxUpdateUsers = ({ show, setShow, dataUpdate }) => {
 
       if (dataUpdate?.image) {
         try {
-          const cleanBase64 =
-            dataUpdate.image.split(",")[1] || dataUpdate.image;
-          setImage(atob(cleanBase64));
+          setImage(dataUpdate.image);
         } catch (error) {
-          console.error("Lỗi giải mã Base64:", error);
           setImage(null);
         }
       }

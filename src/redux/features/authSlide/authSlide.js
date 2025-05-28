@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   account: {
+    id: "",
     access_token: "",
     email: "",
     refresh_token: "",
@@ -18,6 +19,7 @@ const authSlice = createSlice({
     handleLoginSuccess: (state, action) => {
       state.account = {
         ...state.account, // Giữ lại các giá trị cũ
+        id: action.payload?.DT?.id,
         access_token: action.payload?.DT?.access_token,
         email: action.payload?.DT?.email,
         refresh_token: action.payload?.DT?.refresh_token,
@@ -29,6 +31,7 @@ const authSlice = createSlice({
     handleLogout: (state) => {
       localStorage.removeItem("access_token");
       state.account = {
+        id: "",
         access_token: "",
         email: "",
         refresh_token: "",

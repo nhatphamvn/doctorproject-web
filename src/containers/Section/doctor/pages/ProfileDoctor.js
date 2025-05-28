@@ -30,8 +30,6 @@ const ProfileDoctor = ({ doctorId, data }) => {
     fetchSchedule();
   }, [doctorId]);
 
-  const imagebase64 = doctorInfo?.image ? atob(doctorInfo.image) : "";
-
   const priceVi = `${doctorInfo?.Doctor_Infor?.priceData?.valueVi || ""} VND`;
   const priceEn = `${doctorInfo?.Doctor_Infor?.priceData?.valueEn || ""} USD`;
 
@@ -48,7 +46,7 @@ const ProfileDoctor = ({ doctorId, data }) => {
   const formatDate = (isoDate) => {
     if (!isoDate) return "";
     const [year, month, day] = isoDate.split("T")[0].split("-");
-    return `${day}-${month}-${year}`;
+    return `${year}-${month}-${day}`;
   };
 
   return (
@@ -56,7 +54,7 @@ const ProfileDoctor = ({ doctorId, data }) => {
       <div>
         <div className="w-24 h-24 rounded-full overflow-hidden">
           <img
-            src={imagebase64}
+            src={doctorInfo?.image}
             alt="Doctor"
             className="w-full h-full object-cover rounded-md"
           />

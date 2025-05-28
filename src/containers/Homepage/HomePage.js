@@ -105,12 +105,19 @@ const HomePage = () => {
           </div>
         </div>
       </div>
-      <Specialty />
-      <Facility />
-      <Doctor />
-      <Blogs />
-      <About />
-      <Footer />
+      <div className="h-auto w-auto">
+        <Specialty />
+
+        <Facility />
+
+        <Doctor />
+
+        <Blogs />
+
+        <About />
+
+        <Footer />
+      </div>
     </>
   );
 };

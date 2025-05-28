@@ -11,6 +11,10 @@ import {
   createSpecialties,
   fetchSpecialties,
   createClinics,
+  fetchClinics,
+  createBlog,
+  fetchBlog,
+  fetchBlogById,
 } from "../actions/doctorActions";
 
 const doctorSlice = createSlice({
@@ -22,6 +26,8 @@ const doctorSlice = createSlice({
     prices: [],
     specialties: [],
     clinics: [],
+    blogs: [],
+    blog: null,
     doctorInfo: null,
     isLoading: false,
     error: null,
@@ -180,6 +186,58 @@ const doctorSlice = createSlice({
         state.successMessage = "clinics created successfully!";
       })
       .addCase(createClinics.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+
+      .addCase(fetchClinics.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(fetchClinics.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.clinics = action.payload; // Cập nhật doctors với dữ liệu từ API
+      })
+      .addCase(fetchClinics.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      //blogs
+      .addCase(createBlog.pending, (state) => {
+        state.isLoading = true;
+        state.successMessage = null;
+        state.error = null;
+      })
+      .addCase(createBlog.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.blogs = [...state.blogs, action.payload];
+        state.successMessage = "blogs created successfully!";
+      })
+      .addCase(createBlog.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      .addCase(fetchBlog.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(fetchBlog.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.blogs = action.payload; // Cập nhật doctors với dữ liệu từ API
+      })
+      .addCase(fetchBlog.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      .addCase(fetchBlogById.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(fetchBlogById.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.blog = action.payload; // Cập nhật doctors với dữ liệu từ API
+      })
+      .addCase(fetchBlogById.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
       });

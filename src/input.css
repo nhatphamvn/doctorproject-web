@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Ngăn nền trắng mặc định của trình duyệt */
+html,
+body,
+#root {
+    margin: 0;
+    padding: 0;
+    background: none !important;
+    box-sizing: border-box;
+    height: 100%;
+}

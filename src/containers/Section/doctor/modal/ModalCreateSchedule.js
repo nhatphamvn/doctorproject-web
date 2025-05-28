@@ -27,6 +27,12 @@ const ModalCreateSchedule = ({ data, show, setShow }) => {
     dispatch(fetchGenders());
   }, [dispatch]);
 
+  const formatDate = (isoDate) => {
+    if (!isoDate) return "";
+    const [year, month, day] = isoDate.split("T")[0].split("-");
+    return `${year}-${month}-${day}`;
+  };
+
   const renderScheduleDateTime = (data, locale) => {
     if (!data || !data.timeTypeData || !data.date)
       return "No schedule available";
@@ -34,18 +40,15 @@ const ModalCreateSchedule = ({ data, show, setShow }) => {
     const time =
       locale === "vi" ? data.timeTypeData.valueVi : data.timeTypeData.valueEn;
 
-    const formatDate = (isoDate) => {
-      if (!isoDate) return "";
-      const [year, month, day] = isoDate.split("T")[0].split("-");
-      return `${day}-${month}-${year}`;
-    };
-
     const date = formatDate(data.date);
 
     return `${time} - ${date}`;
   };
 
   const timeDate = renderScheduleDateTime(data, locale);
+  const dataDate = formatDate(data?.date);
+
+  console.log("check date", dataDate);
 
   const resetForm = () => {
     setUsername("");
@@ -86,6 +89,7 @@ const ModalCreateSchedule = ({ data, show, setShow }) => {
       doctorId: data?.doctorId,
       timeType: data?.timeType,
       language: locale,
+      dataDate: dataDate,
       timeDate: timeDate,
       doctorName: data?.nameData?.username,
     });

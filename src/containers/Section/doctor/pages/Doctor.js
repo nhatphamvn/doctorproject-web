@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
@@ -6,12 +6,13 @@ import bgImage from "../../../../assets/image/facility/140311-background5.png";
 import { fetchDoctors } from "../../../../redux/features/doctorSlide/actions/doctorActions";
 import { FormattedMessage } from "react-intl";
 import { useNavigate } from "react-router-dom";
+import "swiper/css";
+import "swiper/css/navigation";
 
 const Doctor = () => {
   const dispatch = useDispatch();
   const locale = useSelector((state) => state.language.locale);
   const navigate = useNavigate();
-
   const doctors = useSelector((state) => state.doctors?.doctors);
 
   useEffect(() => {
@@ -20,33 +21,32 @@ const Doctor = () => {
 
   return (
     <div
-      className="w-full flex flex-col items-center mt-8 h-96 bg-cover bg-center"
+      className="w-full mt-8 h-96 bg-cover bg-center relative"
       style={{ backgroundImage: `url(${bgImage})` }}
     >
+      {/* Thanh tiêu đề và nút xem thêm */}
+      <div className="absolute top-4 left-14 text-gray-600 text-2xl font-mono z-10">
+        <FormattedMessage id="homePage.outstandingDoctor" />
+      </div>
+      <button className="absolute top-4 right-14 bg-gray-500 text-white px-4 py-2 rounded-2xl shadow-md hover:bg-gray-600 font-mono z-10">
+        <FormattedMessage id="homePage.seeMore" />
+      </button>
+
       <Swiper
         navigation={true}
         modules={[Navigation]}
         spaceBetween={20}
-        slidesPerView={4}
+        slidesPerView={1}
         slidesPerGroup={1}
-        className="w-full max-w-full h-96"
+        direction="horizontal"
+        breakpoints={{
+          640: { slidesPerView: 2 },
+          1024: { slidesPerView: 4 },
+        }}
+        className="w-full max-w-6xl h-full"
       >
-        {/* Title bên trái trên */}
-        <div className="absolute top-4 left-14 text-gray-600 text-2xl font-mono z-10">
-          <FormattedMessage id="homePage.outstandingDoctor" />
-        </div>
-        {/* Button bên phải trên */}
-        <button className="absolute top-4 right-14 bg-gray-500 text-white px-4 py-2 rounded-2xl shadow-md hover:bg-gray-600 font-mono z-10">
-          <FormattedMessage id="homePage.seeMore" />
-        </button>
-
         {doctors && doctors.length > 0 ? (
           doctors.map((item) => {
-            // Khai báo biến ngoài JSX
-            let imagebase64 = "";
-            if (item.image) {
-              imagebase64 = atob(item.image);
-            }
             let nameVi = `${item.positionData?.valueVi} - ${item.username}`;
             let nameEn = `${item.positionData?.valueEn} - ${item.username}`;
 
@@ -56,10 +56,10 @@ const Doctor = () => {
                 className="flex flex-col items-center justify-center"
                 onClick={() => navigate(`/system/doctor-detail/${item.id}`)}
               >
-                <div className="w-48 h-48 rounded-full border-gray-400 overflow-hidden">
+                <div className="w-48 h-48 rounded-full border-2 border-gray-100 overflow-hidden cursor-pointer">
                   <img
-                    src={imagebase64}
-                    // alt={item.username}
+                    src={item.image}
+                    alt={item.username}
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -70,7 +70,9 @@ const Doctor = () => {
             );
           })
         ) : (
-          <div className="text-center text-gray-600">Không có bác sĩ nào</div>
+          <SwiperSlide>
+            <div className="text-center text-gray-600">Không có bác sĩ nào</div>
+          </SwiperSlide>
         )}
       </Swiper>
     </div>
