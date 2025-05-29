@@ -7,6 +7,7 @@ import allCodeController from "../controller/allCodeController";
 import doctorController from "../controller/doctorController";
 import patientController from "../controller/patientController";
 import specialtyController from "../controller/specialtyController";
+import chatbotController from "../controller/chatbotController";
 
 const router = express.Router();
 
@@ -88,6 +89,9 @@ const initApiRoutes = (app) => {
   router.post("/blog/create-post-blog", doctorController.CreateBlogController);
   router.get("/blog/get-all-blog", doctorController.GetAllBlogController);
   router.get("/blog/get-blog-id", doctorController.getBlogControllerById);
+  //chatbot
+  router.get("/webhook", chatbotController.GetChatBotController);
+  router.post("/webhook", chatbotController.CreateChatBotController);
 
   return app.use("/api/v1", router); // định nghĩa đường dẫn đầu tiên
 };
