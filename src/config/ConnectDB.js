@@ -9,6 +9,7 @@ const sequelize = new Sequelize(
     host: process.env.DB_HOST,
     port: process.env.DB_PORT,
     dialect: process.env.DB_DIALECT,
+
     logging: false,
     // query: {
     //   raw: true,
@@ -16,6 +17,7 @@ const sequelize = new Sequelize(
     timezone: process.env.TIMEZONE,
   }
 );
+console.log("DB_DIALECT:", process.env.DB_DIALECT);
 
 const connection = async () => {
   try {

@@ -9,8 +9,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      User.belongsTo(models.Group);
-      User.belongsToMany(models.Project, { through: "Project_User" });
+      // User.belongsTo(models.Group);
+      // User.belongsToMany(models.Project, { through: "Project_User" });
       User.belongsTo(models.Allcode, {
         foreignKey: "positionId",
         targetKey: "key",
@@ -52,7 +52,6 @@ module.exports = (sequelize, DataTypes) => {
       image: DataTypes.STRING,
       roleId: DataTypes.STRING,
       positionId: DataTypes.STRING,
-      groupId: DataTypes.INTEGER,
     },
     {
       sequelize,

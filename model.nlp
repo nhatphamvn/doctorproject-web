@@ -1,0 +1,1064 @@
+{
+  "settings": {
+    "languages": [
+      "vi"
+    ],
+    "log": false,
+    "tag": "nlp",
+    "threshold": 0.5,
+    "autoLoad": true,
+    "autoSave": true,
+    "modelFileName": "model.nlp",
+    "executeActionsBeforeAnswers": false,
+    "calculateSentiment": true
+  },
+  "nluManager": {
+    "settings": {
+      "tag": "nlu-manager"
+    },
+    "locales": [
+      "vi"
+    ],
+    "languageNames": {},
+    "domainManagers": {
+      "vi": {
+        "settings": {
+          "locale": "vi",
+          "trainByDomain": false,
+          "tag": "domain-manager-vi",
+          "nluByDomain": {
+            "default": {
+              "className": "NeuralNlu",
+              "settings": {}
+            }
+          },
+          "useStemDict": true
+        },
+        "stemDict": {
+          "hello": {
+            "intent": "greeting.hello",
+            "domain": "default"
+          },
+          "chao": {
+            "intent": "greeting.hello",
+            "domain": "default"
+          },
+          "what": {
+            "intent": "greeting.hello",
+            "domain": "default"
+          },
+          "alo": {
+            "intent": "greeting.hello",
+            "domain": "default"
+          },
+          "ai,khong,đo": {
+            "intent": "greeting.hello",
+            "domain": "default"
+          },
+          "ai,ban,la": {
+            "intent": "greeting.hello",
+            "domain": "default"
+          },
+          "can,giup,toi,đo": {
+            "intent": "greeting.hello",
+            "domain": "default"
+          },
+          "benh,kham,ky,muon,toi,đang": {
+            "intent": "appointment.book",
+            "domain": "default"
+          },
+          "cho,lich,toi,đat": {
+            "intent": "appointment.book",
+            "domain": "default"
+          },
+          "giup,hen,lam,lich,on,toi,đat": {
+            "intent": "appointment.book",
+            "domain": "default"
+          },
+          "10h,bac,hen,luc,si": {
+            "intent": "appointment.book",
+            "domain": "default"
+          },
+          "co,kham,khong,lich,the,đat": {
+            "intent": "appointment.book",
+            "domain": "default"
+          },
+          "chill,guy,pro": {
+            "intent": "sigma.boy",
+            "domain": "default"
+          },
+          "boy,la,sigma,tao": {
+            "intent": "sigma.boy",
+            "domain": "default"
+          },
+          "skibidi": {
+            "intent": "sigma.boy",
+            "domain": "default"
+          },
+          "trai,đep": {
+            "intent": "sigma.boy",
+            "domain": "default"
+          },
+          "ban,ten": {
+            "intent": "name.boy",
+            "domain": "default"
+          },
+          "muon,toi": {
+            "intent": "appointment.book",
+            "domain": "default"
+          },
+          "cho,hen,ky,lich,toi,đang": {
+            "intent": "appointment.book",
+            "domain": "default"
+          },
+          "cam,on": {
+            "intent": "thank.you",
+            "domain": "default"
+          },
+          "ban,cam,on": {
+            "intent": "thank.you",
+            "domain": "default"
+          },
+          "thanks": {
+            "intent": "thank.you",
+            "domain": "default"
+          },
+          "bi,toi": {
+            "intent": "advise.you",
+            "domain": "default"
+          },
+          "cam,tram": {
+            "intent": "advise.you",
+            "domain": "default"
+          },
+          "đau": {
+            "intent": "advise.you",
+            "domain": "default"
+          }
+        },
+        "intentDict": {
+          "greeting.hello": "default",
+          "appointment.book": "default",
+          "sigma.boy": "default",
+          "name.boy": "default",
+          "thank.you": "default",
+          "advise.you": "default"
+        },
+        "sentences": [
+          {
+            "domain": "default",
+            "utterance": "hello",
+            "intent": "greeting.hello"
+          },
+          {
+            "domain": "default",
+            "utterance": "chào",
+            "intent": "greeting.hello"
+          },
+          {
+            "domain": "default",
+            "utterance": "what",
+            "intent": "greeting.hello"
+          },
+          {
+            "domain": "default",
+            "utterance": "alo",
+            "intent": "greeting.hello"
+          },
+          {
+            "domain": "default",
+            "utterance": "ai đó không",
+            "intent": "greeting.hello"
+          },
+          {
+            "domain": "default",
+            "utterance": "bạn là ai",
+            "intent": "greeting.hello"
+          },
+          {
+            "domain": "default",
+            "utterance": "tôi cần giúp đỡ",
+            "intent": "greeting.hello"
+          },
+          {
+            "domain": "default",
+            "utterance": "tôi muốn đăng ký khám bệnh",
+            "intent": "appointment.book"
+          },
+          {
+            "domain": "default",
+            "utterance": "cho tôi đặt lịch",
+            "intent": "appointment.book"
+          },
+          {
+            "domain": "default",
+            "utterance": "làm ơn đặt lịch hẹn giúp tôi",
+            "intent": "appointment.book"
+          },
+          {
+            "domain": "default",
+            "utterance": "hẹn bác sĩ lúc 10h",
+            "intent": "appointment.book"
+          },
+          {
+            "domain": "default",
+            "utterance": "có thể đặt lịch khám không",
+            "intent": "appointment.book"
+          },
+          {
+            "domain": "default",
+            "utterance": "chill guy pro",
+            "intent": "sigma.boy"
+          },
+          {
+            "domain": "default",
+            "utterance": "tao là sigma boy",
+            "intent": "sigma.boy"
+          },
+          {
+            "domain": "default",
+            "utterance": "skibidi",
+            "intent": "sigma.boy"
+          },
+          {
+            "domain": "default",
+            "utterance": "đẹp trai",
+            "intent": "sigma.boy"
+          },
+          {
+            "domain": "default",
+            "utterance": "bạn tên",
+            "intent": "name.boy"
+          },
+          {
+            "domain": "default",
+            "utterance": "tôi muốn",
+            "intent": "appointment.book"
+          },
+          {
+            "domain": "default",
+            "utterance": "cho tôi đăng ký lịch hẹn",
+            "intent": "appointment.book"
+          },
+          {
+            "domain": "default",
+            "utterance": "cảm ơn",
+            "intent": "thank.you"
+          },
+          {
+            "domain": "default",
+            "utterance": "cảm ơn bạn",
+            "intent": "thank.you"
+          },
+          {
+            "domain": "default",
+            "utterance": "thanks",
+            "intent": "thank.you"
+          },
+          {
+            "domain": "default",
+            "utterance": "tôi bị",
+            "intent": "advise.you"
+          },
+          {
+            "domain": "default",
+            "utterance": "trầm cảm",
+            "intent": "advise.you"
+          },
+          {
+            "domain": "default",
+            "utterance": "đau",
+            "intent": "advise.you"
+          }
+        ],
+        "domains": {
+          "master_domain": {
+            "settings": {
+              "locale": "vi",
+              "tag": "nlu-vi",
+              "keepStopwords": true,
+              "nonefeatureValue": 1,
+              "nonedeltaMultiplier": 1.2,
+              "spellCheck": false,
+              "spellCheckDistance": 1,
+              "filterZeros": true,
+              "log": true
+            },
+            "features": {
+              "hello": 1,
+              "chao": 1,
+              "what": 1,
+              "alo": 1,
+              "ai": 1,
+              "đo": 1,
+              "khong": 1,
+              "ban": 1,
+              "la": 1,
+              "toi": 1,
+              "can": 1,
+              "giup": 1,
+              "muon": 1,
+              "đang": 1,
+              "ky": 1,
+              "kham": 1,
+              "benh": 1,
+              "cho": 1,
+              "đat": 1,
+              "lich": 1,
+              "lam": 1,
+              "on": 1,
+              "hen": 1,
+              "bac": 1,
+              "si": 1,
+              "luc": 1,
+              "10h": 1,
+              "co": 1,
+              "the": 1,
+              "chill": 1,
+              "guy": 1,
+              "pro": 1,
+              "tao": 1,
+              "sigma": 1,
+              "boy": 1,
+              "skibidi": 1,
+              "đep": 1,
+              "trai": 1,
+              "ten": 1,
+              "cam": 1,
+              "thanks": 1,
+              "bi": 1,
+              "tram": 1,
+              "đau": 1
+            },
+            "intents": {
+              "greeting.hello": 1,
+              "appointment.book": 1,
+              "sigma.boy": 1,
+              "name.boy": 1,
+              "thank.you": 1,
+              "advise.you": 1
+            },
+            "intentFeatures": {
+              "greeting.hello": {
+                "hello": 1,
+                "chao": 1,
+                "what": 1,
+                "alo": 1,
+                "ai": 1,
+                "đo": 1,
+                "khong": 1,
+                "ban": 1,
+                "la": 1,
+                "toi": 1,
+                "can": 1,
+                "giup": 1
+              },
+              "appointment.book": {
+                "toi": 1,
+                "muon": 1,
+                "đang": 1,
+                "ky": 1,
+                "kham": 1,
+                "benh": 1,
+                "cho": 1,
+                "đat": 1,
+                "lich": 1,
+                "lam": 1,
+                "on": 1,
+                "hen": 1,
+                "giup": 1,
+                "bac": 1,
+                "si": 1,
+                "luc": 1,
+                "10h": 1,
+                "co": 1,
+                "the": 1,
+                "khong": 1
+              },
+              "sigma.boy": {
+                "chill": 1,
+                "guy": 1,
+                "pro": 1,
+                "tao": 1,
+                "la": 1,
+                "sigma": 1,
+                "boy": 1,
+                "skibidi": 1,
+                "đep": 1,
+                "trai": 1
+              },
+              "name.boy": {
+                "ban": 1,
+                "ten": 1
+              },
+              "thank.you": {
+                "cam": 1,
+                "on": 1,
+                "ban": 1,
+                "thanks": 1
+              },
+              "advise.you": {
+                "toi": 1,
+                "bi": 1,
+                "tram": 1,
+                "cam": 1,
+                "đau": 1
+              }
+            },
+            "featuresToIntent": {
+              "hello": [
+                "greeting.hello"
+              ],
+              "chao": [
+                "greeting.hello"
+              ],
+              "what": [
+                "greeting.hello"
+              ],
+              "alo": [
+                "greeting.hello"
+              ],
+              "ai": [
+                "greeting.hello"
+              ],
+              "đo": [
+                "greeting.hello"
+              ],
+              "khong": [
+                "greeting.hello",
+                "appointment.book"
+              ],
+              "ban": [
+                "greeting.hello",
+                "name.boy",
+                "thank.you"
+              ],
+              "la": [
+                "greeting.hello",
+                "sigma.boy"
+              ],
+              "toi": [
+                "greeting.hello",
+                "appointment.book",
+                "advise.you"
+              ],
+              "can": [
+                "greeting.hello"
+              ],
+              "giup": [
+                "greeting.hello",
+                "appointment.book"
+              ],
+              "muon": [
+                "appointment.book"
+              ],
+              "đang": [
+                "appointment.book"
+              ],
+              "ky": [
+                "appointment.book"
+              ],
+              "kham": [
+                "appointment.book"
+              ],
+              "benh": [
+                "appointment.book"
+              ],
+              "cho": [
+                "appointment.book"
+              ],
+              "đat": [
+                "appointment.book"
+              ],
+              "lich": [
+                "appointment.book"
+              ],
+              "lam": [
+                "appointment.book"
+              ],
+              "on": [
+                "appointment.book",
+                "thank.you"
+              ],
+              "hen": [
+                "appointment.book"
+              ],
+              "bac": [
+                "appointment.book"
+              ],
+              "si": [
+                "appointment.book"
+              ],
+              "luc": [
+                "appointment.book"
+              ],
+              "10h": [
+                "appointment.book"
+              ],
+              "co": [
+                "appointment.book"
+              ],
+              "the": [
+                "appointment.book"
+              ],
+              "chill": [
+                "sigma.boy"
+              ],
+              "guy": [
+                "sigma.boy"
+              ],
+              "pro": [
+                "sigma.boy"
+              ],
+              "tao": [
+                "sigma.boy"
+              ],
+              "sigma": [
+                "sigma.boy"
+              ],
+              "boy": [
+                "sigma.boy"
+              ],
+              "skibidi": [
+                "sigma.boy"
+              ],
+              "đep": [
+                "sigma.boy"
+              ],
+              "trai": [
+                "sigma.boy"
+              ],
+              "ten": [
+                "name.boy"
+              ],
+              "cam": [
+                "thank.you",
+                "advise.you"
+              ],
+              "thanks": [
+                "thank.you"
+              ],
+              "bi": [
+                "advise.you"
+              ],
+              "tram": [
+                "advise.you"
+              ],
+              "đau": [
+                "advise.you"
+              ]
+            },
+            "neuralNetwork": {
+              "settings": {
+                "locale": "vi",
+                "tag": "nlu-vi",
+                "keepStopwords": true,
+                "nonefeatureValue": 1,
+                "nonedeltaMultiplier": 1.2,
+                "spellCheck": false,
+                "spellCheckDistance": 1,
+                "filterZeros": true,
+                "log": true
+              },
+              "features": [
+                "hello",
+                "chao",
+                "what",
+                "alo",
+                "ai",
+                "đo",
+                "khong",
+                "ban",
+                "la",
+                "toi",
+                "can",
+                "giup",
+                "muon",
+                "đang",
+                "ky",
+                "kham",
+                "benh",
+                "cho",
+                "đat",
+                "lich",
+                "lam",
+                "on",
+                "hen",
+                "bac",
+                "si",
+                "luc",
+                "10h",
+                "co",
+                "the",
+                "chill",
+                "guy",
+                "pro",
+                "tao",
+                "sigma",
+                "boy",
+                "skibidi",
+                "đep",
+                "trai",
+                "ten",
+                "cam",
+                "thanks",
+                "bi",
+                "tram",
+                "đau"
+              ],
+              "intents": [
+                "greeting.hello",
+                "appointment.book",
+                "sigma.boy",
+                "name.boy",
+                "thank.you",
+                "advise.you"
+              ],
+              "perceptrons": [
+                [
+                  9.259063720703125,
+                  9.255969047546387,
+                  9.221830368041992,
+                  9.185933113098145,
+                  5.957431793212891,
+                  4.104306697845459,
+                  -0.592519998550415,
+                  0.08882501721382141,
+                  3.1942033767700195,
+                  -2.3201324939727783,
+                  4.029277801513672,
+                  3.511296033859253,
+                  -2.584749698638916,
+                  -0.678023099899292,
+                  -0.678023099899292,
+                  -1.338513731956482,
+                  -0.6208776235580444,
+                  -0.638371467590332,
+                  -1.8161039352416992,
+                  -1.8668136596679688,
+                  -0.4155294895172119,
+                  -2.10536789894104,
+                  -1.470067024230957,
+                  -0.8995499610900879,
+                  -0.8995499610900879,
+                  -0.8995499610900879,
+                  -0.8995499610900879,
+                  -0.6188626885414124,
+                  -0.6188626885414124,
+                  -1.6748032569885254,
+                  -1.6748032569885254,
+                  -1.6748032569885254,
+                  -2.6930737495422363,
+                  -2.6930737495422363,
+                  -2.6930737495422363,
+                  -4.797874927520752,
+                  -2.4603214263916016,
+                  -2.4603214263916016,
+                  -4.8759446144104,
+                  -3.239227294921875,
+                  -4.737203121185303,
+                  -2.526681423187256,
+                  -1.64634108543396,
+                  -4.694255828857422,
+                  4.884979806939431
+                ],
+                [
+                  -0.6416618227958679,
+                  -0.6396212577819824,
+                  -0.6374644637107849,
+                  -0.6351929903030396,
+                  -0.4050888121128082,
+                  -2.029308557510376,
+                  1.3557850122451782,
+                  -0.6981201767921448,
+                  -0.3778359889984131,
+                  4.4167160987854,
+                  -1.6775578260421753,
+                  -1.356895923614502,
+                  8.744245529174805,
+                  -0.06560119986534119,
+                  -0.06560119986534119,
+                  1.2734792232513428,
+                  -0.422051340341568,
+                  1.9318832159042358,
+                  3.587707281112671,
+                  3.9622790813446045,
+                  0.32186663150787354,
+                  -0.49994057416915894,
+                  3.2911150455474854,
+                  2.6009716987609863,
+                  2.6009716987609863,
+                  2.6009716987609863,
+                  2.6009716987609863,
+                  1.707535982131958,
+                  1.707535982131958,
+                  -0.3490968346595764,
+                  -0.3490968346595764,
+                  -0.3490968346595764,
+                  -0.26426905393600464,
+                  -0.26426905393600464,
+                  -0.26426905393600464,
+                  -0.6111117601394653,
+                  -0.3816153407096863,
+                  -0.3816153407096863,
+                  -0.2691093385219574,
+                  -0.9928144216537476,
+                  -0.6866981983184814,
+                  -4.911454200744629,
+                  -0.16353514790534973,
+                  -0.6444900035858154,
+                  0.6531746933331298
+                ],
+                [
+                  -2.2578861713409424,
+                  -2.247793674468994,
+                  -2.237253427505493,
+                  -2.2262773513793945,
+                  -1.791435718536377,
+                  -0.5109023451805115,
+                  -0.6551689505577087,
+                  -2.4553327560424805,
+                  1.9559128284454346,
+                  -1.8923386335372925,
+                  -0.10832565277814865,
+                  -0.11470428109169006,
+                  -0.7785937190055847,
+                  -0.2724188268184662,
+                  -0.2724188268184662,
+                  -0.2818639874458313,
+                  -0.02258290909230709,
+                  -0.2812614440917969,
+                  -0.2986447811126709,
+                  -0.5808002352714539,
+                  -0.002546648494899273,
+                  -0.980854868888855,
+                  -0.6951412558555603,
+                  -0.40783756971359253,
+                  -0.40783756971359253,
+                  -0.40783756971359253,
+                  -0.40783756971359253,
+                  -0.25143322348594666,
+                  -0.25143322348594666,
+                  3.9985358715057373,
+                  3.9985358715057373,
+                  3.9985358715057373,
+                  3.346125602722168,
+                  3.346125602722168,
+                  3.346125602722168,
+                  11.715690612792969,
+                  5.987471103668213,
+                  5.987471103668213,
+                  -0.7525946497917175,
+                  -1.741345763206482,
+                  -2.281578302383423,
+                  -0.6344344615936279,
+                  -0.732996940612793,
+                  -2.2710485458374023,
+                  2.3024703682205394
+                ],
+                [
+                  -0.38635313510894775,
+                  -0.3850172758102417,
+                  -0.38359636068344116,
+                  -0.38209235668182373,
+                  -2.4731502532958984,
+                  -0.07467391341924667,
+                  -0.1049942821264267,
+                  4.547510147094727,
+                  -2.432108163833618,
+                  -0.40433889627456665,
+                  -0.01341545581817627,
+                  -0.01341545581817627,
+                  -0.18084178864955902,
+                  -0.07338780909776688,
+                  -0.07338780909776688,
+                  -0.04505227506160736,
+                  -0.00338550191372633,
+                  -0.07410938292741776,
+                  -0.045860908925533295,
+                  -0.12603461742401123,
+                  0,
+                  -2.4270973205566406,
+                  -0.142300546169281,
+                  -0.062069591134786606,
+                  -0.062069591134786606,
+                  -0.062069591134786606,
+                  -0.062069591134786606,
+                  -0.038617923855781555,
+                  -0.038617923855781555,
+                  -0.12839815020561218,
+                  -0.12839815020561218,
+                  -0.12839815020561218,
+                  -0.01714405231177807,
+                  -0.01714405231177807,
+                  -0.01714405231177807,
+                  -0.36919647455215454,
+                  -0.19164130091667175,
+                  -0.19164130091667175,
+                  9.278717994689941,
+                  -2.4868578910827637,
+                  -0.3895435035228729,
+                  -0.10474011301994324,
+                  -0.0477038212120533,
+                  -0.3876045346260071,
+                  0.3870470521874598
+                ],
+                [
+                  -1.2744789123535156,
+                  -1.2681777477264404,
+                  -1.2616496086120605,
+                  -1.2549010515213013,
+                  -1.2283495664596558,
+                  -0.29683616757392883,
+                  -0.25009456276893616,
+                  0.5185052752494812,
+                  -1.140828251838684,
+                  -2.072577953338623,
+                  -0.0651269406080246,
+                  -1.5151528120040894,
+                  -0.10305587947368622,
+                  -0.07977809011936188,
+                  -0.07977809011936188,
+                  -0.1344391107559204,
+                  -0.07977809011936188,
+                  -0.05016186088323593,
+                  -1.5410289764404297,
+                  -1.5410289764404297,
+                  -1.4138622283935547,
+                  8.357925415039062,
+                  -1.5578868389129639,
+                  -0.10640674084424973,
+                  -0.10640674084424973,
+                  -0.10640674084424973,
+                  -0.10640674084424973,
+                  -0.03369602933526039,
+                  -0.03369602933526039,
+                  -0.4338819980621338,
+                  -0.4338819980621338,
+                  -0.4338819980621338,
+                  -0.12058625370264053,
+                  -0.12058625370264053,
+                  -0.12058625370264053,
+                  -1.2385576963424683,
+                  -0.6459445357322693,
+                  -0.6459445357322693,
+                  -2.0088653564453125,
+                  4.275935649871826,
+                  12.684362411499023,
+                  -0.3296627700328827,
+                  -5.4918951988220215,
+                  -1.2838351726531982,
+                  1.3142797993190842
+                ],
+                [
+                  -1.8801056146621704,
+                  -1.8727115392684937,
+                  -1.8649226427078247,
+                  -1.856748342514038,
+                  -0.6258382201194763,
+                  -1.6883184909820557,
+                  -0.4209420084953308,
+                  -1.6249182224273682,
+                  -0.6828594207763672,
+                  2.566462993621826,
+                  -1.3137551546096802,
+                  -1.4757803678512573,
+                  -4.300050735473633,
+                  -0.6380223631858826,
+                  -0.6380223631858826,
+                  -0.6412941813468933,
+                  -0.5713398456573486,
+                  -1.360795497894287,
+                  -1.5336544513702393,
+                  -1.5916935205459595,
+                  -0.12245892733335495,
+                  -5.29374885559082,
+                  -0.5625551342964172,
+                  -0.3419223129749298,
+                  -0.3419223129749298,
+                  -0.3419223129749298,
+                  -0.3419223129749298,
+                  -0.04548873379826546,
+                  -0.04548873379826546,
+                  -0.6394639611244202,
+                  -0.6394639611244202,
+                  -0.6394639611244202,
+                  -0.4136267304420471,
+                  -0.4136267304420471,
+                  -0.4136267304420471,
+                  -1.8364380598068237,
+                  -0.9451969861984253,
+                  -0.9451969861984253,
+                  -0.305196613073349,
+                  3.566621780395508,
+                  -1.771605134010315,
+                  9.709564208984375,
+                  8.703810691833496,
+                  12.10873794555664,
+                  1.8976066721367835
+                ]
+              ]
+            }
+          }
+        }
+      }
+    },
+    "intentDomains": {},
+    "extraSentences": [
+      [
+        "vi",
+        "hello"
+      ],
+      [
+        "vi",
+        "chào"
+      ],
+      [
+        "vi",
+        "what"
+      ],
+      [
+        "vi",
+        "alo"
+      ],
+      [
+        "vi",
+        "ai đó không"
+      ],
+      [
+        "vi",
+        "bạn là ai"
+      ],
+      [
+        "vi",
+        "tôi cần giúp đỡ"
+      ],
+      [
+        "vi",
+        "tôi muốn đăng ký khám bệnh"
+      ],
+      [
+        "vi",
+        "cho tôi đặt lịch"
+      ],
+      [
+        "vi",
+        "làm ơn đặt lịch hẹn giúp tôi"
+      ],
+      [
+        "vi",
+        "hẹn bác sĩ lúc 10h"
+      ],
+      [
+        "vi",
+        "có thể đặt lịch khám không"
+      ],
+      [
+        "vi",
+        "chill guy pro"
+      ],
+      [
+        "vi",
+        "tao là sigma boy"
+      ],
+      [
+        "vi",
+        "skibidi"
+      ],
+      [
+        "vi",
+        "đẹp trai"
+      ],
+      [
+        "vi",
+        "bạn tên"
+      ],
+      [
+        "vi",
+        "tôi muốn"
+      ],
+      [
+        "vi",
+        "cho tôi đăng ký lịch hẹn"
+      ],
+      [
+        "vi",
+        "cảm ơn"
+      ],
+      [
+        "vi",
+        "cảm ơn bạn"
+      ],
+      [
+        "vi",
+        "thanks"
+      ],
+      [
+        "vi",
+        "tôi bị"
+      ],
+      [
+        "vi",
+        "trầm cảm"
+      ],
+      [
+        "vi",
+        "đau"
+      ]
+    ]
+  },
+  "ner": {
+    "settings": {
+      "tag": "ner",
+      "entityPreffix": "%",
+      "entitySuffix": "%"
+    },
+    "rules": {}
+  },
+  "nlgManager": {
+    "settings": {
+      "tag": "nlg-manager"
+    },
+    "responses": {
+      "vi": {
+        "greeting.hello": [
+          {
+            "answer": "Chào! Tôi có thể giúp gì cho quý khách đây?"
+          }
+        ],
+        "appointment.book": [
+          {
+            "answer": "Bạn có thể chọn bác sĩ để đặt lịch khám phía dưới nè."
+          }
+        ],
+        "thank.you": [
+          {
+            "answer": "Không có chi, tôi sẽ luôn ở đây giúp bạn người tôi yêu haha!"
+          }
+        ],
+        "sigma.boy": [
+          {
+            "answer": "anh nhật là người đẹp trai nhất thế giới!"
+          }
+        ],
+        "name.boy": [
+          {
+            "answer": "tui là sigma boy!"
+          }
+        ],
+        "advise.you": [
+          {
+            "answer": "Bạn bị bệnh rồi nè, hãy chọn những bác sĩ bên dưới đi!"
+          }
+        ]
+      }
+    }
+  },
+  "actionManager": {
+    "settings": {
+      "tag": "action-manager"
+    },
+    "actions": {}
+  },
+  "slotManager": {}
+}

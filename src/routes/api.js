@@ -90,8 +90,9 @@ const initApiRoutes = (app) => {
   router.get("/blog/get-all-blog", doctorController.GetAllBlogController);
   router.get("/blog/get-blog-id", doctorController.getBlogControllerById);
   //chatbot
-  router.get("/webhook", chatbotController.GetChatBotController);
-  router.post("/webhook", chatbotController.CreateChatBotController);
+  router.post("/chat/post-chatbot", chatbotController.handleMessageChatBot);
+  // router.get("/webhook", chatbotController.GetChatBotController);
+  // router.post("/webhook", chatbotController.CreateChatBotController);
 
   return app.use("/api/v1", router); // định nghĩa đường dẫn đầu tiên
 };

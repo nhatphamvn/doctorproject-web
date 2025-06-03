@@ -18,13 +18,6 @@ const getAllUsers = async () => {
         "roleId",
         "positionId",
       ],
-      include: {
-        model: db.Group,
-        as: "Group", // Chắc chắn rằng alias đúng nếu có
-        attributes: ["name", "description"],
-      },
-      raw: true, // Nếu muốn dữ liệu dạng object phẳng
-      nest: true, // Nếu muốn dữ liệu lồng nhau
     });
 
     return users;

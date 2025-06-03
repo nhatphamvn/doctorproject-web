@@ -82,7 +82,7 @@ const getChangeLanguage = (input, token) => {
     return `
     <p>Xin chào,</p>
   
-    <p>Cảm ơn bạn đã đặt lịch khám tại phòng khám XYZ. Dưới đây là thông tin xác nhận về lịch khám của bạn:</p>
+    <p>Cảm ơn bạn đã đặt lịch khám tại Sunday4. Dưới đây là thông tin xác nhận về lịch khám của bạn:</p>
   
     <ul>
       <li><strong>Ngày Giờ Khám: ${input.timeDate}</strong></li>
@@ -94,13 +94,11 @@ const getChangeLanguage = (input, token) => {
       token
     )}">Click Here</a> để xác nhận </p>
   
-    <p>Nếu bạn cần thay đổi hoặc hủy lịch hẹn, vui lòng liên hệ với chúng tôi qua email này hoặc gọi vào số điện thoại ${
-      input.phone
-    }.</p>
+    <p>Nếu bạn cần thay đổi hoặc hủy lịch hẹn, vui lòng liên hệ với chúng tôi qua email này hoặc gọi vào số điện thoại <strong> 0704498441 </strong>.</p>
   
     <p>Chúng tôi rất mong được đón tiếp bạn tại phòng khám.</p>
   
-    <p>Trân trọng,<br>Phòng khám XYZ</p>
+    <p>Trân trọng</p>
   `;
   }
 
@@ -108,7 +106,7 @@ const getChangeLanguage = (input, token) => {
     return `
     <p>Hello,</p>
   
-    <p>Thank you for scheduling an appointment at XYZ Clinic. Below are the details of your appointment:</p>
+    <p>Thank you for scheduling an appointment at Sunday4 Clinic. Below are the details of your appointment:</p>
   
     <ul>
       <li><strong>Date and Time: ${input.timeDate}</strong></li>
@@ -120,13 +118,11 @@ const getChangeLanguage = (input, token) => {
       token
     )}">Click Here to confirm your appointment</a>.</p>
   
-    <p>If you need to change or cancel the appointment, please contact us via this email or call  <strong> ${
-      input.phone
-    } </strong> .</p>
+    <p>If you need to change or cancel the appointment, please contact us via this email or call  <strong> 0704498441 </strong> .</p>
   
     <p>We look forward to welcoming you to our clinic.</p>
   
-    <p>Sincerely,<br>XYZ Clinic</p>
+    <p>Sincerely</p>
   `;
   }
 };

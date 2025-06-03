@@ -26,7 +26,6 @@ app.use(express.json({ limit: "50mb" })); // Mặc định là 1MB, tăng lên 5
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
 app.use(express.json());
 
-app.use("/uploads", express.static("uploads"));
 // Thiết lập view engine
 configviewEngine(app);
 connection();

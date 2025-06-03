@@ -12,21 +12,19 @@ const hashPassword = (userPassword) => {
 
 // Hàm kiểm tra sự tồn tại của trường bất kỳ
 const checkExistence = async (field, value) => {
-  let condition = {};
-  condition[field] = value;
-
-  let user = await db.User.findOne({
-    where: condition,
-  });
-
-  return !!user; // Trả về true nếu tìm thấy
+  try {
+    const user = await db.User.findOne({ where: { [field]: value } });
+    return !!user;
+  } catch (err) {
+    console.error("Lỗi khi kiểm tra tồn tại:", err);
+    throw err; // để nó rơi vào catch bên ngoài
+  }
 };
 
 // Hàm đăng ký người dùng mới
 const registerNewUser = async (userData) => {
   try {
     if (
-      !userData ||
       !userData.email ||
       !userData.phone ||
       !userData.password ||
@@ -37,6 +35,7 @@ const registerNewUser = async (userData) => {
         EC: 1001,
       };
     }
+    console.log("user data", userData);
 
     // Kiểm tra email tồn tại
     const isEmailExist = await checkExistence("email", userData.email);
