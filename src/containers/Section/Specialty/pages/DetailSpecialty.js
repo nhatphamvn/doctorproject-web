@@ -116,7 +116,7 @@ const DetailSpecialty = () => {
             >
               <div className="lg:w-1/2 w-full flex items-center justify-center lg:justify-start">
                 <div className="flex flex-col items-center gap-4">
-                  <div className="">
+                  <div className="flex-shrink-0">
                     <ProfileDoctor doctorId={item.doctorId} />
                   </div>
                   <button

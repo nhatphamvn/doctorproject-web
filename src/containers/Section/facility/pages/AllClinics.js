@@ -4,6 +4,8 @@ import { fetchClinics } from "../../../../redux/features/doctorSlide/actions/doc
 import { useNavigate } from "react-router-dom";
 import bgImage from "../../../../assets/image/banner-spe.png";
 import Footer from "../../../Footer/pages/Footer";
+import { FormattedMessage } from "react-intl";
+import ParentComponent from "../../../../component/shared/ParentComponent";
 
 const AllClinics = () => {
   const { clinics } = useSelector((state) => state.doctors);
@@ -22,7 +24,7 @@ const AllClinics = () => {
 
   return (
     <>
-      <div className="bg-blue-50 py-1">
+      <div className="bg-blue-50 ">
         {/* Banner */}
         <div
           className="w-full h-96 bg-cover bg-center relative"
@@ -33,7 +35,7 @@ const AllClinics = () => {
 
           <div className="flex items-center h-full relative z-10">
             <div className="pl-8 md:pl-12 text-3xl md:text-4xl font-mono text-blue-400 drop-shadow-lg">
-              Cở Sở Y Tế
+              <FormattedMessage id="navBar.facility" />
             </div>
           </div>
         </div>
@@ -65,6 +67,9 @@ const AllClinics = () => {
                 </div>
               ))}
           </div>
+        </div>
+        <div className="bg-blue-50 w-full flex justify-center items-center ">
+          <ParentComponent />
         </div>
       </div>
       <div>

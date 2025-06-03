@@ -2,8 +2,9 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchBlog } from "../../../../redux/features/doctorSlide/actions/doctorActions";
 import { useNavigate } from "react-router-dom";
-import bgImage from "../../../../assets/image/pexels-photo-189848.jpeg";
+import bgImage from "../../../../assets/image/pexels-pixabay-434337.jpg";
 import Footer from "../../../Footer/pages/Footer";
+import { FormattedMessage } from "react-intl";
 
 const AllBlogs = () => {
   const { blogs } = useSelector((state) => state.doctors);
@@ -20,7 +21,7 @@ const AllBlogs = () => {
 
   return (
     <>
-      <div className="bg-yellow-50 py-1">
+      <div className="bg-gray-50 ">
         {/* Banner */}
         <div
           className="w-full h-96 bg-cover bg-center relative"
@@ -30,8 +31,8 @@ const AllBlogs = () => {
           <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-yellow-50 to-transparent"></div>
 
           <div className="flex items-center h-full relative z-10">
-            <h1 className="pl-8 md:pl-12 text-4xl font-bold text-yellow-300 drop-shadow-lg">
-              Blog Y Tế
+            <h1 className="pl-8 md:pl-12 text-4xl font-mono text-blue-300 drop-shadow-lg">
+              <FormattedMessage id="navBar.blog" />
             </h1>
           </div>
         </div>

@@ -51,17 +51,15 @@ const ProfileDoctor = ({ doctorId, data }) => {
 
   return (
     <div className="py-6 flex items-center">
-      <div>
-        <div className="w-24 h-24 rounded-full overflow-hidden">
-          <img
-            src={doctorInfo?.image}
-            alt="Doctor"
-            className="w-full h-full object-cover rounded-md"
-          />
-        </div>
+      <div className="w-24 h-24 rounded-full overflow-hidden flex-shrink-0">
+        <img
+          src={doctorInfo?.image}
+          alt="Doctor"
+          className="w-full h-full object-cover rounded-full"
+        />
       </div>
-      <div className="px-4 space-y-2 ml-4">
-        <div className="text-base text-gray-800 h-auto w-96">
+      <div className="px-4 space-y-2 ml-4 max-w-[350px]">
+        <div className="text-base text-gray-800 h-auto w-full">
           {doctorInfo?.positionData && (
             <div className="text-gray-700">
               {locale === "vi" ? nameVi : nameEn}
@@ -69,16 +67,24 @@ const ProfileDoctor = ({ doctorId, data }) => {
           )}
         </div>
 
-        <div className="flex items-center space-x-2">
+        <div className="flex flex-col md:flex-row md:items-center md:space-x-2 space-y-1 md:space-y-0 w-full">
           <FaCalendarDays className="text-base text-gray-500" />
-          <div className="text-yellow-600 text-sm">
+
+          <div className="text-xs text-yellow-400 font-lato w-full md:w-1/2 truncate min-w-0">
             {data?.timeTypeData && (
               <span>{locale === "vi" ? timeVi : timeEn}</span>
             )}
           </div>
-          <div className="text-gray-700 text-sm">
-            {data?.date ? formatDate(data.date) : "No date available"}
-          </div>
+
+          {data?.date ? (
+            <div className="text-xs text-gray-500 font-lato w-full md:w-1/2 truncate min-w-0">
+              {formatDate(data.date)}
+            </div>
+          ) : (
+            <div className="text-xs text-gray-400 font-lato w-full md:w-1/2 truncate min-w-0 italic">
+              Chưa có ngày
+            </div>
+          )}
         </div>
 
         <div className="flex items-center space-x-2">
@@ -88,7 +94,7 @@ const ProfileDoctor = ({ doctorId, data }) => {
           </div>
         </div>
 
-        <div className="text-xs text-gray-700 w-60">
+        <div className="text-xs text-gray-700 w-full md:w-3/4 font-lato  max-w-full">
           {doctorInfo?.Doctor_Infor?.addressClinic}
         </div>
 

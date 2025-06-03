@@ -126,6 +126,9 @@ const ApiGetAllBlog = async () => {
 const ApiGetBlogById = (inputId) => {
   return axios.get(`api/v1/blog/get-blog-id?id=${inputId}`);
 };
+const ApiChatBot = (data) => {
+  return axios.post("api/v1/chat/post-chatbot", data);
+};
 
 export {
   ApiCreateBooking,
@@ -149,4 +152,5 @@ export {
   ApiCreateBlog,
   ApiGetAllBlog,
   ApiGetBlogById,
+  ApiChatBot,
 };

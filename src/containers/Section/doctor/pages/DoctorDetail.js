@@ -5,7 +5,7 @@ import {
   fetchDoctorById,
   fetchPricesDoctors,
 } from "../../../../redux/features/doctorSlide/actions/doctorActions";
-import bgImage from "../../../../assets/image/facility/banner-3.webp";
+import bgImage from "../../../../assets/image/banner-spe.png";
 import Footer from "../../../Footer/pages/Footer";
 import Schedules from "./Schedules";
 import AddressAndPrice from "./AddressAndPrice";
@@ -22,7 +22,6 @@ const DoctorDetail = () => {
     dispatch(fetchPricesDoctors(id));
   }, [dispatch, id]);
 
-  // Nếu doctor chưa có dữ liệu thì hiển thị đang tải
   if (!doctor || !doctor.positionData) return null;
   if (isLoading)
     return (
@@ -31,13 +30,12 @@ const DoctorDetail = () => {
       </div>
     );
 
-  // Tên hiển thị theo ngôn ngữ
   let nameVi = `${doctor.positionData?.valueVi} - ${doctor.username}`;
   let nameEn = `${doctor.positionData?.valueEn} - ${doctor.username}`;
 
   return (
     <>
-      <div className="bg-gradient-to-b from-blue-50  min-h-screen">
+      <div className="bg-gradient-to-b from-blue-50 min-h-screen">
         <div
           className="w-full h-96 bg-cover bg-center relative"
           style={{ backgroundImage: `url(${bgImage})` }}
@@ -54,17 +52,25 @@ const DoctorDetail = () => {
 
         <div className="mt-12 w-full max-w-6xl mx-auto flex flex-col md:flex-row justify-center gap-6 md:gap-10 px-4 md:px-0 mb-24">
           <div className="flex flex-col items-center gap-6">
-            <div className="w-64 h-64 md:w-72 md:h-72 rounded-lg overflow-hidden border-4 border-blue-200 shadow-lg transform transition-transform hover:scale-105">
+            <div
+              className="rounded-lg overflow-hidden border-4 border-blue-200 shadow-lg transform transition-transform hover:scale-105"
+              style={{
+                width: "256px", // Cố định kích thước ảnh
+                height: "256px",
+              }}
+            >
               <img
                 src={doctor.image}
                 alt={doctor.username}
                 className="w-full h-full object-cover"
               />
             </div>
+
             <div className="w-full max-w-md bg-white rounded-lg shadow-md p-6">
               <Schedules doctorId={id} />
             </div>
           </div>
+
           <div className="w-full md:w-1/2 bg-white rounded-lg shadow-lg p-6 transition-all hover:shadow-xl">
             <div className="text-2xl md:text-3xl text-blue-600 font-lato font-semibold py-2">
               {locale === "vi" ? nameVi : nameEn}
@@ -91,9 +97,8 @@ const DoctorDetail = () => {
           </div>
         </div>
       </div>
-      <div>
-        <Footer />
-      </div>
+
+      <Footer />
     </>
   );
 };

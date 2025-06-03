@@ -29,7 +29,7 @@ const authSlice = createSlice({
       state.isAuthenticated = true;
     },
     handleLogout: (state) => {
-      localStorage.removeItem("access_token");
+      localStorage.removeItem("persist:root"); // 🧹 xoá cache redux-persist
       state.account = {
         id: "",
         access_token: "",

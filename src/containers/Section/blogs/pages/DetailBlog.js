@@ -15,7 +15,7 @@ const DetailBlog = () => {
   }, [id]);
 
   return (
-    <div className="bg-gradient-to-b from-blue-100 to-gray-300 min-h-screen py-8 px-4 sm:px-6 lg:px-8">
+    <div className="bg-gradient-to-b from-gray-200 to-gray-300 min-h-screen py-8 px-4 sm:px-6 lg:px-8">
       {blog ? (
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col items-center">

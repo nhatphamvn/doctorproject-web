@@ -6,15 +6,13 @@ import { FiLogOut } from "react-icons/fi";
 import { handleLogout } from "../../../redux/features/authSlide/authSlide";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { GrSystem } from "react-icons/gr";
 const UserInfo = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleLogOut = () => {
     dispatch(handleLogout());
-  };
-  const handleSystemPrivate = () => {
-    navigate("/system/system-private");
   };
   return (
     <>
@@ -38,7 +36,7 @@ const UserInfo = () => {
                 to={"/system/system-private"}
                 className="flex items-center justify-center text-black w-10 h-10 bg-white rounded-full shadow-lg"
               >
-                <FiLogOut className="text-2xl" />
+                <GrSystem className="text-lg" />
               </NavLink>
             </MenuItem>
           </MenuItems>

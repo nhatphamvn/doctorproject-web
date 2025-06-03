@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import Schedules from "../../doctor/pages/Schedules";
 import ProfileDoctor from "../../doctor/pages/ProfileDoctor";
 import { ApiGetClinicById } from "../../../../service/otherUserService";
-import bgImage from "../../../../assets/image/bacsi.jpg";
+import bgImage from "../../../../assets/image/banner-spe.png";
 
 const DetailClinic = () => {
   const { id } = useParams();
@@ -119,7 +119,7 @@ const DetailClinic = () => {
             >
               <div className="lg:w-1/2 w-full flex items-center justify-center lg:justify-start">
                 <div className="flex flex-col items-center gap-4">
-                  <div>
+                  <div className="flex-shrink-0">
                     <ProfileDoctor doctorId={item.doctorId} />
                   </div>
                   <button

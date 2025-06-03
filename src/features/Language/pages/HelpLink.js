@@ -4,16 +4,13 @@ import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { FormattedMessage } from "react-intl";
 
-
 const HelpLink = () => {
-
-
   return (
     <Menu as="div" className="relative inline-block text-left">
-      <MenuButton className="flex items-center text-lg bg-gray hover:text-gray-900 font-mono text-gray-600 mx-4 py-2">
-        <IoIosHelpCircleOutline/>
-        <FormattedMessage id="navBar.help"/>
-        <IoMdArrowDropdown/>
+      <MenuButton className="flex items-center text-base bg-gray hover:text-gray-900 font-lato text-gray-600 mx-4 py-2">
+        <IoIosHelpCircleOutline />
+        <FormattedMessage id="navBar.help" />
+        <IoMdArrowDropdown />
       </MenuButton>
 
       {/* Nội dung Dropdown */}

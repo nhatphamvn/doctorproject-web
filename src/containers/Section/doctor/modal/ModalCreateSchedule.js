@@ -7,7 +7,9 @@ import ProfileDoctor from "../pages/ProfileDoctor";
 import { ApiCreateBooking } from "../../../../service/otherUserService";
 import { fetchGenders } from "../../../../features/UserManagement/redux/allCodeSlides/actions/allcodeActions";
 import { useDispatch, useSelector } from "react-redux";
-
+import { toast } from "react-toastify";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 Modal.setAppElement("#root");
 
 const ModalCreateSchedule = ({ data, show, setShow }) => {
@@ -20,9 +22,9 @@ const ModalCreateSchedule = ({ data, show, setShow }) => {
   const [errors, setErrors] = useState({});
 
   const dispatch = useDispatch();
-
   const { genders } = useSelector((state) => state.allcode);
   const locale = useSelector((state) => state.language.locale);
+
   useEffect(() => {
     dispatch(fetchGenders());
   }, [dispatch]);
@@ -36,19 +38,14 @@ const ModalCreateSchedule = ({ data, show, setShow }) => {
   const renderScheduleDateTime = (data, locale) => {
     if (!data || !data.timeTypeData || !data.date)
       return "No schedule available";
-
     const time =
       locale === "vi" ? data.timeTypeData.valueVi : data.timeTypeData.valueEn;
-
     const date = formatDate(data.date);
-
     return `${time} - ${date}`;
   };
 
   const timeDate = renderScheduleDateTime(data, locale);
   const dataDate = formatDate(data?.date);
-
-  console.log("check date", dataDate);
 
   const resetForm = () => {
     setUsername("");
@@ -61,6 +58,7 @@ const ModalCreateSchedule = ({ data, show, setShow }) => {
   };
 
   const handleClose = () => {
+    console.log("handleClose called, current show:", show);
     resetForm();
     setShow(false);
   };
@@ -79,44 +77,51 @@ const ModalCreateSchedule = ({ data, show, setShow }) => {
       return;
     }
 
-    const res = await ApiCreateBooking({
-      username,
-      email,
-      address,
-      gender,
-      phone,
-      date: dateOfBirth,
-      doctorId: data?.doctorId,
-      timeType: data?.timeType,
-      language: locale,
-      dataDate: dataDate,
-      timeDate: timeDate,
-      doctorName: data?.nameData?.username,
-    });
-    if (res && res.EC === 0) {
-      alert("oke");
-      setShow(false);
-    } else {
-      console.log(res.EM);
+    try {
+      const res = await ApiCreateBooking({
+        username,
+        email,
+        address,
+        gender,
+        phone,
+        date: dateOfBirth,
+        doctorId: data?.doctorId,
+        timeType: data?.timeType,
+        language: locale,
+        dataDate: dataDate,
+        timeDate: timeDate,
+        doctorName: data?.nameData?.username,
+      });
+
+      if (res && res.EC === 0) {
+        toast.success(res.EM);
+      } else {
+        toast.warn(res.EM);
+      }
+    } catch (error) {
+      console.error("Error creating booking:", error);
+      alert("An error occurred while creating the booking.");
     }
+
     resetForm();
+    setShow(false); // Always close the modal
   };
 
   return (
     <Modal
       isOpen={show}
       onRequestClose={handleClose}
-      className="bg-white rounded-3xl shadow-lg w-full max-w-3xl h-[500px] mx-auto outline-none overflow-hidden flex"
-      overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
+      className="bg-white rounded-3xl shadow-lg w-full max-w-3xl h-[500px] mx-auto outline-none flex"
+      overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
       style={{
         content: {
-          overflowX: "hidden",
+          overflow: "auto",
           boxSizing: "border-box",
         },
       }}
     >
-      {/* Bên trái: Form */}
-      <div className="w-1/2 p-6 overflow-y-auto overflow-x-hidden bg-white box-border">
+      {/* Left: Form */}
+      <div className="w-1/2 p-6 overflow-y-auto bg-white box-border">
         <h1 className="text-2xl font-semibold text-blue-600">Đặt Lịch Hẹn</h1>
         <ProfileDoctor doctorId={data.doctorId} data={data} />
         <p className="text-lg font-semibold text-blue-400 py-4">
@@ -129,7 +134,7 @@ const ModalCreateSchedule = ({ data, show, setShow }) => {
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="w-full p-2 border rounded-md box-border" // Thêm box-border
+              className="w-full p-2 border rounded-md box-border"
               placeholder="Họ Và Tên"
             />
             {errors.username && (
@@ -188,39 +193,36 @@ const ModalCreateSchedule = ({ data, show, setShow }) => {
                 ))}
             </select>
           </div>
-          <div>
-            <input
-              type="date"
-              value={dateOfBirth}
-              onChange={(e) => setDateOfBirth(e.target.value)}
-              className="w-full p-1 border rounded-md box-border"
+          <div className="relative z-50">
+            <DatePicker
+              selected={dateOfBirth}
+              onChange={(date) => setDateOfBirth(date)}
+              dateFormat="dd/MM/yyyy"
+              className="w-full p-1.5 border rounded-md bg-white z-50"
+              placeholderText="Chọn ngày sinh"
             />
-            {errors.dateOfBirth && (
-              <p className="text-red-500 text-sm">{errors.dateOfBirth}</p>
-            )}
           </div>
         </div>
       </div>
 
-      <div className="w-1/2 h-full relative overflow-x-hidden">
-        <div className="absolute inset-0 bg-gradient-to-l from-transparent to-white opacity-100 z-10 pointer-events-none"></div>
-
+      {/* Right: Image and Buttons */}
+      <div className="w-1/2 h-full relative">
+        <div className="absolute inset-0 bg-gradient-to-l from-transparent to-white opacity-100 z-10"></div>
         <div
           className="absolute inset-0 bg-cover bg-center z-0"
           style={{ backgroundImage: `url(${bgImage})` }}
         ></div>
         <div className="absolute bottom-6 right-8 z-20">
           <button
-            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+            className="px-4 py-2 bg-blue-500 text-white rounded-3xl hover:bg-blue-600"
             onClick={handleCreateSchedule}
           >
             Đăng kí
           </button>
         </div>
-
-        <div className="absolute top-4 right-4 z-20">
+        <div className="absolute top-4 right-4 z-30">
           <button
-            className="py-2 px-2 text-gray-200 rounded text-3xl"
+            className="p-2 text-gray-50 rounded-full text-3xl hover:bg-gray-200 "
             onClick={handleClose}
           >
             <IoClose />

@@ -6,6 +6,12 @@ const en = {
     blog: "Blog",
     help: "Help",
     guest: "Guest",
+    home: "Home",
+    blogFamous: "List of featured articles",
+    specialtyFamous: "Featured specialty",
+    doctorFamous: "Featured doctor",
+    facilityFamous: "Featured clinics",
+    booking: "Book Now",
   },
   homePage: {
     search: "Search...",

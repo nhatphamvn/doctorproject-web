@@ -1,33 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import logo from "../../assets/image/logo.png";
 import { FaBars } from "react-icons/fa";
 import { FaRegUser } from "react-icons/fa6";
-import Help from "../../features/Language/pages/HelpLink";
 import { FormattedMessage } from "react-intl";
 import Language from "../../features/Language/pages/Language";
 import UserInfo from "../../features/Info/pages/UserInfo";
+import SideBar from "../../component/shared/SideBar";
+import ParentComponent from "../../component/shared/ParentComponent";
 
 const Header = () => {
   const account = useSelector((state) => state.auth.account);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const [collapsed, setCollapsed] = useState(true);
+
+  const toggleSidebar = () => setCollapsed((prev) => !prev);
 
   return (
     <>
-      <div className="flex items-center justify-between bg-gray-100 p-4 shadow-lg w-full">
+      <div className="flex items-center justify-between bg-gradient-to-r from-red-300 via-blue-300 to-green-300 p-2 shadow-lg w-full">
         <div className="flex items-center justify-between space-x-6 h-12 sm:h-8 px-2">
-          <div className="flex items-center cursor-pointer">
-            <FaBars size={25} />
+          <div className="flex items-center">
+            <div
+              onClick={toggleSidebar}
+              className="flex items-center cursor-pointer p-2"
+            >
+              <FaBars size={25} />
+            </div>
           </div>
 
           <NavLink to="/" className="flex items-center">
-            <img
-              src={logo}
-              alt="Logo"
-              className="h-8 md:h-12 w-auto" // mobile: cao 8, desktop: cao 12
-            />
-            <span className="text-lg md:text-xl ml-1 sm:ml-2 font-fantasy text-gray-500">
+            <img src={logo} alt="Logo" className="h-8 md:h-12 w-auto" />
+            <span className="text-lg md:text-xl ml-1 sm:ml-2 font-fantasy bg-gradient-to-r from-pink-500 via-yellow-700 to-blue-800 bg-clip-text text-transparent">
               Sunday4
             </span>
           </NavLink>
@@ -63,7 +68,7 @@ const Header = () => {
         {isAuthenticated === false ? (
           <div className="flex items-center space-x-2 md:space-x-4">
             <Language className="text-sm md:text-base" />
-            <Help className="hidden sm:block text-sm md:text-base" />
+            <ParentComponent className="hidden sm:block text-sm md:text-base" />
             <NavLink
               to="/register"
               className="flex items-center text-sm md:text-lg bg-gray hover:text-gray-900 font-mono text-gray-600 py-1 md:py-2"
@@ -79,11 +84,14 @@ const Header = () => {
         ) : (
           <div className="flex items-center space-x-2 md:space-x-4">
             <Language className="text-sm md:text-base" />
-            <Help className="hidden md:block text-sm md:text-base" />
+            <ParentComponent className="hidden md:block text-sm md:text-base" />
             <UserInfo />
           </div>
         )}
       </div>
+
+      {/* Đặt SideBar ngoài div header để không bị giới hạn bởi header */}
+      <SideBar collapsed={collapsed} toggleSidebar={toggleSidebar} />
     </>
   );
 };

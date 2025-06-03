@@ -2,19 +2,25 @@ import axios from "axios";
 
 // Tạo một instance Axios
 const instance = axios.create({
-  baseURL: "http://localhost:8080/", // URL cơ sở
+  baseURL: process.env.REACT_APP_API_URL,
+
+  // URL cơ sở
   timeout: 10000, // Thời gian tối đa cho một request (ms)
   headers: {
     "Content-Type": "application/json", // Định dạng mặc định
-    Accept: "application/json",        // Yêu cầu phản hồi dạng JSON
+    Accept: "application/json", // Yêu cầu phản hồi dạng JSON
   },
 });
+console.log("API_URL =", process.env.REACT_APP_API_URL);
 
 // Interceptor cho request
 instance.interceptors.request.use(
   function (config) {
-    console.log(`[REQUEST] ${config.method?.toUpperCase()} - ${config.url}`, config);    
-    console.log("Body:", JSON.stringify(config.data));    
+    console.log(
+      `[REQUEST] ${config.method?.toUpperCase()} - ${config.url}`,
+      config
+    );
+    console.log("Body:", JSON.stringify(config.data));
     return config;
   },
   function (error) {

@@ -4,6 +4,8 @@ import { fetchSpecialties } from "../../../../redux/features/doctorSlide/actions
 import { useNavigate } from "react-router-dom";
 import bgImage from "../../../../assets/image/banner-spe.png";
 import Footer from "../../../Footer/pages/Footer";
+import { FormattedMessage } from "react-intl";
+import ParentComponent from "../../../../component/shared/ParentComponent";
 
 const AllSpecialties = () => {
   const { specialties } = useSelector((state) => state.doctors);
@@ -33,7 +35,7 @@ const AllSpecialties = () => {
 
           <div className="flex items-center h-full relative z-10">
             <div className="pl-8 md:pl-12 text-3xl md:text-4xl font-mono text-blue-400 drop-shadow-lg">
-              Chuyên Khoa
+              <FormattedMessage id="navBar.specialty" />
             </div>
           </div>
         </div>
@@ -67,6 +69,9 @@ const AllSpecialties = () => {
                 </div>
               ))}
           </div>
+        </div>
+        <div className="bg-white w-full flex justify-center items-center ">
+          <ParentComponent />
         </div>
       </div>
       <div>
